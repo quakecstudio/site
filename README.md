@@ -13,12 +13,20 @@ public/
 ├── robots.txt
 └── assets/
     ├── css/style.css
-    ├── js/main.js      # progress plaque, visit counter, drop-down console
+    ├── js/main.js      # progress plaque, visitor counter, drop-down console
     └── fonts/          # self-hosted Silkscreen + VT323 (SIL OFL 1.1)
 ```
 
 Easter egg: press <kbd>~</kbd> (or tap the `QC_` logo) to open a Quake-style
 console. Try `help`, `map e1m1`, `impulse 9`.
+
+## Visitor counter
+
+The footer counter calls `/api/visit`, a Lambda function behind the same
+CloudFront distribution (see `modules/visit-counter` in the infra repo). A
+browser's first visit `POST`s to add one ("You are visitor no. 0000042"),
+then remembers that in `localStorage`; later visits `GET` the total. Locally,
+or if the API is down, it shows `???????`.
 
 ## Run locally
 
