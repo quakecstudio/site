@@ -13,12 +13,20 @@ public/
 ├── robots.txt
 └── assets/
     ├── css/style.css
-    ├── js/main.js      # progress plaque, visit counter, drop-down console
+    ├── js/main.js      # progress plaque, visitor counter, drop-down console
     └── fonts/          # self-hosted Silkscreen + VT323 (SIL OFL 1.1)
 ```
 
 Easter egg: press <kbd>~</kbd> (or tap the `QC_` logo) to open a Quake-style
 console. Try `help`, `map e1m1`, `impulse 9`.
+
+## Visitor counter
+
+The footer counter calls `/api/visit`, a Lambda function behind the same
+CloudFront distribution (see `modules/visit-counter` in the infra repo). A
+browser's first visit `POST`s to add one ("You are visitor no. 0000042"),
+then remembers that in `localStorage`; later visits `GET` the total. Locally,
+or if the API is down, it shows `???????`.
 
 ## Run locally
 
@@ -32,7 +40,7 @@ python3 -m http.server 8000 --directory public
 The site is served from a private S3 bucket behind CloudFront. The
 infrastructure lives in the
 [`quakecstudio/infra`](https://github.com/quakecstudio/infra) repo
-(`environments/staging` and `environments/production`).
+(`environments/dev` and `environments/production`).
 
 ## Deploy
 
@@ -42,16 +50,11 @@ infrastructure lives in the
 `main`, and to either environment on demand via *Run workflow*. It
 authenticates to AWS with GitHub OIDC, so there are no stored AWS keys.
 
-Create two GitHub environments, `staging` and `production`, each with
-these **variables** (values come from `terraform output` in the infra repo):
-
-| Variable                     | Terraform output        |
-| ---------------------------- | ----------------------- |
-| `AWS_REGION`                 | `aws_region`            |
-| `AWS_DEPLOY_ROLE_ARN`        | `deploy_role_arn`       |
-| `SITE_BUCKET`                | `bucket_name`           |
-| `CLOUDFRONT_DISTRIBUTION_ID` | `distribution_id`       |
-| `SITE_URL` (optional)        | `site_url`              |
+The `dev` and `production` GitHub environments, and the variables the
+workflow reads (`AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `SITE_BUCKET`,
+`CLOUDFRONT_DISTRIBUTION_ID`, `SITE_URL`), are managed by Terraform in the
+infra repo. Production only deploys from `main`, and each production deploy
+waits for approval.
 
 ### By hand
 

@@ -51,12 +51,35 @@
     }
   }
 
-  /* ---------- per-browser visit counter ---------- */
+  /* ---------- site-wide visitor counter ---------- */
+  // Each browser is counted once (POST); later visits just read the total (GET).
+  // POSTs through CloudFront to a Lambda function URL must carry the body's
+  // SHA-256; this is the hash of the empty body.
+  var EMPTY_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
   var counter = document.getElementById("counter");
-  if (counter) {
-    var visits = (parseInt(load("qcs.visits"), 10) || 0) + 1;
-    save("qcs.visits", String(visits));
-    counter.textContent = String(visits).padStart(7, "0");
+  var counterLabel = document.getElementById("counter-label");
+  if (counter && window.fetch) {
+    var isNew = load("qcs.counted") !== "1";
+    window.fetch("/api/visit", {
+      method: isNew ? "POST" : "GET",
+      headers: isNew ? { "x-amz-content-sha256": EMPTY_SHA256 } : {},
+      cache: "no-store"
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (typeof data.count !== "number") throw new Error("bad response");
+        if (isNew) {
+          save("qcs.counted", "1");
+          if (counterLabel) counterLabel.textContent = "You are visitor no.";
+        }
+        counter.textContent = String(data.count).padStart(7, "0");
+      })
+      .catch(function () {
+        counter.textContent = "???????";
+      });
   }
 
   /* ---------- drop-down console ---------- */

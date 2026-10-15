@@ -8,8 +8,8 @@ on:
       environment:
         description: Environment to deploy to
         type: choice
-        options: [staging, production]
-        default: staging
+        options: [dev, production]
+        default: dev
 
 permissions:
   id-token: write # GitHub OIDC -> AWS IAM role
