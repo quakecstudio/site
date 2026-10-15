@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuakeC Studio — Coming Soon</title>
+  <meta name="description" content="QuakeC Studio is a modern code editor for QuakeC, the scripting language of id Software's original Quake. Coming soon.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <meta property="og:title" content="QuakeC Studio — Coming Soon">
+  <meta property="og:description" content="A modern editor for QuakeC, the language that powers the original Quake. Compiling...">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/silkscreen-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/vt323-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Quake-style drop-down console. Toggle with the ~ key. -->
+  <section id="console" class="console" aria-label="Console" hidden>
+    <div class="console__log" id="console-log" role="log" aria-live="polite"></div>
+    <form class="console__input" id="console-form" autocomplete="off">
+      <label for="console-cmd" class="console__prompt">]</label>
+      <input id="console-cmd" name="cmd" type="text" spellcheck="false" aria-label="Console command">
+    </form>
+  </section>
+
+  <div class="crt" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap top__bar">
+      <button type="button" class="top__brand" id="console-toggle" aria-controls="console" aria-expanded="false" title="Toggle console">QC<span class="blink" aria-hidden="true">_</span></button>
+      <span class="top__hint">press <kbd>~</kbd> for console</span>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero">
+      <p class="hero__kicker">// a new editor for an old language</p>
+      <h1 class="logo" aria-label="QuakeC Studio">
+        <span class="logo__line" data-text="QUAKEC">QUAKEC</span>
+        <span class="logo__line logo__line--sub" data-text="STUDIO">STUDIO</span>
+      </h1>
+      <p class="hero__lede">
+        A modern IDE for <strong>QuakeC</strong>, the scripting language behind
+        id&nbsp;Software's original <em>Quake</em>. Edit, compile and launch
+        your mod from one window.
+      </p>
+
+      <div class="loader" role="group" aria-labelledby="loader-label">
+        <div class="loader__label" id="loader-label">
+          <span>compiling progs.dat</span>
+          <span id="loader-pct">0%</span>
+        </div>
+        <div class="loader__track"
+             role="progressbar" aria-label="Development progress"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="loader-bar">
+          <div class="loader__fill" id="loader-fill"></div>
+        </div>
+        <p class="loader__status" id="loader-status">Coming soon. Stay frosty.</p>
+      </div>
+    </section>
+
+    <section class="window" aria-label="Editor preview">
+      <div class="window__title">
+        <span class="window__icon" aria-hidden="true"></span>
+        <span class="window__name">QuakeC Studio — weapons.qc</span>
+        <span class="window__btns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+      </div>
+      <div class="window__menu" aria-hidden="true">
+        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>B</u>uild</span><span><u>R</u>un</span><span><u>H</u>elp</span>
+      </div>
+      <div class="window__body">
+        <nav class="tree" aria-label="Project files (preview)">
+          <p class="tree__head">progs.src</p>
+          <ul>
+            <li>defs.qc</li>
+            <li>subs.qc</li>
+            <li>combat.qc</li>
+            <li>items.qc</li>
+            <li class="is-active">weapons.qc</li>
+            <li>world.qc</li>
+            <li>client.qc</li>
+            <li>player.qc</li>
+            <li>monsters.qc</li>
+          </ul>
+        </nav>
+<pre class="code" tabindex="0" aria-label="QuakeC code sample"><code><span class="ln"> 1</span><span class="c">/*</span>
+<span class="ln"> 2</span><span class="c">  Fires a slow, glowing bolt. Example only.</span>
+<span class="ln"> 3</span><span class="c">*/</span>
+<span class="ln"> 4</span><span class="k">void</span>() <span class="f">W_FireEmber</span> =
+<span class="ln"> 5</span>{
+<span class="ln"> 6</span>    <span class="k">local</span> <span class="t">entity</span> bolt;
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>    self.currentammo = self.ammo_cells = self.ammo_cells - <span class="n">1</span>;
+<span class="ln"> 9</span>    <span class="f">sound</span> (self, CHAN_WEAPON, <span class="s">"weapons/lhit.wav"</span>, <span class="n">1</span>, ATTN_NORM);
+<span class="ln">10</span>
+<span class="ln">11</span>    bolt = <span class="f">spawn</span> ();
+<span class="ln">12</span>    bolt.owner = self;
+<span class="ln">13</span>    bolt.movetype = MOVETYPE_FLYMISSILE;
+<span class="ln">14</span>    bolt.solid = SOLID_BBOX;
+<span class="ln">15</span>    bolt.classname = <span class="s">"ember"</span>;
+<span class="ln">16</span>    bolt.effects = EF_DIMLIGHT;
+<span class="ln">17</span>
+<span class="ln">18</span>    <span class="f">makevectors</span> (self.v_angle);
+<span class="ln">19</span>    bolt.velocity = v_forward * <span class="n">450</span>;
+<span class="ln">20</span>    bolt.touch = Ember_Touch;
+<span class="ln">21</span>    bolt.nextthink = time + <span class="n">5</span>;
+<span class="ln">22</span>    bolt.think = SUB_Remove;
+<span class="ln">23</span>
+<span class="ln">24</span>    <span class="f">setmodel</span> (bolt, <span class="s">"progs/lavaball.mdl"</span>);
+<span class="ln">25</span>    <span class="f">setorigin</span> (bolt, self.origin + v_forward * <span class="n">8</span> + <span class="v">'0 0 16'</span>);
+<span class="ln">26</span>};<span class="cursor" aria-hidden="true"></span></code></pre>
+      </div>
+      <div class="window__status" aria-hidden="true">
+        <span>Ln 26, Col 3</span><span>QuakeC</span><span>0 errors, 0 warnings</span>
+      </div>
+    </section>
+
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title" class="section-title">Planned features</h2>
+      <ul class="cards">
+        <li class="card">
+          <h3>Knows QuakeC</h3>
+          <p>Syntax highlighting, go-to-definition and find-references for functions, fields and globals across your whole <code>progs.src</code>.</p>
+        </li>
+        <li class="card">
+          <h3>One-key builds</h3>
+          <p>Compile with the QuakeC compiler you already use. Errors show up inline next to the line that caused them.</p>
+        </li>
+        <li class="card">
+          <h3>Launch &amp; test</h3>
+          <p>Start your favourite source port with your mod loaded and drop straight into any map.</p>
+        </li>
+        <li class="card">
+          <h3>Builtins at hand</h3>
+          <p>Hover docs for builtins like <code>spawn</code>, <code>traceline</code> and <code>makevectors</code>, plus the entity fields in <code>defs.qc</code>.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="badges" aria-hidden="true">
+        <span class="badge">best viewed at 640×480</span>
+        <span class="badge">made with notepad.exe</span>
+        <span class="badge badge--hot">under construction</span>
+      </div>
+      <p class="counter">
+        Your visit no.
+        <span class="counter__digits" id="counter">0000001</span>
+      </p>
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

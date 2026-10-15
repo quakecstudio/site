@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        type: choice
+        options: [staging, production]
+        default: staging
+
+permissions:
+  id-token: write # GitHub OIDC -> AWS IAM role
+  contents: read
+
+concurrency:
+  group: deploy-${{ inputs.environment || 'production' }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Each GitHub environment holds these variables (from the infra repo outputs):
+    #   AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
+    environment:
+      name: ${{ inputs.environment || 'production' }}
+      url: ${{ vars.SITE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy
+        env:
+          SITE_BUCKET: ${{ vars.SITE_BUCKET }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: scripts/deploy.sh
