@@ -1,6 +1,6 @@
 # QuakeC Studio — site
 
-Static "coming soon" page for **QuakeC Studio**, a code editor for QuakeC,
+Static "coming soon" page for **QuakeC Studio**, a modern IDE for QuakeC,
 the scripting language of id Software's original *Quake* (1996).
 
 Plain HTML, CSS and JavaScript. No build step, no external requests.
@@ -10,6 +10,8 @@ public/
 ├── index.html          # landing page
 ├── 404.html            # served by CloudFront for missing paths
 ├── favicon.svg
+├── apple-touch-icon.png
+├── og.jpg              # social share image
 ├── robots.txt
 └── assets/
     ├── css/style.css

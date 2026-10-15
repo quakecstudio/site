@@ -1,6 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
-  <rect width="32" height="32" fill="#0b0907"/>
-  <rect x="1" y="1" width="30" height="30" fill="none" stroke="#a8461a" stroke-width="2"/>
-  <path fill="#ff8a1f" d="M8 7h12v2h2v12h-2v2h-2v2h-2v-2H8v-2H6V9h2zM10 10v10h8V10z"/>
-  <path fill="#e3b65a" d="M20 21h4v2h2v2h-4v-2h-2z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5a4632"/>
+      <stop offset="1" stop-color="#2a1f14"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="8" fill="url(#m)"/>
+  <rect x="1" y="1" width="62" height="62" rx="7" fill="none" stroke="#a8461a" stroke-width="2"/>
+  <g fill="#ff8a1f">
+    <path fill-rule="evenodd" d="M13 15H25L30 20V42L25 47H13L8 42V20ZM15 20H23L25 22V40L23 42H15L13 40V22Z"/>
+    <path d="M21 38H26L33 49H28Z"/>
+    <path d="M38 15H56V20H40L38 22V40L40 42H56V47H38L33 42V20Z"/>
+  </g>
 </svg>
