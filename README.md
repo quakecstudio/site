@@ -16,7 +16,7 @@ public/
 └── assets/
     ├── css/style.css
     ├── js/main.js      # progress plaque, visitor counter, drop-down console
-    └── fonts/          # self-hosted Silkscreen + VT323 (SIL OFL 1.1)
+    └── fonts/          # self-hosted Silkscreen, VT323, IBM Plex Sans, JetBrains Mono (SIL OFL 1.1)
 ```
 
 Easter egg: press <kbd>~</kbd> (or tap the `QC_` logo) to open a Quake-style
@@ -73,8 +73,11 @@ cached for a day. Each deploy invalidates `/*`.
 ## Licences
 
 Fonts: [Silkscreen](https://github.com/googlefonts/silkscreen) and
-[VT323](https://fonts.google.com/specimen/VT323), both under the SIL Open
-Font License 1.1 (see `public/assets/fonts/OFL-*.txt`).
+[VT323](https://fonts.google.com/specimen/VT323) for the page;
+[IBM Plex Sans](https://github.com/IBM/plex) and
+[JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) for the product
+mockup. All are under the SIL Open Font License 1.1 (see
+`public/assets/fonts/OFL-*.txt`).
 
 QuakeC Studio is an independent fan project and is not affiliated with or
 endorsed by id Software, ZeniMax Media or Bethesda.
