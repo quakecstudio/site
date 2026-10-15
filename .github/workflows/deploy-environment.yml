@@ -1,0 +1,62 @@
+name: Deploy environment
+
+# Called by deploy.yml once per environment.
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: GitHub Environment to deploy to (dev or prod)
+        type: string
+        required: true
+
+permissions:
+  id-token: write # GitHub OIDC -> AWS IAM role
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Each GitHub environment holds these variables (from the infra repo outputs):
+    #   AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ vars.SITE_URL }}
+    concurrency:
+      group: deploy-${{ inputs.environment }}
+      cancel-in-progress: false
+    steps:
+      # Skip cleanly until the infra has been applied and the environment's
+      # variables are set.
+      - name: Check configuration
+        id: config
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
+          ROLE: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          REGION: ${{ vars.AWS_REGION }}
+          BUCKET: ${{ vars.SITE_BUCKET }}
+          DIST: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          if [ -n "$ROLE" ] && [ -n "$REGION" ] && [ -n "$BUCKET" ] && [ -n "$DIST" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Deploy skipped: set AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET and CLOUDFRONT_DISTRIBUTION_ID on the '${ENVIRONMENT}' environment."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        if: steps.config.outputs.ready == 'true'
+        with:
+          persist-credentials: false
+
+      - uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
+        if: steps.config.outputs.ready == 'true'
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy
+        if: steps.config.outputs.ready == 'true'
+        env:
+          SITE_BUCKET: ${{ vars.SITE_BUCKET }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: scripts/deploy.sh
