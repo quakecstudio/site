@@ -48,9 +48,12 @@ infrastructure lives in the
 
 ### From GitHub Actions
 
-`.github/workflows/deploy.yml` deploys to **prod** on every push to
-`main`, and to either environment on demand via *Run workflow*. It
-authenticates to AWS with GitHub OIDC, so there are no stored AWS keys.
+`.github/workflows/deploy.yml` runs on every push to `main` and on demand
+via *Run workflow*. It always deploys to **dev** first; **prod** follows only
+when dev succeeded and you approve it. A manual run from another branch stops
+after dev. Each environment's steps live in `deploy-environment.yml`, which
+authenticates to AWS with GitHub OIDC, so there are no stored AWS keys. Every
+deploy invalidates the whole CloudFront cache.
 
 The `dev` and `prod` GitHub environments, and the variables the
 workflow reads (`AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `SITE_BUCKET`,

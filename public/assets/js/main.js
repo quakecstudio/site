@@ -146,7 +146,8 @@
     about: function () {
       print("QuakeC Studio is a modern editor for QuakeC, the");
       print("language that drives the game logic of Quake (1996).");
-      print("Highlighting, navigation, builds and launching, in one window.");
+      print("Write code, press Play, see it change in the running game.");
+      print("Compiler, agent and map editor built in.");
     },
     map: function (args) {
       var name = (args[0] || "").toLowerCase();
