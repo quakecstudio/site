@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>QuakeC Studio — Coming Soon</title>
-  <meta name="description" content="QuakeC Studio is a modern code editor for QuakeC, the scripting language of id Software's original Quake. Coming soon.">
+  <meta name="description" content="QuakeC Studio is a modern IDE for QuakeC, the scripting language of id Software's original Quake: live in-game preview, its own compiler, a built-in agent and a map editor. Coming soon.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0907">
   <meta property="og:title" content="QuakeC Studio — Coming Soon">
@@ -46,10 +46,10 @@
       </h1>
       <p class="hero__lede">
         A modern IDE for <strong>QuakeC</strong>, the scripting language behind
-        id&nbsp;Software's original <em>Quake</em>. Edit, compile and launch
-        your mod from one window.
+        id&nbsp;Software's original <em>Quake</em>. Write code, press Play and
+        watch it change in the running game, with a compiler, an agent and a map
+        editor built in.
       </p>
-
       <div class="loader" role="group" aria-labelledby="loader-label">
         <div class="loader__label" id="loader-label">
           <span>compiling progs.dat</span>
@@ -64,59 +64,224 @@
       </div>
     </section>
 
-    <section class="window" aria-label="Editor preview">
+    <section class="window studio" aria-label="Editor preview">
       <div class="window__title">
         <span class="window__icon" aria-hidden="true"></span>
-        <span class="window__name">QuakeC Studio — weapons.qc</span>
+        <span class="window__name">QuakeC Studio - ember_mod</span>
         <span class="window__btns" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
       </div>
-      <div class="window__menu" aria-hidden="true">
-        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>B</u>uild</span><span><u>R</u>un</span><span><u>H</u>elp</span>
+
+      <div class="studio__bar" aria-hidden="true">
+        <span class="tool tool--play"><b>▶</b> Play</span>
+        <span class="tool is-on"><b>❚❚</b> Pause</span>
+        <span class="tool"><b>▸|</b> Step</span>
+        <span class="tool"><b>↻</b> Restart map</span>
+        <span class="studio__sep"></span>
+        <span class="pick"><em>engine</em> Preview host <b>▾</b></span>
+        <span class="pick"><em>map</em> start <b>▾</b></span>
+        <span class="studio__search">Run a command... <kbd>Ctrl K</kbd></span>
       </div>
-      <div class="window__body">
-        <nav class="tree" aria-label="Project files (preview)">
-          <p class="tree__head">progs.src</p>
-          <ul>
-            <li>defs.qc</li>
-            <li>subs.qc</li>
-            <li>combat.qc</li>
-            <li>items.qc</li>
-            <li class="is-active">weapons.qc</li>
-            <li>world.qc</li>
-            <li>client.qc</li>
-            <li>player.qc</li>
-            <li>monsters.qc</li>
-          </ul>
-        </nav>
-<pre class="code" tabindex="0" aria-label="QuakeC code sample"><code><span class="ln"> 1</span><span class="c">/*</span>
-<span class="ln"> 2</span><span class="c">  Fires a slow, glowing bolt. Example only.</span>
-<span class="ln"> 3</span><span class="c">*/</span>
-<span class="ln"> 4</span><span class="k">void</span>() <span class="f">W_FireEmber</span> =
-<span class="ln"> 5</span>{
-<span class="ln"> 6</span>    <span class="k">local</span> <span class="t">entity</span> bolt;
-<span class="ln"> 7</span>
-<span class="ln"> 8</span>    self.currentammo = self.ammo_cells = self.ammo_cells - <span class="n">1</span>;
-<span class="ln"> 9</span>    <span class="f">sound</span> (self, CHAN_WEAPON, <span class="s">"weapons/lhit.wav"</span>, <span class="n">1</span>, ATTN_NORM);
-<span class="ln">10</span>
-<span class="ln">11</span>    bolt = <span class="f">spawn</span> ();
-<span class="ln">12</span>    bolt.owner = self;
-<span class="ln">13</span>    bolt.movetype = MOVETYPE_FLYMISSILE;
-<span class="ln">14</span>    bolt.solid = SOLID_BBOX;
-<span class="ln">15</span>    bolt.classname = <span class="s">"ember"</span>;
-<span class="ln">16</span>    bolt.effects = EF_DIMLIGHT;
-<span class="ln">17</span>
-<span class="ln">18</span>    <span class="f">makevectors</span> (self.v_angle);
-<span class="ln">19</span>    bolt.velocity = v_forward * <span class="n">450</span>;
-<span class="ln">20</span>    bolt.touch = Ember_Touch;
-<span class="ln">21</span>    bolt.nextthink = time + <span class="n">5</span>;
-<span class="ln">22</span>    bolt.think = SUB_Remove;
-<span class="ln">23</span>
-<span class="ln">24</span>    <span class="f">setmodel</span> (bolt, <span class="s">"progs/lavaball.mdl"</span>);
-<span class="ln">25</span>    <span class="f">setorigin</span> (bolt, self.origin + v_forward * <span class="n">8</span> + <span class="v">'0 0 16'</span>);
-<span class="ln">26</span>};<span class="cursor" aria-hidden="true"></span></code></pre>
+
+      <div class="studio__grid">
+        <!-- left: project and live entities -->
+        <div class="studio__left">
+          <div class="pane">
+            <p class="pane__tabs"><span class="is-active">Project</span><span>Symbols</span></p>
+            <ul class="tree">
+              <li class="tree__dir">progs.src</li>
+              <li>defs.qc</li>
+              <li>subs.qc</li>
+              <li>combat.qc</li>
+              <li class="is-active">weapons.qc <i class="dot" aria-hidden="true"></i></li>
+              <li>client.qc</li>
+              <li>player.qc</li>
+              <li class="tree__dir">maps</li>
+              <li>start.map</li>
+              <li class="tree__dir">scenarios</li>
+              <li>ember_bounce.scn</li>
+              <li class="tree__file">AGENTS.md</li>
+            </ul>
+          </div>
+          <div class="pane">
+            <p class="pane__tabs"><span class="is-active">Entities</span><span class="pane__count">58</span></p>
+            <ul class="tree tree--ents">
+              <li>worldspawn</li>
+              <li>player <span>#1</span></li>
+              <li class="is-active">ember <span>#212</span></li>
+              <li>info_player_start</li>
+              <li>light <span>×24</span></li>
+              <li>func_door <span>×2</span></li>
+              <li>trigger_once <span>×3</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- centre: code beside the running game -->
+        <div class="studio__centre">
+          <div class="pane pane--code">
+            <p class="pane__tabs"><span class="is-active">weapons.qc <i class="dot" aria-hidden="true"></i></span><span>client.qc</span></p>
+<pre class="code" tabindex="0" aria-label="QuakeC code sample with a proposed change"><code><span class="ln"> 1</span><span class="k">void</span>() <span class="f">W_FireEmber</span> =
+<span class="ln"> 2</span>{
+<span class="ln"> 3</span>    <span class="k">local</span> <span class="t">entity</span> bolt;
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>    <span class="f">sound</span> (self, CHAN_WEAPON, <span class="s">"weapons/lhit.wav"</span>, <span class="n">1</span>, ATTN_NORM);
+<span class="ln"> 6</span>    bolt = <span class="f">spawn</span> ();
+<span class="ln"> 7</span>    bolt.owner = self;
+<span class="del"><span class="ln"> 8</span>    bolt.movetype = MOVETYPE_FLYMISSILE;</span>
+<span class="add"><span class="ln">  </span>    bolt.movetype = MOVETYPE_BOUNCE;</span>
+<span class="add"><span class="ln">  </span>    bolt.cnt = <span class="n">1</span>;  <span class="c">// bounces left</span></span>
+<span class="ln"> 9</span>    bolt.classname = <span class="s">"ember"</span>;
+<span class="ln">10</span>    bolt.effects = EF_DIMLIGHT;
+<span class="ln">11</span>
+<span class="ln bp">12</span>    <span class="f">makevectors</span> (self.v_angle);
+<span class="ln">13</span>    bolt.velocity = v_forward * <span class="n">450</span>;
+<span class="ln">14</span>    bolt.touch = Ember_Touch;
+<span class="ln">15</span>    <span class="f">setorigin</span> (bolt, self.origin + <span class="v">'0 0 16'</span>);
+<span class="ln">16</span>};<span class="cursor" aria-hidden="true"></span></code></pre>
+          </div>
+          <div class="pane pane--game">
+            <p class="pane__tabs"><span class="is-active">Game</span><span class="pane__live">paused at 12.8s</span></p>
+            <div class="game">
+              <svg class="game__scene" viewBox="0 0 320 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Game view: a stone corridor; a glowing bolt is selected">
+              <defs>
+              <radialGradient id="g-ember" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c0"/><stop offset=".25" stop-color="#ffb347"/><stop offset=".6" stop-color="#ff6a00" stop-opacity=".45"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient>
+              <radialGradient id="g-door" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#8fd14f" stop-opacity=".55"/><stop offset="1" stop-color="#8fd14f" stop-opacity="0"/></radialGradient>
+              <radialGradient id="g-pool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff8a1f" stop-opacity=".35"/><stop offset="1" stop-color="#ff8a1f" stop-opacity="0"/></radialGradient>
+              <linearGradient id="g-fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
+              </defs>
+              <polygon points="0,0 320,0 208,82 112,82" fill="#21170f"/>
+              <polygon points="0,240 320,240 208,148 112,148" fill="#2c2117"/>
+              <polygon points="0,0 112,82 112,148 0,240" fill="#4a3424"/>
+              <polygon points="320,0 208,82 208,148 320,240" fill="#38281b"/>
+              <rect x="112" y="82" width="96" height="66" fill="#5a4030"/>
+              <line x1="0" y1="26.7" x2="112" y2="89.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="26.7" x2="208" y2="89.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="53.3" x2="112" y2="96.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="53.3" x2="208" y2="96.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="80" x2="112" y2="104" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="80" x2="208" y2="104" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="106.7" x2="112" y2="111.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="106.7" x2="208" y2="111.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="133.3" x2="112" y2="118.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="133.3" x2="208" y2="118.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="160" x2="112" y2="126" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="160" x2="208" y2="126" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="186.7" x2="112" y2="133.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="186.7" x2="208" y2="133.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="0" y1="213.3" x2="112" y2="140.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
+              <line x1="320" y1="213.3" x2="208" y2="140.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
+              <line x1="35.8" y1="26.2" x2="35.8" y2="210.6" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
+              <line x1="284.2" y1="26.2" x2="284.2" y2="210.6" stroke="#22180f" stroke-width="1" opacity="0.9"/>
+              <line x1="61.6" y1="45.1" x2="61.6" y2="189.4" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
+              <line x1="258.4" y1="45.1" x2="258.4" y2="189.4" stroke="#22180f" stroke-width="1" opacity="0.9"/>
+              <line x1="80.6" y1="59" x2="80.6" y2="173.8" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
+              <line x1="239.4" y1="59" x2="239.4" y2="173.8" stroke="#22180f" stroke-width="1" opacity="0.9"/>
+              <line x1="94.1" y1="68.9" x2="94.1" y2="162.7" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
+              <line x1="225.9" y1="68.9" x2="225.9" y2="162.7" stroke="#22180f" stroke-width="1" opacity="0.9"/>
+              <line x1="104.2" y1="76.3" x2="104.2" y2="154.4" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
+              <line x1="215.8" y1="76.3" x2="215.8" y2="154.4" stroke="#22180f" stroke-width="1" opacity="0.9"/>
+              <line x1="0" y1="240" x2="112" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="40" y1="240" x2="124" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="80" y1="240" x2="136" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="120" y1="240" x2="148" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="160" y1="240" x2="160" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="200" y1="240" x2="172" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="240" y1="240" x2="184" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="280" y1="240" x2="196" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="320" y1="240" x2="208" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="35.8" y1="210.6" x2="284.2" y2="210.6" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="61.6" y1="189.4" x2="258.4" y2="189.4" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="80.6" y1="173.8" x2="239.4" y2="173.8" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="94.1" y1="162.7" x2="225.9" y2="162.7" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <line x1="104.2" y1="154.4" x2="215.8" y2="154.4" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
+              <polygon points="35.8,26.2 284.2,26.2 278.6,30.3 41.4,30.3" fill="#2f2116"/>
+              <polygon points="80.6,59 239.4,59 233.8,63.1 86.2,63.1" fill="#2f2116"/>
+              <polygon points="104.2,76.3 215.8,76.3 210.2,80.4 109.8,80.4" fill="#2f2116"/>
+              <line x1="112" y1="90" x2="208" y2="90" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="98" x2="208" y2="98" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="106" x2="208" y2="106" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="114" x2="208" y2="114" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="122" x2="208" y2="122" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="130" x2="208" y2="130" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="138" x2="208" y2="138" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <line x1="112" y1="146" x2="208" y2="146" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
+              <g transform="translate(0 30)">
+              <rect x="146" y="74" width="28" height="44" fill="#0c0806"/>
+              <rect x="140" y="62" width="40" height="80" fill="url(#g-door)"/>
+              <rect x="146" y="70" width="28" height="4" fill="#7a5638"/>
+              <rect x="152" y="114" width="16" height="4" fill="#8fd14f" opacity=".5"/>
+              <rect x="54" y="66" width="6" height="12" fill="#e3b65a"/><rect x="52" y="64" width="10" height="2" fill="#7a5638"/>
+              <circle cx="57" cy="72" r="18" fill="url(#g-pool)"/>
+              </g>
+              <rect width="320" height="240" fill="url(#g-fog)"/>
+              <g transform="translate(0 30)">
+              <rect x="177" y="103" width="2" height="2" fill="#ff8a1f" opacity="0.2"/>
+              <rect x="182.8" y="99.8" width="2.5" height="2.5" fill="#ff8a1f" opacity="0.4"/>
+              <rect x="188.5" y="96.5" width="3" height="3" fill="#ff8a1f" opacity="0.6"/>
+              <rect x="194.2" y="93.2" width="3.5" height="3.5" fill="#ff8a1f" opacity="0.7"/>
+              <circle cx="204" cy="91" r="16" fill="url(#g-ember)"/>
+              <rect x="201" y="88" width="6" height="6" fill="#fff3c0"/>
+              <path d="M192 84V79H197" fill="none" stroke="#e3b65a" stroke-width="1.5"/>
+              <path d="M216 84V79H211" fill="none" stroke="#e3b65a" stroke-width="1.5"/>
+              <path d="M192 98V103H197" fill="none" stroke="#e3b65a" stroke-width="1.5"/>
+              <path d="M216 98V103H211" fill="none" stroke="#e3b65a" stroke-width="1.5"/>
+              <rect x="192" y="67" width="46" height="9" fill="#000" opacity=".8"/>
+              <text x="195" y="74" class="game__tag">ember #212</text>
+              <path d="M160 86v3M160 91v3M156 90h3M161 90h3" stroke="#f3e6c8" stroke-width="1" opacity=".8"/>
+              </g>
+              </svg>
+              <span class="game__chip" aria-hidden="true">❚❚ paused - click to inspect</span>
+              <span class="game__hud" aria-hidden="true"><span>+ 100</span><span>cells 49</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- right: selected entity and the agent -->
+        <div class="studio__right">
+          <div class="pane">
+            <p class="pane__tabs"><span class="is-active">Properties</span><span class="pane__count">ember #212</span></p>
+            <dl class="props">
+              <dt>classname</dt><dd class="s">"ember"</dd>
+              <dt>origin</dt><dd class="v">'412 -96 88'</dd>
+              <dt>velocity</dt><dd class="v is-edit">'450 0 0'</dd>
+              <dt>movetype</dt><dd>MOVETYPE_FLYMISSILE</dd>
+              <dt>effects</dt><dd>EF_DIMLIGHT</dd>
+              <dt>nextthink</dt><dd class="n">17.80</dd>
+              <dt>touch</dt><dd class="f">Ember_Touch</dd>
+              <dt>owner</dt><dd>player #1</dd>
+            </dl>
+            <p class="props__ask">Ask about this entity</p>
+          </div>
+          <div class="pane pane--agent">
+            <p class="pane__tabs"><span class="is-active">Agent</span><span class="pane__count">checkpoint 3</span></p>
+            <div class="agent">
+              <p class="agent__you">Make the ember bounce off one wall before it explodes.</p>
+              <ul class="agent__steps">
+                <li>symbol.references <span>Ember_Touch, 3 refs</span></li>
+                <li>edit.apply <span>weapons.qc +6 -1</span></li>
+                <li>compile <span>0 errors, 0.21s</span></li>
+                <li>scenario.run <span>ember_bounce 1/1</span></li>
+              </ul>
+              <p class="agent__review"><span>1 hunk to review</span><span class="btn btn--ok">Accept</span><span class="btn">Reject</span></p>
+              <p class="agent__input">@ember #212 Ask, or type / for commands</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- bottom: problems, console, debugger -->
+        <div class="studio__bottom pane">
+          <p class="pane__tabs"><span>Problems <b>0</b></span><span class="is-active">Console</span><span>Debugger</span></p>
+          <div class="console-out">
+            <div class="dim">]save weapons.qc</div>
+            <div class="ok">progs.dat compiled in 0.21s: 0 errors, 0 warnings</div>
+            <div>hot reload: 2 functions replaced, 58 entities kept, map kept</div>
+            <div>ember #212 touched world at '412 -96 88' (bounces left: 0)</div>
+          </div>
+        </div>
       </div>
+
       <div class="window__status" aria-hidden="true">
-        <span>Ln 26, Col 3</span><span>QuakeC</span><span>0 errors, 0 warnings</span>
+        <span>Ln 16, Col 3</span><span>QuakeC (FTEQCC)</span><span>Preview host: paused</span><span>0 errors, 0 warnings</span>
       </div>
     </section>
 
@@ -124,20 +289,28 @@
       <h2 id="features-title" class="section-title">Planned features</h2>
       <ul class="cards">
         <li class="card">
+          <h3>Press Play</h3>
+          <p>Save and see the change in the running game in about a second. Pause, click any entity, and inspect or edit its fields.</p>
+        </li>
+        <li class="card">
+          <h3>Its own compiler</h3>
+          <p>A QuakeC compiler built in, so there's no outside toolchain to install. Errors show up as you type, next to the line that caused them.</p>
+        </li>
+        <li class="card">
           <h3>Knows QuakeC</h3>
-          <p>Syntax highlighting, go-to-definition and find-references for functions, fields and globals across your whole <code>progs.src</code>.</p>
+          <p>Go to definition, find references, rename and hover docs for builtins like <code>spawn</code> and <code>traceline</code>, across your whole <code>progs.src</code>.</p>
         </li>
         <li class="card">
-          <h3>One-key builds</h3>
-          <p>Compile with the QuakeC compiler you already use. Errors show up inline next to the line that caused them.</p>
+          <h3>An agent that tests</h3>
+          <p>A built-in agent uses the same commands you do: it edits, compiles and runs scenarios, then hands you each change to accept or reject. Also over MCP.</p>
         </li>
         <li class="card">
-          <h3>Launch &amp; test</h3>
-          <p>Start your favourite source port with your mod loaded and drop straight into any map.</p>
+          <h3>Map editor</h3>
+          <p>Brushes and entities in the same project as your code, with entity definitions read from your QuakeC. Compile the map and play from where you're standing.</p>
         </li>
         <li class="card">
-          <h3>Builtins at hand</h3>
-          <p>Hover docs for builtins like <code>spawn</code>, <code>traceline</code> and <code>makevectors</code>, plus the entity fields in <code>defs.qc</code>.</p>
+          <h3>Mac, Windows, Linux</h3>
+          <p>One native app, written in Rust. Bring your own copy of Quake; the Steam and GOG releases are found for you.</p>
         </li>
       </ul>
     </section>
