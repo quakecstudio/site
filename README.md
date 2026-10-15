@@ -40,20 +40,20 @@ python3 -m http.server 8000 --directory public
 The site is served from a private S3 bucket behind CloudFront. The
 infrastructure lives in the
 [`quakecstudio/infra`](https://github.com/quakecstudio/infra) repo
-(`environments/dev` and `environments/production`).
+(`environments/dev` and `environments/prod`).
 
 ## Deploy
 
 ### From GitHub Actions
 
-`.github/workflows/deploy.yml` deploys to **production** on every push to
+`.github/workflows/deploy.yml` deploys to **prod** on every push to
 `main`, and to either environment on demand via *Run workflow*. It
 authenticates to AWS with GitHub OIDC, so there are no stored AWS keys.
 
-The `dev` and `production` GitHub environments, and the variables the
+The `dev` and `prod` GitHub environments, and the variables the
 workflow reads (`AWS_REGION`, `AWS_DEPLOY_ROLE_ARN`, `SITE_BUCKET`,
 `CLOUDFRONT_DISTRIBUTION_ID`, `SITE_URL`), are managed by Terraform in the
-infra repo. Production only deploys from `main`, and each production deploy
+infra repo. prod only deploys from `main`, and each prod deploy
 waits for approval.
 
 ### By hand
