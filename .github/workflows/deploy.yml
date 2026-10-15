@@ -8,7 +8,7 @@ on:
       environment:
         description: Environment to deploy to
         type: choice
-        options: [dev, production]
+        options: [dev, prod]
         default: dev
 
 permissions:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: deploy-${{ inputs.environment || 'production' }}
+  group: deploy-${{ inputs.environment || 'prod' }}
   cancel-in-progress: false
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
     # Each GitHub environment holds these variables (from the infra repo outputs):
     #   AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
     environment:
-      name: ${{ inputs.environment || 'production' }}
+      name: ${{ inputs.environment || 'prod' }}
       url: ${{ vars.SITE_URL }}
     steps:
       # Skip cleanly until the infra has been applied and the environment's
@@ -41,7 +41,7 @@ jobs:
           if [ -n "$ROLE" ] && [ -n "$REGION" ] && [ -n "$BUCKET" ] && [ -n "$DIST" ]; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
-            echo "::notice::Deploy skipped: set AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET and CLOUDFRONT_DISTRIBUTION_ID on the '${{ inputs.environment || 'production' }}' environment."
+            echo "::notice::Deploy skipped: set AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET and CLOUDFRONT_DISTRIBUTION_ID on the '${{ inputs.environment || 'prod' }}' environment."
             echo "ready=false" >> "$GITHUB_OUTPUT"
           fi
 
