@@ -1,62 +1,32 @@
 name: Deploy
 
+# Every deploy goes to dev first; prod follows only if dev succeeded, and
+# waits for approval in the prod environment.
 on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      environment:
-        description: Environment to deploy to
-        type: choice
-        options: [dev, prod]
-        default: dev
 
 permissions:
-  id-token: write # GitHub OIDC -> AWS IAM role
   contents: read
 
-concurrency:
-  group: deploy-${{ inputs.environment || 'prod' }}
-  cancel-in-progress: false
-
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    # Each GitHub environment holds these variables (from the infra repo outputs):
-    #   AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET, CLOUDFRONT_DISTRIBUTION_ID
-    environment:
-      name: ${{ inputs.environment || 'prod' }}
-      url: ${{ vars.SITE_URL }}
-    steps:
-      # Skip cleanly until the infra has been applied and the environment's
-      # variables are set.
-      - name: Check configuration
-        id: config
-        env:
-          ROLE: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-          REGION: ${{ vars.AWS_REGION }}
-          BUCKET: ${{ vars.SITE_BUCKET }}
-          DIST: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-        run: |
-          if [ -n "$ROLE" ] && [ -n "$REGION" ] && [ -n "$BUCKET" ] && [ -n "$DIST" ]; then
-            echo "ready=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "::notice::Deploy skipped: set AWS_REGION, AWS_DEPLOY_ROLE_ARN, SITE_BUCKET and CLOUDFRONT_DISTRIBUTION_ID on the '${{ inputs.environment || 'prod' }}' environment."
-            echo "ready=false" >> "$GITHUB_OUTPUT"
-          fi
+  dev:
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/deploy-environment.yml # zizmor: ignore[self-repository] actionlint lacks $/ (rhysd/actionlint#760)
+    with:
+      environment: dev
 
-      - uses: actions/checkout@v4
-        if: steps.config.outputs.ready == 'true'
-
-      - uses: aws-actions/configure-aws-credentials@v4
-        if: steps.config.outputs.ready == 'true'
-        with:
-          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      - name: Deploy
-        if: steps.config.outputs.ready == 'true'
-        env:
-          SITE_BUCKET: ${{ vars.SITE_BUCKET }}
-          CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
-        run: scripts/deploy.sh
+  prod:
+    needs: dev
+    # The prod environment only accepts main; a manual run from another
+    # branch stops after dev.
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/deploy-environment.yml # zizmor: ignore[self-repository] actionlint lacks $/ (rhysd/actionlint#760)
+    with:
+      environment: prod
