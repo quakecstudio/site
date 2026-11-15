@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Troubleshooting - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <ol>
+        <li><a href="index.html">User guide</a></li>
+        <li><a href="getting-started.html">Getting started</a></li>
+        <li><a href="opening-a-mod.html">Opening a mod</a></li>
+        <li><a href="play-loop.html">The play loop</a></li>
+        <li><a href="debugging.html">Debugging</a></li>
+        <li><a href="agent.html">The agent</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="map-editor.html">The map editor</a></li>
+        <li><a href="troubleshooting.html" aria-current="page">Troubleshooting</a></li>
+      </ol>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="troubleshooting">Troubleshooting</h1>
+<h2 id="play-says-it-cannot-find-quake">Play says it cannot find Quake</h2>
+<p>The <strong>Your Quake files</strong> guide opens when no game is found, or only part of one. It names
+what the folder holds and lacks:</p>
+<ul>
+<li><strong>No Quake files were found.</strong> Press <strong>Choose folder</strong> and pick the folder that holds <code>id1</code>.
+  <a href="https://github.com/quakecstudio/editor/blob/main/docs/game-data.md">Your Quake game data</a> says where each store installs the game.</li>
+<li><strong>Only the shareware episode is here.</strong> Play works on its maps; the rest of the game needs
+  <code>id1/pak1.pak</code>, from the registered game.</li>
+<li><strong>Only the 2021 rerelease is here.</strong> A mod for the original game needs the original game's
+  <code>id1</code> folder. Steam's install has both; Epic and Game Pass have only the rerelease.</li>
+</ul>
+<p>The folder you choose is kept in your settings (<code>game.folder</code>) and used the next time.</p>
+<h2 id="the-project-opens-with-many-errors">The project opens with many errors</h2>
+<p>A mod written for FTEQCC opened in the vanilla dialect reports FTEQCC's syntax as errors. Add a
+<code>quakec.toml</code> that names the dialect, or open it from the command line with
+<code>--dialect fteqcc</code>. The starters already have one.</p>
+<p>A warning W0402 says a file name's case differs from the file on disk. It builds on macOS and
+Windows but not on Linux, so fix the name in <code>progs.src</code>.</p>
+<h2 id="a-save-does-not-reach-the-game">A save does not reach the game</h2>
+<ul>
+<li>The toolbar says <strong>The reload failed; see the Console</strong>: the project did not build. The
+  Problems tab lists the errors; the game keeps running the code it had.</li>
+<li>A bar says <strong>Reloading would reset</strong>: the change drops or retypes a field or global that
+  holds a value. Choose <strong>Reload anyway</strong> or <strong>Restart map</strong>.</li>
+<li>Nothing happens: the game is not running. Reloading happens only while it plays.</li>
+</ul>
+<h2 id="the-agent-does-not-start">The agent does not start</h2>
+<ul>
+<li><strong>The agent is not set up yet.</strong>: set up a provider (<a href="agent.html">The agent</a>).</li>
+<li><strong>No project open.</strong>: open a project first; the agent works on the open one.</li>
+<li>An error from the provider, such as a wrong key or a model name it does not have, is shown
+  under the task box. <strong>Settings</strong> opens the provider form again.</li>
+</ul>
+<h2 id="where-the-log-is">Where the log is</h2>
+<p>The app writes a log, which stays on your computer:</p>
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Folder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macOS</td>
+<td><code>~/Library/Logs/QuakeC Studio</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%LOCALAPPDATA%\QuakeC Studio\logs</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>~/.local/state/quakec-studio/logs</code></td>
+</tr>
+</tbody>
+</table>
+<p>The file is <code>quakec-studio.log</code>. A crash writes <code>crash-&lt;time&gt;-&lt;pid&gt;.log</code> beside it. Set the
+<code>log.filter</code> setting, or <code>RUST_LOG</code>, to <code>debug</code> for more detail.</p>
+<h2 id="reporting-a-problem">Reporting a problem</h2>
+<p>File an issue at <a href="https://github.com/quakecstudio/editor/issues">https://github.com/quakecstudio/editor/issues</a> with what you did, what
+happened, and the log. Do not attach your game's files.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="map-editor.html">Previous: The map editor</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

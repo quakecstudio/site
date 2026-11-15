@@ -8,6 +8,7 @@ Plain HTML, CSS and JavaScript. No build step, no external requests.
 ```
 public/
 ├── index.html          # landing page
+├── docs/               # the user guide: one HTML page per chapter, img/ its screenshots
 ├── 404.html            # served by CloudFront for missing paths
 ├── favicon.svg
 ├── apple-touch-icon.png
@@ -15,6 +16,7 @@ public/
 ├── robots.txt
 └── assets/
     ├── css/style.css
+    ├── css/docs.css    # the guide's layout
     ├── js/main.js      # progress plaque, visitor counter, drop-down console
     └── fonts/          # self-hosted Silkscreen, VT323, IBM Plex Sans, JetBrains Mono (SIL OFL 1.1)
 ```
@@ -29,6 +31,16 @@ CloudFront distribution (see `modules/visit-counter` in the infra repo). A
 browser's first visit `POST`s to add one ("You are visitor no. 0000042"),
 then remembers that in `localStorage`; later visits `GET` the total. Locally,
 or if the API is down, it shows `???????`.
+
+## The user guide
+
+`public/docs/` is QuakeC Studio's user guide, written here as plain HTML (it moved from
+the editor repository's `docs/guide/`). Its screenshots in `public/docs/img/` come from the
+editor's snapshot harness (`apps/desktop/snapshots/`); copy them over when the app changes.
+The app's help buttons open sections of these pages, so a heading's `id` is part of the
+contract: `scripts/check-docs.py` checks every page's links, anchors, h1 and alt text, and
+every `page#anchor` the app lists in `apps/desktop/help-links.txt`
+(`.github/workflows/check-docs.yml` runs it on each PR).
 
 ## Run locally
 

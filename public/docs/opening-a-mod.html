@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opening a mod - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <ol>
+        <li><a href="index.html">User guide</a></li>
+        <li><a href="getting-started.html">Getting started</a></li>
+        <li><a href="opening-a-mod.html" aria-current="page">Opening a mod</a></li>
+        <li><a href="play-loop.html">The play loop</a></li>
+        <li><a href="debugging.html">Debugging</a></li>
+        <li><a href="agent.html">The agent</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="map-editor.html">The map editor</a></li>
+        <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      </ol>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="opening-a-mod">Opening a mod</h1>
+<p>QuakeC Studio opens a folder of QuakeC as a project: a mod you have, a mod you downloaded,
+or the starter you made in <a href="getting-started.html">Getting started</a>.</p>
+<h2 id="open-a-folder">Open a folder</h2>
+<p>Choose <strong>Open Folder</strong> in the Project panel (on macOS, File &gt; Open Folder…), or start the app
+with the folder on the command line:</p>
+<pre><code class="language-bash">quakec-studio /path/to/your/mod
+</code></pre>
+<p>The panel lists the projects you opened recently; a click opens one again.</p>
+<p>The folder is a project when it holds one of these:</p>
+<ul>
+<li>a <code>quakec.toml</code>, which names each of the project's programs (its modules), their dialect
+  and their target engine;</li>
+<li>a <code>progs.src</code>, the file list id's compiler reads, and optionally a <code>csprogs.src</code> for client
+  QuakeC.</li>
+</ul>
+<p>A folder with only a <code>progs.src</code> opens in the <strong>vanilla</strong> dialect, the QuakeC id's compiler
+reads. A mod written for FTEQCC, the compiler most mods use today, needs a <code>quakec.toml</code> that
+says so, or <code>--dialect fteqcc</code> on the command line. The starters write their <code>quakec.toml</code>
+for you.</p>
+<h2 id="what-you-see">What you see</h2>
+<p><img alt="A project open in the editor" src="img/project.png" /></p>
+<ul>
+<li><strong>Project</strong> lists the files the project compiles, in the order the compiler reads them, as
+  a tree.</li>
+<li><strong>Symbols</strong> lists the open file's functions, globals and fields; <strong>All</strong> lists every file's.</li>
+<li><strong>Problems</strong>, at the bottom, lists every error and warning with its code, message and place.
+  The status bar counts them. A click opens the file at that place.</li>
+<li>The <strong>editor</strong> colours each name by what it is: a function, a field, a global, a local.</li>
+</ul>
+<p>The project is checked as you type, about a third of a second after you stop, so the Problems
+list follows the text on screen even before you save.</p>
+<h2 id="moving-around-the-code">Moving around the code</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cmd+Shift+P</td>
+<td>The command palette: every command the IDE has, searched by name</td>
+</tr>
+<tr>
+<td>F12</td>
+<td>Go to the definition of the name under the caret</td>
+</tr>
+<tr>
+<td>Shift+F12</td>
+<td>List the references to it; a click opens one</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>Rename it everywhere</td>
+</tr>
+<tr>
+<td>Ctrl+Space</td>
+<td>Complete the name being typed</td>
+</tr>
+<tr>
+<td>Cmd+F</td>
+<td>Find and replace in the file</td>
+</tr>
+<tr>
+<td>Cmd+S</td>
+<td>Save</td>
+</tr>
+<tr>
+<td>Cmd+1, Cmd+2, Cmd+3, Cmd+4</td>
+<td>Give the keyboard to the editor, the left, right or bottom panel</td>
+</tr>
+<tr>
+<td>Cmd+.</td>
+<td>The quick fixes for the problem at the caret</td>
+</tr>
+<tr>
+<td>Cmd+Shift+I</td>
+<td>Format the file: indent with tabs, trim trailing spaces</td>
+</tr>
+<tr>
+<td>Ctrl+G</td>
+<td>Go to a line</td>
+</tr>
+<tr>
+<td>Cmd+Shift+O</td>
+<td>Go to a symbol in the file</td>
+</tr>
+<tr>
+<td>Ctrl+Tab</td>
+<td>Switch to another open file</td>
+</tr>
+<tr>
+<td>Cmd+Shift+B</td>
+<td>Show or hide the outline of the file</td>
+</tr>
+<tr>
+<td>Cmd+Alt+[ and Cmd+Alt+]</td>
+<td>Fold and unfold the block the caret is in</td>
+</tr>
+<tr>
+<td>Cmd+Alt+Z</td>
+<td>Turn soft wrap on or off</td>
+</tr>
+<tr>
+<td>Cmd+\</td>
+<td>Split the editor into two panes</td>
+</tr>
+</tbody>
+</table>
+<p>Resting the pointer on a name shows its declaration.</p>
+<p>To change a shortcut, write <code>keymap.toml</code> in the app's config folder (on macOS
+<code>~/Library/Application Support/QuakeC Studio</code>, on Windows <code>%APPDATA%\QuakeC Studio</code>, on Linux
+<code>~/.config/quakec-studio</code>). Each binding names its keys and a command from the palette:</p>
+<pre><code class="language-toml">[[binding]]
+keys = &quot;secondary-shift-b&quot;
+command = &quot;project.build&quot;
+</code></pre>
+<p><code>secondary</code> is Cmd on macOS and Ctrl elsewhere. The change takes effect at once.</p>
+<p>To edit with Vim's keys, add this to <code>settings.toml</code> in the same folder and start the app again:</p>
+<pre><code class="language-toml">[editor]
+key_mode = &quot;vim&quot;
+</code></pre>
+<p>The editor starts in Normal mode, with Vim's motions, operators, counts, registers and <code>.</code>.</p>
+<h2 id="searching-the-project">Searching the project</h2>
+<p><strong>Cmd+Shift+F</strong> opens the <strong>Search</strong> tab in the centre. Type a text to find every match in the project's files, unsaved edits included; match case, whole words or a regular expression. Each result is shown in its file with a line above and below, and can be edited in place. <strong>Replace all</strong> replaces every match, each file saved and undone on its own, and <strong>Open</strong> goes to the file at that place.</p>
+<h2 id="the-terminal">The terminal</h2>
+<p>The bottom panel's <strong>Terminal</strong> tab runs your shell in the project's folder. <strong>New terminal</strong> opens another, each in a tab of its own with its title and whether its process is still running. Type a line in the box under the output to send it to the shell.</p>
+<h2 id="git">Git</h2>
+<p>When the mod's folder is a git repository, the bottom panel's Git tab lists what changed since
+the last commit. Stage a whole file, or one hunk of it, write a message and press Commit. The
+branch list switches branches and Create branch makes one. For the file in the editor it shows
+the commits that changed it and, with Show blame, who last changed each line. After a merge
+that conflicts, each conflict has Keep ours, Keep theirs and Keep both. The editor marks the
+lines changed since the last commit in its gutter: green for added, amber for changed and red
+where lines were removed.</p>
+<h2 id="building">Building</h2>
+<p>Play builds before it starts the game, so most of the time you never build by hand. To build
+alone, run <code>project.build</code> from the palette, or from the command line:</p>
+<pre><code class="language-bash">quakec-ide build /path/to/your/mod
+</code></pre>
+<p>The output goes to <code>build/&lt;mod&gt;/progs.dat</code> inside the project, never into your Quake folder.</p>
+<h2 id="exporting-for-players">Exporting for players</h2>
+<p><strong>File &gt; Export Mod…</strong> (on Windows and Linux, <strong>Export Mod…</strong> on the toolbar) builds the project
+and writes <code>build/&lt;mod&gt;.zip</code>, which players unzip into their Quake folder. The status bar says
+where it is. The zip holds the <code>&lt;mod&gt;</code> folder:</p>
+<ul>
+<li><code>progs.dat</code>, and <code>csprogs.dat</code> or <code>menu.dat</code> when the project has them;</li>
+<li>everything under the project's <code>maps</code>, <code>progs</code>, <code>sound</code>, <code>gfx</code>, <code>music</code>, <code>textures</code> and <code>env</code>
+  folders, except <code>.map</code> sources;</li>
+<li>a <code>README.txt</code> that says which game the mod needs and how to install and start it;</li>
+<li>the project's license and notice files, such as <code>COPYING</code>, <code>LICENSE</code> or <code>NOTICE.md</code>.</li>
+</ul>
+<p>It never includes id Software's game data. A file that is a copy of one of the game's own
+files is refused with its name, so remove it from the project. To pack the assets into
+<code>pak0.pak</code>, run <code>project.export</code> from the palette with <code>pak</code> checked. From the command line:</p>
+<pre><code class="language-bash">quakec-ide run project.export '{}' --project /path/to/your/mod
+</code></pre>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="getting-started.html">Previous: Getting started</a> <a rel="next" href="play-loop.html">Next: The play loop</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

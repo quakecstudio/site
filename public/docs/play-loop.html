@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The play loop - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <ol>
+        <li><a href="index.html">User guide</a></li>
+        <li><a href="getting-started.html">Getting started</a></li>
+        <li><a href="opening-a-mod.html">Opening a mod</a></li>
+        <li><a href="play-loop.html" aria-current="page">The play loop</a></li>
+        <li><a href="debugging.html">Debugging</a></li>
+        <li><a href="agent.html">The agent</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="map-editor.html">The map editor</a></li>
+        <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      </ol>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="the-play-loop">The play loop</h1>
+<p>The play loop is QuakeC Studio's centre: the game runs while you edit, and each save reaches it
+in about a second, the map going on.</p>
+<h2 id="the-toolbar">The toolbar</h2>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Play</strong></td>
+<td>Builds the project and starts the game on its program, on <code>start</code>. While the game runs it reads <strong>Playing</strong>, and a click stops the game.</td>
+</tr>
+<tr>
+<td><strong>Pause</strong></td>
+<td>Pauses the game between frames. It reads <strong>Paused</strong> while the game is paused, and Play's place reads <strong>Resume</strong>.</td>
+</tr>
+<tr>
+<td><strong>Step</strong></td>
+<td>Runs one server frame of the game, pausing it first, and leaves it paused.</td>
+</tr>
+<tr>
+<td><strong>Restart map</strong></td>
+<td>Starts the running map again.</td>
+</tr>
+</tbody>
+</table>
+<p>The game runs in the preview host, QuakeC Studio's own engine, built on the same VM as the
+IDE. It has a window of its own, docked beside the IDE's, which follows the IDE's window when
+you move it.</p>
+<h2 id="save-to-reload">Save to reload</h2>
+<p>Each time you save a file while the game runs, the IDE builds the project and reloads the new
+program in the game. The map, the monsters and the player stay where they were; the new code
+runs from the next frame. The toolbar says how long the reload took.</p>
+<p>Some changes cannot keep everything. If the new program drops or retypes a field or a global
+that holds a value, the IDE does not reload at once. A bar under the toolbar says <strong>Reloading
+would reset</strong>, with what would be lost, and offers <strong>Reload anyway</strong> or <strong>Restart map</strong>.</p>
+<p>If the project does not build, nothing is reloaded: the game keeps running the code it had,
+the toolbar says <strong>The reload failed; see the Console</strong>, and Problems lists the errors.</p>
+<h2 id="entities-and-properties">Entities and Properties</h2>
+<p>The <strong>Entities</strong> panel, on the left, lists every edict in use in the running game, grouped by
+classname, with a filter. Click one to select it.</p>
+<p><strong>Properties</strong>, on the right, shows the selected edict's fields. While the game runs they are
+read only. Pause, and each field can be edited: type a new value and press Enter. The new
+values are sent to the game when you resume. A field that holds a function, such as <code>think</code>,
+is a link to that function's definition, and <strong>Open its spawn function</strong> opens the function
+named after the classname.</p>
+<p>While the game is paused, a click in its window selects the edict under the pointer and opens
+its spawn function.</p>
+<h2 id="the-console">The console</h2>
+<p>The <strong>Console</strong> tab, at the bottom, shows what the game prints, its errors marked, with a
+filter. Its box sends a line to the game's console, such as <code>impulse 9</code> or <code>map e1m1</code>.</p>
+<h2 id="tests">Tests</h2>
+<p>The project's tests are its <code>test_</code> functions, each run alone in the VM, and its
+<code>tests/*.scenario</code> files, each played in the server simulation on the game's own maps. A
+scenario names a map, the inputs, and what must hold after so many frames:</p>
+<pre><code class="language-text">map start
+frames 4
+expect field player health == 100
+</code></pre>
+<p>Run them all with <code>project.test</code> from the palette, or <code>quakec-ide test &lt;folder&gt;</code>.
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/spec/scenario.md"><code>docs/spec/scenario.md</code></a> describes every line a scenario can have.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="opening-a-mod.html">Previous: Opening a mod</a> <a rel="next" href="debugging.html">Next: Debugging</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
