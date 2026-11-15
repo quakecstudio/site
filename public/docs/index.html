@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <ol>
+        <li><a href="index.html" aria-current="page">User guide</a></li>
+        <li><a href="getting-started.html">Getting started</a></li>
+        <li><a href="opening-a-mod.html">Opening a mod</a></li>
+        <li><a href="play-loop.html">The play loop</a></li>
+        <li><a href="debugging.html">Debugging</a></li>
+        <li><a href="agent.html">The agent</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="map-editor.html">The map editor</a></li>
+        <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      </ol>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="quakec-studio-user-guide">QuakeC Studio user guide</h1>
+<p>QuakeC Studio is an IDE for QuakeC, Quake's game code. It has its own compiler, it runs your
+mod in the game as you edit, it has a debugger that stops the running game, and it has an
+agent that can change your code and prove the change works. It runs on macOS, Windows and
+Linux, offline, with no account.</p>
+<p>Read these in order the first time:</p>
+<ol>
+<li><a href="getting-started.html">Getting started</a>: from nothing to your own mod running in Quake.</li>
+<li><a href="opening-a-mod.html">Opening a mod</a>: an existing mod, its <code>progs.src</code> and <code>quakec.toml</code>,
+   and what the IDE shows of it.</li>
+<li><a href="play-loop.html">The play loop</a>: Play, edit, save, and see the change in the running game.</li>
+<li><a href="debugging.html">Debugging</a>: breakpoints, stepping, watches, and the entities of the running
+   game.</li>
+<li><a href="agent.html">The agent</a>: asking the built-in agent to do a task, and reviewing what it did.</li>
+<li><a href="mcp.html">MCP</a>: giving the same tools to Claude Code or another agent.</li>
+<li><a href="map-editor.html">The map editor</a>: building a map, compiling it, finding a leak, and playing it
+   from where you stand.</li>
+<li><a href="troubleshooting.html">Troubleshooting</a>: when something does not work.</li>
+</ol>
+<p>Reference pages:</p>
+<ul>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/game-data.md">Your Quake game data</a>: where QuakeC Studio finds the game's files.</li>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/settings.md">Settings</a>: every setting.</li>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">Commands</a>: every command the palette, the CLI, the agent and MCP share.</li>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/privacy.md">Privacy</a>: every network request the app can make.</li>
+</ul>
+<p>Keys are written for macOS. Off macOS, Cmd is Ctrl.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="next" href="getting-started.html">Next: Getting started</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Debugging - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <ol>
+        <li><a href="index.html">User guide</a></li>
+        <li><a href="getting-started.html">Getting started</a></li>
+        <li><a href="opening-a-mod.html">Opening a mod</a></li>
+        <li><a href="play-loop.html">The play loop</a></li>
+        <li><a href="debugging.html" aria-current="page">Debugging</a></li>
+        <li><a href="agent.html">The agent</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="map-editor.html">The map editor</a></li>
+        <li><a href="troubleshooting.html">Troubleshooting</a></li>
+      </ol>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="debugging">Debugging</h1>
+<p>QuakeC Studio's debugger stops the running game in your QuakeC, at a line you chose, and shows
+the call stack and any expression you watch. It works in the game the toolbar's Play started.</p>
+<h2 id="breakpoints">Breakpoints</h2>
+<p>Click a line number in the editor to set a breakpoint on that line; click it again to take it
+away. The <strong>Breakpoints</strong> list, in the <strong>Debugger</strong> tab at the bottom, shows each one; a click
+opens its line. Breakpoints are set in the running game at once, and in each game you start
+later.</p>
+<p>When the game reaches a breakpoint it stops in that frame. The editor shows the line, and the
+Debugger tab fills in:</p>
+<ul>
+<li><strong>Call stack</strong>: the function that stopped, and each function that called it. A frame the
+  engine called from is marked <code>engine</code>.</li>
+<li><strong>Variables and watches</strong>: each watch's value. Add one in its box, for example
+  <code>self.owner.health</code>, and remove one with its <strong>×</strong>. Watches are read each time the game stops.</li>
+</ul>
+<h2 id="stepping">Stepping</h2>
+<p>While the game is stopped in a frame:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Step over</strong></td>
+<td>Runs to the next statement of this function, calls included</td>
+</tr>
+<tr>
+<td><strong>Step in</strong></td>
+<td>Runs to the next statement, going into a call</td>
+</tr>
+<tr>
+<td><strong>Step out</strong></td>
+<td>Runs until this function returns to its caller</td>
+</tr>
+<tr>
+<td><strong>Resume</strong> (the toolbar)</td>
+<td>Lets the game run on</td>
+</tr>
+</tbody>
+</table>
+<p>The toolbar's <strong>Step</strong> is different: it runs one whole server frame of a paused game.</p>
+<h2 id="looking-at-the-games-state">Looking at the game's state</h2>
+<p>Pause the game and look at the <a href="play-loop.html#entities-and-properties">Entities and Properties</a>
+panels: every edict, and the selected one's fields, which you can change before you resume.
+The console's box runs any console command in the game.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="play-loop.html">Previous: The play loop</a> <a rel="next" href="agent.html">Next: The agent</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,99 @@
+/* QuakeC Studio user guide pages: style.css's colours, with the body set for long reading.
+   Every text colour here meets WCAG AA (4.5:1) on --bg and --panel. */
+
+.docs .top__brand { text-decoration: none; }
+.docs__home {
+  color: var(--text);
+  font-family: var(--font-term);
+  font-size: 1.25rem;
+}
+
+.docs__layout {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: 2rem 3rem;
+}
+
+.docs__nav ol {
+  position: sticky;
+  top: 1rem;
+  margin: 0;
+  padding: 1rem 1rem 1rem 2.25rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.docs__nav li { margin-block: .35rem; }
+.docs__nav a { color: var(--text); }
+.docs__nav a[aria-current="page"] {
+  color: var(--ember);
+  font-weight: 700;
+}
+
+.docs__page { min-width: 0; max-width: 46rem; }
+.docs__page h1,
+.docs__page h2,
+.docs__page h3 {
+  color: var(--gold);
+  line-height: 1.25;
+  scroll-margin-top: 1rem;
+}
+.docs__page h1 { font-size: 2rem; margin-top: 0; }
+.docs__page h2 { font-size: 1.45rem; margin-top: 2.25rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
+.docs__page h3 { font-size: 1.15rem; margin-top: 1.75rem; }
+
+.docs__page code {
+  font: .92em/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: var(--panel);
+  padding: .05em .3em;
+}
+.docs__page pre {
+  overflow-x: auto;
+  padding: 1rem;
+  background: var(--panel-lo);
+  border: 1px solid var(--line);
+}
+.docs__page pre code { background: none; padding: 0; }
+
+.docs__page img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block: 1rem;
+  border: 1px solid var(--line);
+}
+
+.docs__page table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-block: 1rem;
+}
+.docs__page th,
+.docs__page td {
+  padding: .4rem .7rem;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.docs__page th { background: var(--panel); color: var(--gold); }
+
+.docs__pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.docs__pager a[rel="next"] { margin-left: auto; }
+
+/* Links are underlined, so colour is never the only sign of one. */
+.docs__page a,
+.docs__pager a { text-decoration: underline; text-underline-offset: .15em; }
+
+@media (max-width: 48rem) {
+  .docs__layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .docs__nav ol { position: static; }
+}
