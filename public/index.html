@@ -282,6 +282,61 @@
       <figcaption class="shot__caption"><span class="badge">concept</span> A mockup of the design, not a screenshot. In v1 the game runs in its own window, docked beside the editor.</figcaption>
     </figure>
 
+    <section class="showcase" aria-labelledby="showcase-title">
+      <h2 id="showcase-title" class="section-title">In the editor today</h2>
+      <p class="showcase__lede">Screenshots of QuakeC Studio itself, rendered from LibreQuake's
+        <code>lq_e1m1</code> and its QuakeC. Nothing here is a mockup.</p>
+      <div class="showcase__grid">
+        <figure class="showcase__shot showcase__shot--wide">
+          <img src="/assets/shots/showcase-lit-wide.jpg" width="1440" height="900" loading="lazy"
+               alt="The map editor's 3D view of a room in lq_e1m1 lit by its compiled lightmaps: blue ceiling lights over yellow slime and a raised lava pool, riveted walls and a bank of glowing consoles.">
+          <figcaption><strong>Lit as the game lights it.</strong> Compile with QuakeC Studio's own
+            qbsp, vis and light, and the 3D view shows the map with its lightmaps and coloured light,
+            as QuakeSpasm draws them, while you keep editing.</figcaption>
+        </figure>
+        <figure class="showcase__shot">
+          <img src="/assets/shots/showcase-light-reach.jpg" width="1440" height="900" loading="lazy"
+               alt="The same room with a green light selected over the slime: a green sphere shows how far it reaches, and the Properties panel lists its keys, light 200 and _color 143 240 164 with a colour swatch.">
+          <figcaption><strong>See a light's reach.</strong> Select a light and a sphere in its own
+            colour shows how far it lights, beside its keys and a swatch of its colour.</figcaption>
+        </figure>
+        <figure class="showcase__shot">
+          <img src="/assets/shots/showcase-textured.jpg" width="1440" height="900" loading="lazy"
+               alt="The same room drawn textured, before any compile: each brush face with its LibreQuake texture, the slime, the lava pool, riveted walls and the consoles, shaded by the way each face points.">
+          <figcaption><strong>Textured as you build.</strong> Every brush face with its WAD texture
+            and alignment, shaded by the way it faces, updated with each edit.</figcaption>
+        </figure>
+        <figure class="showcase__shot">
+          <img src="/assets/shots/showcase-debugger.jpg" width="1440" height="900" loading="lazy"
+               alt="The IDE stopped at a breakpoint on line 426 of ai.qc in ai_stand: the call stack shows enf_stand2 in enforcer.qc calling ai_stand, and the watches read self.classname monster_enforcer and self.health 80.">
+          <figcaption><strong>Stop the game in your QuakeC.</strong> A breakpoint in a monster's AI
+            pauses the running map; the call stack, watches and stepping are in the IDE, on the
+            line that stopped it.</figcaption>
+        </figure>
+        <figure class="showcase__shot">
+          <img src="/assets/shots/showcase-game.jpg" width="1440" height="900" loading="lazy"
+               alt="The game frame at that moment, drawn by QuakeC Studio's preview host: a lit LibreQuake room with riveted walls, the shotgun and the status bar showing 100 health and 25 shells.">
+          <figcaption><strong>Its own game engine.</strong> The game frame at the same moment, drawn by
+            QuakeC Studio's preview host on its own QuakeC VM, simulation and renderer.</figcaption>
+        </figure>
+        <figure class="showcase__shot showcase__shot--wide">
+          <img src="/assets/shots/showcase-code.jpg" width="1440" height="900" loading="lazy"
+               alt="The code editor showing W_FireRocket in LibreQuake's weapons.qc, coloured by what each name is, with parameter names shown inline and 17 compiler warnings listed in Problems.">
+          <figcaption><strong>Your QuakeC, checked as you type.</strong> The mod's own code in the same
+            window as its maps, coloured by meaning, with the compiler's warnings, such as a builtin
+            vanilla Quake lacks. Then Play from here: the map compiled and the game started where
+            the camera stands.</figcaption>
+        </figure>
+      </div>
+      <p class="showcase__note">A lit view of the compiled map, a light's reach, a QuakeC debugger
+        on the running game, QuakeC editing with the compiler's diagnostics and Play from here are
+        none of them in TrenchBroom's manual.
+        Maps, textures, models and QuakeC from
+        <a href="https://github.com/lavenderdotpet/LibreQuake">LibreQuake</a>: its textures, models
+        and sounds are BSD-3-Clause, its QuakeC GPL-2.0; see
+        <a href="https://github.com/quakecstudio/site/blob/main/ATTRIBUTION.md">ATTRIBUTION.md</a>.</p>
+    </section>
+
     <section class="features" aria-labelledby="features-title">
       <h2 id="features-title" class="section-title">Planned features</h2>
       <ul class="cards">

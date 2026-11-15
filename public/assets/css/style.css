@@ -255,6 +255,32 @@ kbd {
   color: var(--muted);
 }
 
+/* ---------- showcase: screenshots of the app itself ---------- */
+.showcase { padding-block: clamp(2rem, 6vw, 4rem); }
+.showcase__lede, .showcase__note { max-width: 46rem; color: var(--text); }
+.showcase__note { margin-top: 1.5rem; font-size: .95rem; }
+.showcase__note a { color: var(--ember); }
+.showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.showcase__shot { margin: 0; }
+.showcase__shot--wide { grid-column: 1 / -1; }
+.showcase__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .5);
+}
+.showcase__shot figcaption { margin-top: .6rem; font-size: .95rem; line-height: 1.5; }
+.showcase__shot figcaption strong { color: var(--gold); }
+@media (max-width: 48rem) {
+  .showcase__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* ---------- product shot: the design mockup, in the app's own theme ---------- */
 /* Mirrors the approved mockups (warm graphite, one ember accent, IBM Plex Sans
    and JetBrains Mono). It sits above the CRT overlay so it reads as the app,
