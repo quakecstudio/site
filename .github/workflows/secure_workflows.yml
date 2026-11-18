@@ -1,0 +1,49 @@
+# Fails when the workflows' actions are not the ones locked in
+# .github/workflows/actions.lock, and audits every workflow with zizmor.
+# They audit .github/ only, so they run only when it changes.
+name: Secure workflows
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/**
+
+# A newer run of the same pull request supersedes the older one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  # Fails when .github/workflows/actions.lock is out of step with the workflows or a locked
+  # pin no longer verifies upstream; `gh actions-lock` rewrites it.
+  lockfile:
+    name: Locked Actions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - run: gh extension install github/gh-actions-lock --pin v0.4.1
+      - run: gh actions-lock --verify
+
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: zizmorcore/zizmor-action@v0.8.1
+        with:
+          version: 1.32.0
+          advanced-security: false
+          annotations: true
