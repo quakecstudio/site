@@ -202,7 +202,7 @@ kbd {
 .hero__lede em { color: var(--ember); font-style: normal; }
 
 /* ---------- site nav, buttons ---------- */
-.top__nav { display: flex; gap: 1.25rem; }
+.top__nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .25rem 1.25rem; }
 .top__nav a { color: var(--text); text-decoration: none; }
 .top__nav a:hover { color: var(--ember); }
 
@@ -530,7 +530,7 @@ a.top__brand { text-decoration: none; }
 
 /* ---------- small screens ---------- */
 @media (max-width: 640px) {
-  .top__nav { gap: .8rem; font-size: 1.1rem; }
+  .top__nav { column-gap: .65rem; font-size: 1.05rem; }
   .logo__line--sub { letter-spacing: .35em; padding-left: .35em; }
 }
 
