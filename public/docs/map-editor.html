@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html">The agent</a></li>
-        <li><a href="mcp.html">MCP</a></li>
-        <li><a href="map-editor.html" aria-current="page">The map editor</a></li>
-        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html" aria-current="page">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="the-map-editor">The map editor</h1>
@@ -44,7 +56,7 @@ The map editor reads the game where it is installed and never copies it.</p>
 <ul>
 <li><strong>The game.</strong> Press <strong>Play</strong> once. If the IDE cannot find your game, it shows <strong>Choose your
   Quake folder</strong>, says what the folder it looked at holds and lacks, and <strong>Choose folder</strong> picks
-  the folder that holds <code>id1</code>. The IDE remembers it. <a href="https://github.com/quakecstudio/editor/blob/main/docs/game-data.md">Your Quake game data</a>
+  the folder that holds <code>id1</code>. The IDE remembers it. <a href="game-data.html">Your Quake game data</a>
   says which versions work.</li>
 <li><strong>The textures.</strong> A map names its WAD files in the world's <code>wad</code> key, as id's tools and
   ericw-tools read it. The texture browser lists the textures of every WAD the map names, found
@@ -57,12 +69,18 @@ view, the toolbar above it, and the Textures, Entities, Prefabs and Issues tabs 
 <strong>Map</strong> panel on the left lists the map's layers and entities; the <strong>Properties</strong> panel on the
 right edits the selection. A <code>.bsp</code> with no <code>.map</code> opens too, to look at, but cannot be
 compiled.</p>
-<p><img alt="A map open, an ogre selected and its keys in Properties" src="img/map-editor.png" /></p>
-<p><strong>Moving around.</strong> Drag the 3D view to turn and scroll to move. With the view focused, W, A, S
-and D fly forward, left, back and right, and Q and X fly up and down, as in TrenchBroom. The
+<figure>
+<img alt="A map open, an ogre selected and its keys in Properties" src="img/map-editor.png" />
+<figcaption>A map open, an ogre selected and its keys in Properties.</figcaption>
+</figure>
+<p><strong>Moving around.</strong> Drag the 3D view to turn and scroll to move. With the view focused, <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>
+and <kbd>D</kbd> fly forward, left, back and right, and <kbd>Q</kbd> and <kbd>X</kbd> fly up and down, as in TrenchBroom. The
 layout picker beside <strong>Select</strong> shows the 3D view alone, <strong>3D + top</strong>, or <strong>4 views</strong>: 3D, top,
 front and side.</p>
-<p><img alt="Four views of the same map" src="img/map-panes.png" /></p>
+<figure>
+<img alt="Four views of the same map" src="img/map-panes.png" />
+<figcaption>Four views of the same map.</figcaption>
+</figure>
 <h2 id="3-edit-entities">3. Edit entities</h2>
 <p>Click an entity in the view, or its row in the Map panel, to select it. <strong>Properties</strong> shows
 its keys:</p>
@@ -78,8 +96,8 @@ its keys:</p>
 <p>To place a new entity, open the <strong>Entities</strong> tab below the view and drag a class into the map.
 The classes are your mod's, read from its QuakeC.</p>
 <p>With an entity selected in the 3D view, the arrow keys and Page Up and Page Down move it by the
-grid, Alt with Left or Right turns it, Delete deletes it, and Cmd+D duplicates it. Cmd+S saves
-the map.</p>
+grid, <kbd class="combo"><kbd>Alt</kbd>+<kbd>Left</kbd></kbd> or <kbd class="combo"><kbd>Alt</kbd>+<kbd>Right</kbd></kbd> turns it, <kbd>Delete</kbd> deletes it, and <kbd class="combo"><kbd>Cmd</kbd>+<kbd>D</kbd></kbd> duplicates it. <kbd class="combo"><kbd>Cmd</kbd>+<kbd>S</kbd></kbd> saves
+the map. <a href="keys.html#the-map-editor">Keys</a> lists the rest.</p>
 <p><strong>Hide</strong>, <strong>Isolate</strong>, <strong>Lock</strong>, <strong>Show all</strong> and <strong>Unlock all</strong> in Properties act on the
 selection, and <strong>Show</strong> in the toolbar filters the entities by skill, coop and deathmatch.</p>
 <h2 id="4-build-with-brushes">4. Build with brushes</h2>
@@ -93,7 +111,10 @@ selection, and <strong>Show</strong> in the toolbar filters the entities by skil
 <li><strong>Move</strong>: select brushes, then drag to move them.</li>
 <li><strong>Measure</strong>: drag from one point to another to read the distance.</li>
 </ul>
-<p><img alt="Shapes made with the Shape tool" src="img/map-shapes.png" /></p>
+<figure>
+<img alt="Shapes made with the Shape tool" src="img/map-shapes.png" />
+<figcaption>Shapes made with the Shape tool.</figcaption>
+</figure>
 <p>With brushes selected, <strong>Brushes</strong> in Properties offers <strong>Subtract</strong>, <strong>Merge</strong>,
 <strong>Intersect</strong>, <strong>Delete brush</strong>, scaling and shearing.</p>
 <p><strong>Textures.</strong> Click a texture in the <strong>Textures</strong> tab to choose it; with brushes selected,
@@ -102,12 +123,18 @@ faces in the view to select them alone; then drag the view to shift their textur
 rotate it and Cmd-drag to scale it. <strong>Fit</strong>, the justify buttons, <strong>Flip S</strong> and <strong>Flip T</strong>,
 <strong>Reset</strong>, <strong>Copy alignment</strong> and <strong>Paste alignment</strong> act on the selected faces. <strong>Texture lock</strong>
 keeps textures in place as brushes move.</p>
-<p><img alt="Two faces with their texture fitted" src="img/map-uv.png" /></p>
+<figure>
+<img alt="Two faces with their texture fitted" src="img/map-uv.png" />
+<figcaption>Two faces with their texture fitted.</figcaption>
+</figure>
 <p>To bring in a texture of your own, drop a PNG on the window while the Textures tab shows, or
 press <strong>Import texture</strong>. The IDE maps its colours to Quake's palette, with <strong>Nearest colour</strong> or
 <strong>Dither</strong>, writes it into the project's own WAD in <code>textures/</code>, and names that WAD in the map's
 world.</p>
-<p><img alt="A PNG imported into the map's WAD" src="img/texture-import.png" /></p>
+<figure>
+<img alt="A PNG imported into the map's WAD" src="img/texture-import.png" />
+<figcaption>A PNG imported into the map's WAD.</figcaption>
+</figure>
 <p><strong>Prefabs.</strong> Select brushes and entities and <strong>Save as prefab</strong> to keep them in the project's
 <code>prefabs</code> folder; drag a prefab from the <strong>Prefabs</strong> tab into the view to copy it in.</p>
 <h2 id="5-compile">5. Compile</h2>
@@ -126,11 +153,17 @@ ericw-tools. Coloured lights, with a <code>_color</code> key, write a <code>.lit
 leaks</strong> says which entity the void reaches, draws the trail from it to the outside in the view,
 and <strong>Fly along the leak</strong> takes the camera along the trail to the gap. It also lists the
 textures the map's WADs lack.</p>
-<p><img alt="A leak's trail, from the entity to the outside" src="img/map-leak.png" /></p>
+<figure>
+<img alt="A leak's trail, from the entity to the outside" src="img/map-leak.png" />
+<figcaption>A leak's trail, from the entity to the outside.</figcaption>
+</figure>
 <p>When the map is sealed, it says <strong>The map is sealed: no entity is in reach of the void.</strong></p>
 <p>The <strong>Issues</strong> tab's <strong>Check map</strong> lists the map's other problems, checked against your mod's
 QuakeC: a key no field of its class reads, such as a misspelled <code>speed</code>, and a missing texture.</p>
-<p><img alt="The Issues tab listing a misspelled key and a missing texture" src="img/map-issues.png" /></p>
+<figure>
+<img alt="The Issues tab listing a misspelled key and a missing texture" src="img/map-issues.png" />
+<figcaption>The Issues tab listing a misspelled key and a missing texture.</figcaption>
+</figure>
 <h2 id="7-play-from-here">7. Play from here</h2>
 <p><strong>Play from here</strong> compiles the map fast, with no vis and fast light, starts the game on it, and
 puts you where the 3D view's camera is, facing its way. If the camera is in a wall or in the
@@ -139,20 +172,65 @@ to the editor, change something and press it again.</p>
 <h2 id="8-if-something-goes-wrong">8. If something goes wrong</h2>
 <p>The editor keeps a backup of the open map every minute while it has unsaved edits, and one each
 time you save, in an <code>autosave</code> folder beside the map; the last 20 are kept. <strong>Restore the
-newest backup</strong> puts the latest one in the editor as an edit, which Cmd+Z takes back.</p>
+newest backup</strong> puts the latest one in the editor as an edit, which <kbd class="combo"><kbd>Cmd</kbd>+<kbd>Z</kbd></kbd> takes back.</p>
 <p>If the file changes on disk while you have edits, the editor asks: <strong>Reload from disk</strong>, <strong>Keep
 mine</strong>, or <strong>Compare</strong> to see the difference.</p>
+<h2 id="a-random-map">A random map</h2>
+<p><strong>File &gt; New Random Map</strong>, or the <strong>New Random Map</strong> button in the Map tab when no map is
+open, makes a playable level and opens it: rooms of seven shapes joined by passages, stairs and
+doors, from a start to an exit, with lights, monsters, weapons, ammunition, health and a key
+for a locked door. It is written to the project as <code>maps/random&lt;seed&gt;.map</code>, sealed, and
+compiles with no leak. Press <strong>Play from here</strong> to walk it, or change it as any other map.</p>
+<figure>
+<img alt="A level made by New Random Map, compiled and lit: a dim stone passage leads out of the first room toward a bright second room with a stair." src="/assets/shots/showcase-generated-1440.jpg" srcset="/assets/shots/showcase-generated-1440.jpg 1440w, /assets/shots/showcase-generated-2880.jpg 2880w" sizes="(max-width: 48rem) 100vw, 46rem" width="1440" height="900" loading="lazy" />
+<figcaption>A random map after a Full compile, seen from its first room.</figcaption>
+</figure>
+<ul>
+<li>The textures are those of the game's own levels, so the level needs no WAD of its own; it
+  needs the game to be found.</li>
+<li>Only classes your mod's QuakeC defines are placed, and monsters get harder the further they
+  are from the start.</li>
+<li>One seed always makes the same level. <code>map.generate</code> takes a seed and a size, and the
+  agent and MCP can run it too.</li>
+<li>A map with unsaved edits is not replaced: save it first.</li>
+</ul>
+<h2 id="rooms-and-passages">Rooms and passages</h2>
+<p><code>map.build_room</code> builds one room into the open map with one command, in a shape from id's
+levels: a pillared hall, an eight-sided domed chamber, a hall around a pit crossed by bridges,
+a room on two levels, a courtyard, a cross of two aisles, or a vaulted room. The room is sealed
+but for the doorways you ask for, and has its lights and torches. <code>map.build_passage</code> joins
+two doorways that face each other, with stairs where their floors differ and a door if you ask
+for one. Each is one undo step.</p>
+<p>Run them from the command line (<kbd class="combo"><kbd>Cmd</kbd>+<kbd>;</kbd></kbd>), which asks for each value, or ask
+<a href="agent.html">the agent</a> for a room: these are the commands it builds maps with.</p>
+<h2 id="models">Models</h2>
+<p>A monster's, weapon's or item's look is its <code>.mdl</code> model. The <code>model.*</code> commands change
+one, each change one undo step:</p>
+<ul>
+<li><code>model.copy_from_game</code> makes the project its own copy of one of the game's models, and
+  <code>model.inspect</code> lists its skins, frames and size.</li>
+<li><code>model.export_skin</code> and <code>model.set_skin</code> take a skin out as a PNG and put a painted one
+  back, through Quake's palette; <code>model.recolor</code> changes its colours by the palette's rows.</li>
+<li><code>model.scale</code> and <code>model.move</code> resize and shift it; <code>model.rename_frames</code>,
+  <code>model.remove_frames</code> and <code>model.add_frames</code> change its animation.</li>
+<li><code>model.import</code> makes a <code>.mdl</code> from a mesh made in another program: an <code>.obj</code>, <code>.iqe</code>,
+  <code>.md5mesh</code>, <code>.smd</code> or <code>.fbx</code>, with a PNG for its skin or a single colour. It answers
+  the <code>$frame</code> line your QuakeC needs.</li>
+</ul>
+<p>Play puts the project's own models, sounds and other assets where the game reads them, so a
+changed model shows the next time you play.</p>
 <h2 id="next">Next</h2>
 <ul>
 <li><a href="play-loop.html">The play loop</a>: change your mod's QuakeC while the map runs.</li>
 <li><a href="debugging.html">Debugging</a>: stop the running game at a line of your code.</li>
 <li><a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">Commands</a>: every <code>map.*</code> command, which the agent, MCP and the CLI share.</li>
 </ul>
-      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="mcp.html">Previous: MCP</a> <a rel="next" href="troubleshooting.html">Next: Troubleshooting</a></nav>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="mcp.html">Previous: MCP</a> <a rel="next" href="keys.html">Next: Keys</a></nav>
     </main>
   </div>
   <footer class="foot">
     <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
       <p class="legal">
         QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
         id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.

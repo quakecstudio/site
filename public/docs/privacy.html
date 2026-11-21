@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="privacy">Privacy</h1>
+<p>QuakeC Studio works offline, with no account and no telemetry. This page lists every network
+request the app can make, and when it makes each one. With no model provider set up and no
+outside agent run, it makes none, and the editor's CI checks that.</p>
+<p>The website's own practices, and how to reach us, are in the <a href="/privacy/">Privacy Policy</a>.</p>
+
+<h2 id="no-account-no-telemetry">No account, no telemetry</h2>
+<ul>
+<li>There is no account and no sign-in. Nothing asks for an email address.</li>
+<li>There is no telemetry, no crash reporting, no analytics and no update check. The log is
+  written to the app's own folder on disk and is never sent anywhere.</li>
+<li>Projects, settings, checkpoints and recent projects stay on disk. Settings are in
+  <code>settings.toml</code> in the app's config folder and <code>.quakec-studio/settings.toml</code> in a project;
+  checkpoints are git objects in the project.</li>
+</ul>
+
+<h2 id="every-network-request">Every network request</h2>
+<table>
+<thead>
+<tr><th>When</th><th>What is requested</th></tr>
+</thead>
+<tbody>
+<tr><td>The agent is asked something (a thread or an inline edit), once a provider is set up</td><td>The provider's API: <code>https://api.anthropic.com</code> for Anthropic, the OpenAI-compatible address you entered (<code>https://api.openai.com/v1</code> by default), or <code>http://localhost:11434/v1</code> for a local Ollama, which stays on your computer. Each request carries the task, the context of your project the agent was given or read, and the key.</td></tr>
+<tr><td>A project is made from a starter (New Project…, or <code>quakec-ide new</code>) without a local copy</td><td>The starter's files at their pinned commit from <code>https://raw.githubusercontent.com</code> (id-Software/Quake-Tools for id1, id-Software/quake-rerelease-qc for the rerelease), each checked against its pinned SHA-256. <code>quakec-ide new --from &lt;dir&gt;</code> reads a local copy instead and makes no request.</td></tr>
+</tbody>
+</table>
+<p>Nothing else in the app goes over the network:</p>
+<ul>
+<li>The game, the debugger and the scenarios run on your computer, talking to the IDE over a
+  local socket (a Unix socket, or a named pipe on Windows).</li>
+<li>The MCP server (<code>quakec-ide mcp</code>) and the language server (<code>quakec-lsp</code>) talk over stdin
+  and stdout, and <code>quakec-ide mcp --connect</code> over the app's own local socket.</li>
+<li>A model provider's key is kept in the system keychain, never in a file, and is sent only to
+  that provider.</li>
+<li>A help popup's <strong>Read more in the user guide</strong> opens that section of this guide in your
+  browser, and only when you click it; the app makes no request itself.</li>
+</ul>
+
+<h2 id="outside-agents">Outside agents</h2>
+<p>An outside agent the agent panel runs over ACP (<a href="agent.html#use-claude-code-or-another-agent">Use
+Claude Code or another agent</a>) is a program of its own, started on your computer, and makes
+whatever requests it makes. <strong>Use Claude Code</strong> runs Claude Code's ACP adapter with <code>npx</code>,
+which downloads it from the npm registry the first time, and Claude Code talks to Anthropic
+under your own sign-in. QuakeC Studio sends such an agent your task and gives it its tools; it
+sends nothing to anyone itself.</p>
+
+<h2 id="how-it-is-checked">How it is checked</h2>
+<p>The editor's CI runs each step in a network namespace with no network, under <code>strace</code>, and
+fails a step whose trace shows an internet address or a name lookup. With no provider set
+up, it runs:</p>
+<ul>
+<li>a control, <code>quakec-ide new id1</code> with no local copy, which must fail and must show its
+  request, proving the trace sees one;</li>
+<li>the command line: <code>new</code> from a local copy, <code>build</code>, <code>check</code>, <code>test</code>, and an MCP session;</li>
+<li>the desktop app: a session that opens a mod and every file in it, builds, checks, runs the
+  tests, searches, opens the command palette and asks for an agent thread, which does not
+  start.</li>
+</ul>
+<p>In the recorded run, every step but the control made no network call. The editor's
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/privacy.md">privacy notes</a> have the details.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="game-data.html">Previous: Your Quake game data</a> <a rel="next" href="whats-new.html">Next: What's new</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

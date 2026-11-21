@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html">The agent</a></li>
-        <li><a href="mcp.html">MCP</a></li>
-        <li><a href="map-editor.html">The map editor</a></li>
-        <li><a href="troubleshooting.html" aria-current="page">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html" aria-current="page">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="troubleshooting">Troubleshooting</h1>
@@ -40,13 +52,13 @@
 what the folder holds and lacks:</p>
 <ul>
 <li><strong>No Quake files were found.</strong> Press <strong>Choose folder</strong> and pick the folder that holds <code>id1</code>.
-  <a href="https://github.com/quakecstudio/editor/blob/main/docs/game-data.md">Your Quake game data</a> says where each store installs the game.</li>
+  <a href="game-data.html">Your Quake game data</a> says where each store installs the game.</li>
 <li><strong>Only the shareware episode is here.</strong> Play works on its maps; the rest of the game needs
   <code>id1/pak1.pak</code>, from the registered game.</li>
 <li><strong>Only the 2021 rerelease is here.</strong> A mod for the original game needs the original game's
   <code>id1</code> folder. Steam's install has both; Epic and Game Pass have only the rerelease.</li>
 </ul>
-<p>The folder you choose is kept in your settings (<code>game.folder</code>) and used the next time.</p>
+<p>The folder you choose is kept in your <a href="settings.html">settings</a> (<code>game.folder</code>) and used the next time.</p>
 <h2 id="the-project-opens-with-many-errors">The project opens with many errors</h2>
 <p>A mod written for FTEQCC opened in the vanilla dialect reports FTEQCC's syntax as errors. Add a
 <code>quakec.toml</code> that names the dialect, or open it from the command line with
@@ -67,6 +79,9 @@ Windows but not on Linux, so fix the name in <code>progs.src</code>.</p>
 <li><strong>No project open.</strong>: open a project first; the agent works on the open one.</li>
 <li>An error from the provider, such as a wrong key or a model name it does not have, is shown
   under the task box. <strong>Settings</strong> opens the provider form again.</li>
+<li>Claude Code does not start: <strong>Use Claude Code</strong> needs Node 22 or later, for <code>npx</code>, and the
+  <code>claude</code> command, signed in. Check that both work in a terminal. On macOS and Linux the app
+  looks for them on your login shell's <code>PATH</code>, even when it is started from the Dock or a menu.</li>
 </ul>
 <h2 id="where-the-log-is">Where the log is</h2>
 <p>The app writes a log, which stays on your computer:</p>
@@ -97,11 +112,12 @@ Windows but not on Linux, so fix the name in <code>progs.src</code>.</p>
 <h2 id="reporting-a-problem">Reporting a problem</h2>
 <p>File an issue at <a href="https://github.com/quakecstudio/editor/issues">https://github.com/quakecstudio/editor/issues</a> with what you did, what
 happened, and the log. Do not attach your game's files.</p>
-      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="map-editor.html">Previous: The map editor</a></nav>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="faq.html">Previous: FAQ</a> <a class="docs__back" href="index.html">Back to the guide</a></nav>
     </main>
   </div>
   <footer class="foot">
     <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
       <p class="legal">
         QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
         id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.

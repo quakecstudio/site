@@ -2,7 +2,8 @@
 """Checks the user guide under public/docs/.
 
 Every page has one h1 and a lang; every image has alt text; every local link and anchor
-resolves. With --help-links FILE (or a URL), every `page#anchor` line of that file, the
+resolves; every page's .docs__nav lists the same links in the same order, with
+aria-current="page" on its own link alone. With --help-links FILE (or a URL), every `page#anchor` line of that file, the
 app's list of its help links (apps/desktop/help-links.txt in quakecstudio/editor), must
 name a page and anchor that exist.
 """
@@ -26,6 +27,8 @@ class Page(HTMLParser):
         self.h1 = 0
         self.lang = None
         self.missing_alt = 0
+        self.in_nav = False
+        self.nav = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -41,6 +44,14 @@ class Page(HTMLParser):
             self.links.append(attrs.get("src", ""))
         if tag in ("a", "link") and "href" in attrs:
             self.links.append(attrs["href"])
+        if tag == "nav" and "docs__nav" in (attrs.get("class") or "").split():
+            self.in_nav = True
+        if tag == "a" and self.in_nav:
+            self.nav.append((attrs.get("href", ""), attrs.get("aria-current")))
+
+    def handle_endtag(self, tag):
+        if tag == "nav":
+            self.in_nav = False
 
 
 def parse(path):
@@ -63,6 +74,33 @@ def resolve(base, href):
     if target.is_dir() or parts.path.endswith("/"):
         target = target / "index.html"
     return target.resolve(), parts.fragment
+
+
+def check_navs(pages):
+    """Each page's nav must list index.html's links in its order, marking its own page."""
+    index = DOCS.resolve() / "index.html"
+    if index not in pages:
+        return ["docs/index.html: missing"]
+    expected = [href for href, _ in pages[index].nav]
+    if not expected:
+        return ["docs/index.html: no .docs__nav links"]
+    errors = []
+    for path, page in pages.items():
+        name = path.relative_to(ROOT)
+        hrefs = [href for href, _ in page.nav]
+        if hrefs != expected:
+            errors.append(
+                f"{name}: .docs__nav lists {hrefs}, not index.html's {expected}"
+            )
+        marked = [(href, mark) for href, mark in page.nav if mark is not None]
+        own = [
+            (href, "page") for href, _ in page.nav if resolve(path, href) == (path, "")
+        ]
+        if marked != own:
+            errors.append(
+                f"{name}: .docs__nav marks {marked} with aria-current, not {own}"
+            )
+    return errors
 
 
 def main():
@@ -91,6 +129,8 @@ def main():
                 ids = pages[target].ids if target in pages else parse(target).ids
                 if fragment not in ids:
                     errors.append(f"{name}: {href} names no anchor")
+
+    errors += check_navs(pages)
 
     if opts.help_links:
         if urlsplit(opts.help_links).scheme:

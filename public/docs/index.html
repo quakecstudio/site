@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html" aria-current="page">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html">The agent</a></li>
-        <li><a href="mcp.html">MCP</a></li>
-        <li><a href="map-editor.html">The map editor</a></li>
-        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html" aria-current="page">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="quakec-studio-user-guide">QuakeC Studio user guide</h1>
@@ -41,31 +53,39 @@ agent that can change your code and prove the change works. It runs on macOS, Wi
 Linux, offline, with no account.</p>
 <p>Read these in order the first time:</p>
 <ol>
+<li><a href="install.html">Install</a>: the app for macOS, Windows or Linux, and how to update and remove it.</li>
 <li><a href="getting-started.html">Getting started</a>: from nothing to your own mod running in Quake.</li>
 <li><a href="opening-a-mod.html">Opening a mod</a>: an existing mod, its <code>progs.src</code> and <code>quakec.toml</code>,
    and what the IDE shows of it.</li>
 <li><a href="play-loop.html">The play loop</a>: Play, edit, save, and see the change in the running game.</li>
 <li><a href="debugging.html">Debugging</a>: breakpoints, stepping, watches, and the entities of the running
    game.</li>
-<li><a href="agent.html">The agent</a>: asking the built-in agent to do a task, and reviewing what it did.</li>
+<li><a href="agent.html">The agent</a>: asking the built-in agent, or Claude Code, to do a task, and reviewing
+   what it did.</li>
 <li><a href="mcp.html">MCP</a>: giving the same tools to Claude Code or another agent.</li>
 <li><a href="map-editor.html">The map editor</a>: building a map, compiling it, finding a leak, and playing it
    from where you stand.</li>
-<li><a href="troubleshooting.html">Troubleshooting</a>: when something does not work.</li>
 </ol>
 <p>Reference pages:</p>
 <ul>
-<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/game-data.md">Your Quake game data</a>: where QuakeC Studio finds the game's files.</li>
-<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/settings.md">Settings</a>: every setting.</li>
-<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">Commands</a>: every command the palette, the CLI, the agent and MCP share.</li>
-<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/privacy.md">Privacy</a>: every network request the app can make.</li>
+<li><a href="keys.html">Keys</a>: the keys you will use most, Vim mode, and changing a key.</li>
+<li><a href="cli.html">Command line</a>: <code>quakec-ide</code> and the language server, <code>quakec-lsp</code>, for other editors.</li>
+<li><a href="settings.html">Settings</a>: every setting.</li>
+<li><a href="game-data.html">Your Quake game data</a>: where QuakeC Studio finds the game's files.</li>
+<li><a href="privacy.html">Privacy</a>: every network request the app can make.</li>
+<li><a href="whats-new.html">What's new</a>: what each release changed.</li>
+<li><a href="faq.html">FAQ</a>: Quake, cost, platforms, dialects, TrenchBroom and more.</li>
+<li><a href="troubleshooting.html">Troubleshooting</a>: when something does not work.</li>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">Commands</a>: every command the palette, the CLI, the agent and MCP share, on GitHub.</li>
+<li><a href="https://github.com/quakecstudio/editor/blob/main/docs/keymap.md">Keymap</a>: every default key, on GitHub.</li>
 </ul>
-<p>Keys are written for macOS. Off macOS, Cmd is Ctrl.</p>
-      <nav class="docs__pager" aria-label="Pages"><a rel="next" href="getting-started.html">Next: Getting started</a></nav>
+<p>Keys are written for macOS. Off macOS, <kbd>Cmd</kbd> is <kbd>Ctrl</kbd>.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="next" href="install.html">Next: Install</a></nav>
     </main>
   </div>
   <footer class="foot">
     <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
       <p class="legal">
         QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
         id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.

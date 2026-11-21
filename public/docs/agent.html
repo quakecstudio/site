@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html" aria-current="page">The agent</a></li>
-        <li><a href="mcp.html">MCP</a></li>
-        <li><a href="map-editor.html">The map editor</a></li>
-        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html" aria-current="page">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="the-agent">The agent</h1>
@@ -39,11 +51,13 @@
 does not call the task done until the project compiles clean and its tests pass. It uses the
 same commands you do, so you can watch what it does, and nothing it changes is written until
 you accept it.</p>
-<p>The agent runs on a model provider you choose. QuakeC Studio has no account and no model of
-its own, and it sends nothing anywhere until you set a provider up (<a href="https://github.com/quakecstudio/editor/blob/main/docs/privacy.md">Privacy</a>).</p>
+<p>The agent runs on a model provider you choose, or the panel runs Claude Code or another
+outside agent for you. QuakeC Studio has no account and no model of its own, and it sends
+nothing anywhere until you set one up (<a href="privacy.html">Privacy</a>).</p>
 <h2 id="set-up-a-provider">Set up a provider</h2>
-<p>Until a provider is set up, the Agent section says <strong>The agent is not set up yet.</strong> and shows
-its form:</p>
+<p>Until a provider or an outside agent is set up, the Agent section says <strong>The agent is not set
+up yet.</strong> It offers <strong>Use Claude Code</strong> (<a href="#use-claude-code-or-another-agent">below</a>),
+then, under <strong>Or use a model provider:</strong>, its form:</p>
 <ul>
 <li><strong>Anthropic</strong>, with an API key from the Anthropic Console;</li>
 <li><strong>OpenAI-compatible</strong>, for OpenAI or any service with the same API, with its <strong>Address
@@ -54,6 +68,22 @@ its form:</p>
 <p>Fill in the <strong>Model</strong> and the key, and press <strong>Save</strong>. The key is kept in the system keychain,
 never in a file; the rest goes to <code>agent.json</code> in the app's data directory. <strong>Settings</strong> opens
 the form again later.</p>
+<h2 id="use-claude-code-or-another-agent">Use Claude Code or another agent</h2>
+<p>The panel can run an outside agent over the Agent Client Protocol (ACP) in place of a model
+provider. If you use Claude Code, it needs no provider or key in the IDE at all.</p>
+<p>Press <strong>Use Claude Code</strong>. It needs Node 22 or later and the <code>claude</code> command, signed in.
+The IDE adds Claude Code to the <code>agent.external</code> setting (<a href="settings.html">Settings</a>) and
+runs its ACP adapter with <code>npx</code> at a version the IDE was checked against. To run another agent
+that speaks ACP, add it to <code>agent.external</code> with its <code>name</code>, <code>command</code> and <code>args</code>. With
+more than one agent set up, a list beside the threads chooses which one a new thread runs on.</p>
+<p>The IDE gives the agent its own tools, the same ones <a href="mcp.html">MCP</a> serves, connected to
+your open window, so its builds, tests and game are the window's. A thread shows what the agent
+says and its reasoning, each tool call and how it went, and the agent's own permission
+questions as buttons. <strong>Stop</strong> ends its turn; a second <strong>Stop</strong> ends an agent that does not
+answer.</p>
+<p class="warn">Claude Code writes your files itself rather than staging its edits, so they do not
+wait in Proposed changes. The IDE records a checkpoint before every outside agent's thread
+starts: <strong>Restore checkpoint</strong> puts the project back as it was.</p>
 <h2 id="give-it-a-task">Give it a task</h2>
 <p>Type the task in <strong>What should the agent do?</strong> and press <strong>Start</strong>. For example:</p>
 <blockquote>
@@ -64,13 +94,17 @@ between them. Before the agent changes anything, the IDE records a checkpoint of
 <p>The agent starts with a brief of your project: its <code>AGENTS.md</code> if it has one (write your notes
 for the agent there), each module's dialect and engine, the engine's builtins, the files, and
 whether the project compiles and its tests pass now.</p>
-<p>While it works, the thread shows what the model writes as it writes it, and each command it
-calls with whether it ran. When it says it is finished, the IDE compiles and runs the tests
-itself:</p>
+<p>While it works, the thread shows what the model writes as it writes it, drawn as Markdown,
+and each command it calls with whether it ran. When the built-in agent says it is finished,
+the IDE compiles and runs the tests itself:</p>
 <ul>
 <li><strong>Done</strong>: the compile is clean and every test passes. Its summary follows.</li>
 <li><strong>Not done</strong>: what still fails. The agent is told and goes on, until it runs out of turns.</li>
 </ul>
+<figure>
+<img alt="The agent panel mid-run: it read client.qc, staged a change of parm2 from 100 to 150, and is compiling and running the tests, with the staged change under Proposed changes" src="/assets/shots/showcase-agent-1440.jpg" srcset="/assets/shots/showcase-agent-1440.jpg 1440w, /assets/shots/showcase-agent-2880.jpg 2880w" sizes="(max-width: 48rem) 100vw, 46rem" width="1440" height="900" loading="lazy" />
+<figcaption>A run in progress: each tool call, the agent's notes, and its staged change under <strong>Proposed changes</strong>, waiting for you to accept or reject it.</figcaption>
+</figure>
 <h2 id="review-its-changes">Review its changes</h2>
 <p>The agent's edits are not written to your files. They are staged, and <strong>Proposed changes</strong>
 lists each change, hunk by hunk, with <strong>Accept</strong> and <strong>Reject</strong>, and <strong>Accept all</strong> and
@@ -88,7 +122,7 @@ the editor's text of it, unsaved: save as usual.</p>
 <p>A call that needs your permission waits in its thread, showing the tool, the paths it names and
 why it asks, with <strong>Allow once</strong>, <strong>Always allow</strong> and <strong>Deny</strong>. <strong>Always allow</strong> keeps a rule in
 the project's settings for exactly what the call named. The <code>agent.tool_permissions</code> setting
-(<a href="https://github.com/quakecstudio/editor/blob/main/docs/settings.md">Settings</a>) holds rules per tool: <code>allow</code>, <code>ask</code> and <code>deny</code> patterns over the
+(<a href="settings.html">Settings</a>) holds rules per tool: <code>allow</code>, <code>ask</code> and <code>deny</code> patterns over the
 paths a call names, <code>deny</code> winning over <code>ask</code> and <code>ask</code> over <code>allow</code>.</p>
 <h2 id="point-it-at-something">Point it at something</h2>
 <p>A task can name what the agent should look at, with an <code>@</code> mention. Each one is read when the
@@ -132,17 +166,24 @@ looks wrong. The thread holds its classname, its current think function and when
 and every field, as the game has them at that moment. The agent is told not to change code
 unless you ask.</p>
 <h2 id="inline-edit">Inline edit</h2>
-<p>Select some code in the editor and press Cmd+K. A box asks <strong>Change the selection to…</strong>: say
+<p>Select some code in the editor and press <kbd class="combo"><kbd>Cmd</kbd>+<kbd>K</kbd></kbd>. A box asks <strong>Change the selection to…</strong>: say
 what you want and press Enter. The model rewrites only the selection, and the answer is shown
 in place as a diff from the text before. <strong>Accept</strong> keeps it, and one undo still takes it back;
 <strong>Reject</strong> puts the text back. Inline edit uses the provider the agent panel has.</p>
+<h2 id="what-does-this-code-do">What does this code do?</h2>
+<p>Select some code, right-click it and choose <strong>What Does This Code Do?</strong>. A thread starts that
+asks the agent for a plain explanation of those lines, naming their file and lines, and tells
+it not to change anything.</p>
 <h2 id="the-command-line-and-other-agents">The command line and other agents</h2>
-<p>The same agent tools are served to Claude Code and other agents over MCP: see <a href="mcp.html">MCP</a>.</p>
+<p>The same agent tools are served to Claude Code and other agents over MCP: see <a href="mcp.html">MCP</a>.
+Among them, <code>project.reference</code> gives any agent the reference the built-in agent reads, on
+QuakeC, the engine, monsters, models, maps and tests.</p>
       <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="debugging.html">Previous: Debugging</a> <a rel="next" href="mcp.html">Next: MCP</a></nav>
     </main>
   </div>
   <footer class="foot">
     <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
       <p class="legal">
         QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
         id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.

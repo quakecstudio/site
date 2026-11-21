@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html" aria-current="page">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="settings">Settings</h1>
+<p>QuakeC Studio has a few settings, kept in plain TOML files. <kbd class="combo"><kbd>Cmd</kbd>+<kbd>,</kbd></kbd> opens yours in the
+editor.</p>
+
+<h2 id="where-settings-are-kept">Where settings are kept</h2>
+<ul>
+<li><strong>Yours</strong> are in <code>settings.toml</code> in the app's config folder: on macOS
+  <code>~/Library/Application Support/QuakeC Studio</code>, on Windows <code>%APPDATA%\QuakeC Studio</code>, on
+  Linux <code>~/.config/quakec-studio</code>.</li>
+<li><strong>A project's</strong> are in <code>.quakec-studio/settings.toml</code> in the project's folder, and win
+  over yours for that project.</li>
+</ul>
+<p>Each file sets only what it names, as a TOML table:</p>
+<pre><code class="language-toml">[appearance]
+theme = "light"
+
+[editor]
+key_mode = "vim"
+</code></pre>
+<p>The <code>settings.list</code>, <code>settings.get</code>, <code>settings.set</code> and <code>settings.reset</code> commands read
+and change them from the palette, the <a href="cli.html">command line</a> and the agent.</p>
+
+<h2 id="every-setting">Every setting</h2>
+<table>
+<thead>
+<tr><th>Key</th><th>Default</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>appearance.theme</code></td><td><code>"dark"</code></td><td>The colour theme: <code>dark</code> or <code>light</code>.</td></tr>
+<tr><td><code>log.filter</code></td><td><code>"info"</code></td><td>What the log records, as <code>RUST_LOG</code> directives such as <code>debug</code> or <code>info,qc_sema=debug</code>. <code>RUST_LOG</code> wins when it is set. See <a href="troubleshooting.html#where-the-log-is">Where the log is</a>.</td></tr>
+<tr><td><code>game.folder</code></td><td>none</td><td>The folder Play reads Quake from, as you chose it in the Quake files guide. When it is not set, the first install found is used, and a folder that no longer holds a game is passed over. See <a href="game-data.html">Your Quake game data</a>.</td></tr>
+<tr><td><code>agent.profile</code></td><td><code>"write"</code></td><td>What the agent may do: <code>ask</code> (only read), <code>write</code> (read and edit unasked, ask before anything else) or <code>full</code> (everything unasked). See <a href="agent.html#what-it-may-do">What it may do</a>.</td></tr>
+<tr><td><code>agent.tool_permissions</code></td><td><code>{}</code></td><td>Rules for the agent's tool calls, over the profile: a <code>default</code> of <code>allow</code>, <code>ask</code> or <code>deny</code>, and <code>tools.&lt;command id&gt;</code> with its own <code>default</code> and <code>allow</code>, <code>ask</code> and <code>deny</code> patterns, matched with <code>*</code> and <code>?</code> against the paths a call names. <code>deny</code> wins, then <code>ask</code>, then <code>allow</code>.</td></tr>
+<tr><td><code>agent.external</code></td><td><code>[]</code></td><td>The outside agents the agent panel can run over the Agent Client Protocol, each with a <code>name</code>, the <code>command</code> that starts it, and its <code>args</code> and <code>env</code>. The panel's <strong>Use Claude Code</strong> adds Claude Code. See <a href="agent.html#use-claude-code-or-another-agent">Use Claude Code or another agent</a>.</td></tr>
+<tr><td><code>editor.key_mode</code></td><td><code>"standard"</code></td><td>How the code editor reads keys: <code>standard</code>, or <code>vim</code> for Vim's modes, motions, operators, counts, registers and <code>.</code>. See <a href="keys.html#vim-mode">Vim mode</a>.</td></tr>
+</tbody>
+</table>
+
+<h2 id="examples">Examples</h2>
+<p>Ask before the agent changes <code>progs.src</code>, and never let it change anything under
+<code>maps/</code>, in a project's <code>.quakec-studio/settings.toml</code>:</p>
+<pre><code class="language-toml">[agent.tool_permissions.tools."edit.stage_change"]
+ask = ["progs.src"]
+deny = ["maps/*"]
+</code></pre>
+<p>Run an outside agent of your own over ACP:</p>
+<pre><code class="language-toml">[[agent.external]]
+name = "My agent"
+command = "my-agent"
+args = ["--acp"]
+</code></pre>
+<p>Other things are kept in files of their own: the agent's model provider in <code>agent.json</code> in
+the app's data folder (its key in the system keychain), your keys in
+<a href="keys.html#changing-a-key"><code>keymap.toml</code></a>, and a map's compile profiles in the
+project's <code>compile-profiles.toml</code>.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="cli.html">Previous: Command line</a> <a rel="next" href="game-data.html">Next: Your Quake game data</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

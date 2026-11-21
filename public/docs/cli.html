@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Command line - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html" aria-current="page">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="command-line">Command line</h1>
+<p>Two programs come with the app. <code>quakec-ide</code> builds, checks and tests a mod, serves the IDE's
+tools to other agents, and runs any command of the IDE by its id. <code>quakec-lsp</code> is a language
+server that gives other editors QuakeC Studio's understanding of QuakeC. <a href="install.html">Install</a>
+says where each package puts them.</p>
+
+<h2 id="quakec-ide">quakec-ide</h2>
+<pre><code class="language-text">quakec-ide new &lt;id1|rerelease&gt; &lt;folder&gt; [--from &lt;dir&gt;]
+quakec-ide build [&lt;project&gt;] [--dialect &lt;vanilla|fteqcc&gt;]
+quakec-ide check [&lt;project&gt;] [--dialect &lt;vanilla|fteqcc&gt;]
+quakec-ide test [&lt;project&gt;] [--dialect &lt;vanilla|fteqcc&gt;] [--filter &lt;text&gt;] [--game &lt;folder&gt;]
+quakec-ide mcp [&lt;project&gt;] [--dialect &lt;vanilla|fteqcc&gt;] [--read &lt;dir&gt;]... [--write &lt;dir&gt;]...
+               [--read-only] [--game &lt;folder&gt; | --connect [&lt;socket&gt;]]
+quakec-ide run &lt;command&gt; [&lt;json&gt;] [--project &lt;project&gt; [--dialect &lt;vanilla|fteqcc&gt;]]
+quakec-ide commands
+quakec-ide doctor [--check &lt;games|host|keychain&gt;]... [--game &lt;folder&gt;] [--require-game]
+</code></pre>
+<table>
+<thead>
+<tr><th>Subcommand</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>new</code></td><td>Makes a mod in a new or empty folder from a starter: <code>id1</code>, id's QuakeC 1.01, or <code>rerelease</code>, the 2021 rerelease's QuakeC. The files come from GitHub at a pinned version; <code>--from</code> reads a local copy instead.</td></tr>
+<tr><td><code>build</code></td><td>Compiles each module and writes its <code>progs.dat</code> under <code>build/</code>, printing each error and warning as <code>&lt;path&gt;:&lt;line&gt;:&lt;column&gt;: &lt;error|warning&gt; &lt;code&gt;: &lt;message&gt;</code></td></tr>
+<tr><td><code>check</code></td><td>Prints every error and warning the same way, and the counts, writing nothing</td></tr>
+<tr><td><code>test</code></td><td>Builds the mod and runs its <code>test_</code> functions and <code>tests/*.scenario</code> files, printing each as <code>passed</code>, <code>FAILED</code> or <code>skipped</code></td></tr>
+<tr><td><code>mcp</code></td><td>Serves the agent's tools over MCP on stdin and stdout (<a href="mcp.html">MCP</a>)</td></tr>
+<tr><td><code>run</code></td><td>Runs any command by its id with JSON parameters and prints its answer as JSON</td></tr>
+<tr><td><code>commands</code></td><td>Lists every command with its id, summary and parameters, as JSON</td></tr>
+<tr><td><code>doctor</code></td><td>Checks the install: which games it finds, whether the game engine starts, and whether the system keychain works; a line each, <code>ok</code> or <code>FAIL</code></td></tr>
+</tbody>
+</table>
+<p>The project is the current folder when none is named. It needs a <code>quakec.toml</code> or a
+<code>progs.src</code>. A project with no <code>quakec.toml</code> is read as vanilla QuakeC unless <code>--dialect fteqcc</code>
+says otherwise, so the rerelease's code builds with:</p>
+<pre><code class="language-bash">quakec-ide build path/to/rerelease --dialect fteqcc
+</code></pre>
+<p>The exit status is 0 when everything worked, 1 when the build or the check found errors or a
+test failed, and 2 for a wrong command line, a folder with no project, or a command that
+failed. That makes <code>quakec-ide test</code> a CI step as it is.</p>
+
+<h2 id="running-any-command">Running any command</h2>
+<p>Every command in the palette is a command with an id, and <code>run</code> runs it with the same
+parameters the palette, the agent and MCP give it. For example, to export a mod packed into a
+<code>pak0.pak</code>:</p>
+<pre><code class="language-bash">quakec-ide run project.export '{"pak": true}' --project path/to/your/mod
+</code></pre>
+<p><code>quakec-ide commands</code> lists each command's parameters, and the
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">commands reference</a> describes
+every one.</p>
+
+<h2 id="quakec-lsp">quakec-lsp</h2>
+<p><code>quakec-lsp</code> speaks the Language Server Protocol over stdin and stdout. Any editor with an
+LSP client gets diagnostics, go to definition, references, rename, hover, completion,
+semantic highlighting, parameter hints, quick fixes and formatting, from the same code as the
+IDE.</p>
+<p>A project's <code>quakec.toml</code> gives each module its dialect and engine. For a project without one,
+the client can say so in its initialization options:</p>
+<pre><code class="language-json">{ "dialect": "fteqcc", "target": "rerelease", "autoproto": false }
+</code></pre>
+
+<h3 id="neovim">Neovim</h3>
+<p>Neovim 0.11 or later, in <code>init.lua</code>:</p>
+<pre><code class="language-lua">vim.filetype.add({ extension = { qc = "quakec" } })
+vim.lsp.config("quakec", {
+  cmd = { "quakec-lsp" },
+  filetypes = { "quakec" },
+  root_markers = { "quakec.toml", "progs.src" },
+})
+vim.lsp.enable("quakec")
+</code></pre>
+
+<h3 id="vs-code-and-zed">VS Code and Zed</h3>
+<p>There is no QuakeC Studio extension for VS Code or Zed yet
+(<a href="https://github.com/quakecstudio/editor/issues/72">issue #72</a>). Until there is, a
+generic LSP client extension can start <code>quakec-lsp</code> for <code>.qc</code> files.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="keys.html">Previous: Keys</a> <a rel="next" href="settings.html">Next: Settings</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
