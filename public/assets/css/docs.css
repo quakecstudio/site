@@ -82,6 +82,7 @@
   font: .92em/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   background: var(--panel);
   padding: .05em .3em;
+  overflow-wrap: anywhere;
 }
 .docs__page pre {
   overflow-x: auto;
@@ -90,7 +91,7 @@
   background: var(--panel-lo);
   border: 1px solid var(--line);
 }
-.docs__page pre code { background: none; padding: 0; }
+.docs__page pre code { background: none; padding: 0; overflow-wrap: normal; }
 
 /* docs.js wraps each pre to give it a Copy button. */
 .docs__code { position: relative; margin-block: 1rem; }
