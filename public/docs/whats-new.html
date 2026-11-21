@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What's new - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html" aria-current="page">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="whats-new">What's new</h1>
+<p>The highlights of each release. The
+<a href="https://github.com/quakecstudio/editor/releases">release notes on GitHub</a> have every change
+and every package. To update, see <a href="install.html#updating">Updating</a>.</p>
+
+<h2 id="2026-11-2">2026.11.2</h2>
+<h3 id="2026-11-2-agents">Agents</h3>
+<ul>
+<li><strong>Use Claude Code.</strong> The agent panel can run Claude Code, or any agent that speaks
+  the Agent Client Protocol, in place of a model provider, with the IDE's tools connected to
+  it. See <a href="agent.html#use-claude-code-or-another-agent">Use Claude Code or another agent</a>.</li>
+<li><strong>What Does This Code Do?</strong> on a selection in the editor asks the agent for a plain
+  explanation.</li>
+<li>The agent's replies are drawn as Markdown: headings, lists, code, tables and links.</li>
+<li><code>project.reference</code> gives any agent, over MCP too, a reference on writing QuakeC: the
+  language, what the engine calls, how a monster is written, models, maps, and tests.</li>
+<li>An outside agent's map edits over MCP are made at once, as its file edits are; undo or
+  Restore checkpoint takes them back.</li>
+</ul>
+<h3 id="2026-11-2-maps">Maps</h3>
+<ul>
+<li><strong>New Random Map</strong> makes a playable level: rooms of seven shapes joined by passages,
+  stairs and doors, from a start to an exit, with lights, monsters, weapons and a key. See
+  <a href="map-editor.html#a-random-map">A random map</a>.</li>
+<li><code>map.build_room</code> and <code>map.build_passage</code> build one room of a shape from id's levels, or
+  the passage between two, with one command each.</li>
+<li><code>map.brushes</code> and <code>map.summary</code> list a map's brushes and sum a map up, and
+  <code>map.play_from_here</code> says which entities stand in the dark and can start the game
+  paused.</li>
+<li><code>map.issues</code> reports an entity placed past the 4096-unit edge the game can send.</li>
+</ul>
+<h3 id="2026-11-2-models">Models</h3>
+<ul>
+<li>The <code>model.*</code> commands read a <code>.mdl</code> and change it: copy one from the game, recolour,
+  export and set its skin, scale, move, and rename, remove or add frames.</li>
+<li><code>model.import</code> makes a <code>.mdl</code> from an <code>.obj</code>, <code>.iqe</code>, <code>.md5mesh</code>, <code>.smd</code> or <code>.fbx</code>
+  (text or binary). See <a href="map-editor.html#models">Models</a>.</li>
+<li>Play puts the project's own models, sounds and other assets where the game reads them.</li>
+</ul>
+<h3 id="2026-11-2-the-window">The window and the game</h3>
+<ul>
+<li>A Welcome page with no project open: find Quake's files, start a project, press Play.</li>
+<li><strong>New Project…</strong> asks which game the mod is for in one dialog, choosing the one your
+  install holds.</li>
+<li>The Quake files guide accepts a folder inside the install, such as <code>id1</code>.</li>
+<li>The status bar's error and warning counts open Problems, and the command line lists the
+  commands that match as you type.</li>
+<li>The game runs <code>quake.rc</code> before the first map, and takes the later engines' options
+  from its console: <code>r_lerplightstyles</code>, <code>gl_zfix</code>, <code>r_litwater</code> and <code>sv_protocol</code>.</li>
+</ul>
+<h3 id="2026-11-2-renamed-commands">Renamed commands</h3>
+<p>Twenty-three commands were renamed to say what they act on, with no old name kept. A
+<code>keymap.toml</code> or <code>agent.tool_permissions</code> rule that names an old id no longer matches. Among
+them:</p>
+<table>
+<thead>
+<tr><th>Was</th><th>Is</th></tr>
+</thead>
+<tbody>
+<tr><td><code>compile</code></td><td><code>project.compile</code></td></tr>
+<tr><td><code>edit.apply</code></td><td><code>edit.stage_change</code></td></tr>
+<tr><td><code>map.place</code>, <code>map.move</code>, <code>map.rotate</code></td><td><code>map.place_entity</code>, <code>map.move_entity</code>, <code>map.rotate_entity</code></td></tr>
+<tr><td><code>map.delete</code>, <code>map.duplicate</code>, <code>map.entity</code></td><td><code>map.delete_entity</code>, <code>map.duplicate_entity</code>, <code>map.read_entity</code></td></tr>
+<tr><td><code>map.inspect</code>, <code>map.textures</code></td><td><code>map.list_entities</code>, <code>map.list_textures</code></td></tr>
+<tr><td><code>map.leaks</code>, <code>map.fix</code>, <code>map.link</code></td><td><code>map.find_leaks</code>, <code>map.apply_fix</code>, <code>map.link_target</code></td></tr>
+<tr><td><code>map.staged</code>, <code>map.accept</code>, <code>map.reject</code></td><td><code>map.staged_hunks</code>, <code>map.accept_hunks</code>, <code>map.reject_hunks</code></td></tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/quakecstudio/editor/pull/1071">pull request</a> lists every one.</p>
+
+<h2 id="2026-11-1">2026.11.1</h2>
+<p>The first release, on 20 November 2026, for macOS (Apple silicon), Windows and Linux.</p>
+<ul>
+<li><strong>The editor:</strong> go to definition, references, rename, diagnostics, completion and
+  hover for vanilla QuakeC and FTEQCC; splits, folding, an outline, project search, quick
+  fixes, a formatter, git, a terminal, your own keys and Vim mode.</li>
+<li><strong>The compiler:</strong> its own, with no outside toolchain. It compiles id's QuakeC 1.01 to
+  the same bytes as id's <code>qcc</code>, and the rerelease's codebases to FTEQCC's statements.</li>
+<li><strong>The play loop:</strong> save, compile and see the change in the running game, with
+  breakpoints and the game's entities to inspect, in QuakeC Studio's own engine.</li>
+<li><strong>The agent:</strong> a panel with diff review, checkpoints and the same commands you use,
+  also over MCP and the command line.</li>
+<li><strong>The map editor:</strong> brushes, entities, textures, and its own BSP, vis and light
+  compilers, sharing the project and the play loop.</li>
+<li><strong>Export:</strong> a mod as a zip players can install, optionally in a PAK, never with
+  Quake's own data.</li>
+</ul>
+<p>Not supported yet: GMQCC, CSQC and MenuQC.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="privacy.html">Previous: Privacy</a> <a rel="next" href="faq.html">Next: FAQ</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

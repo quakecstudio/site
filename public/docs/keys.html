@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keys - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html" aria-current="page">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="keys">Keys</h1>
+<p>The keys you will use most, written for macOS. On Windows and Linux, Cmd is Ctrl, and
+Alt is the Option key on a Mac. The palette (<kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd>) shows each command's key
+beside its name, and the editor's
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/keymap.md">full keymap</a> lists every
+default key and where it comes from.</p>
+
+<h2 id="everywhere">Everywhere</h2>
+<table>
+<thead>
+<tr><th>Key</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd></td><td>The command palette: every command the IDE has, searched by name</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>P</kbd></kbd></td><td>Open a file of the project by name</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>;</kbd></kbd></td><td>The command line, which runs a command by its id and asks for each value it needs</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>1</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>2</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>3</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>4</kbd></kbd></td><td>Give the keyboard to the editor, the left, right or bottom panel</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></kbd></td><td>Search the project</td></tr>
+<tr><td><kbd class="combo"><kbd>Ctrl</kbd>+<kbd>Tab</kbd></kbd></td><td>Switch to another open file</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>\</kbd></kbd></td><td>Split the editor to the right</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>\</kbd></kbd></td><td>Split the editor down</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>\</kbd></kbd></td><td>Close the split</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></kbd></td><td>Show or hide the outline of the file</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>G</kbd></kbd></td><td>Run the game in the window's Game tab, or in its own window beside it, from the next Play</td></tr>
+<tr><td><kbd class="combo"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd></kbd></td><td>A new terminal</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd></kbd></td><td>Record a checkpoint of the project</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>,</kbd></kbd></td><td>Settings</td></tr>
+</tbody>
+</table>
+
+<h2 id="the-code-editor">The code editor</h2>
+<table>
+<thead>
+<tr><th>Key</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><kbd>F12</kbd></td><td>Go to the definition of the name under the caret</td></tr>
+<tr><td><kbd class="combo"><kbd>Shift</kbd>+<kbd>F12</kbd></kbd></td><td>List the references to it; a click opens one</td></tr>
+<tr><td><kbd>F2</kbd></td><td>Rename it everywhere</td></tr>
+<tr><td><kbd class="combo"><kbd>Ctrl</kbd>+<kbd>Space</kbd></kbd></td><td>Complete the name being typed</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>F</kbd></kbd></td><td>Find and replace in the file</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>S</kbd></kbd></td><td>Save</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>.</kbd></kbd></td><td>The quick fixes for the problem at the caret</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd></kbd></td><td>Format the file: indent with tabs, trim trailing spaces</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>K</kbd></kbd></td><td>Ask the agent to change the selection (<a href="agent.html#inline-edit">Inline edit</a>)</td></tr>
+<tr><td><kbd class="combo"><kbd>Ctrl</kbd>+<kbd>G</kbd></kbd></td><td>Go to a line</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd></kbd></td><td>Go to a symbol in the file</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>[</kbd></kbd> and <kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>]</kbd></kbd></td><td>Fold and unfold the block the caret is in; with Shift, every block</td></tr>
+<tr><td><kbd class="combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>W</kbd></kbd></td><td>Turn soft wrap on or off</td></tr>
+</tbody>
+</table>
+<p>Resting the pointer on a name shows its declaration.</p>
+
+<h2 id="building-and-playing">Building and playing</h2>
+<table>
+<thead>
+<tr><th>Key</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><kbd>F5</kbd></td><td>Play: build the mod and start the game</td></tr>
+<tr><td><kbd class="combo"><kbd>Shift</kbd>+<kbd>F5</kbd></kbd></td><td>Stop the game</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>F5</kbd></kbd></td><td>Start the running map again</td></tr>
+<tr><td><kbd>F6</kbd></td><td>Pause the game</td></tr>
+<tr><td><kbd>F8</kbd></td><td>Resume it</td></tr>
+<tr><td><kbd>F10</kbd></td><td>Run one server frame of a paused game</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></kbd></td><td>Reload the program in the running game</td></tr>
+<tr><td><kbd>F7</kbd></td><td>Build the project</td></tr>
+<tr><td><kbd class="combo"><kbd>Shift</kbd>+<kbd>F7</kbd></kbd></td><td>List every error and warning, as the Problems panel does</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>F7</kbd></kbd></td><td>Compile the project and say whether it is clean</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></kbd></td><td>Run the project's tests</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>E</kbd></kbd></td><td>Export the mod for players</td></tr>
+</tbody>
+</table>
+
+<h2 id="the-map-editor">The map editor</h2>
+<p>These follow TrenchBroom's default keys where TrenchBroom has the same action.</p>
+<table>
+<thead>
+<tr><th>Key</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>, <kbd>Q</kbd> <kbd>X</kbd></td><td>Fly the 3D view forward, left, back and right, up and down</td></tr>
+<tr><td><kbd>B</kbd>, <kbd>C</kbd>, <kbd>V</kbd>, <kbd>M</kbd>, <kbd>L</kbd>, <kbd>P</kbd>, <kbd>H</kbd></td><td>The brush, clip, vertex, move, measure, shape and hull tools</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>Make the brush drawn, or cut with the clip plane</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Drop the tool's work in hand, then the selection</td></tr>
+<tr><td>arrows, <kbd>Page Up</kbd>, <kbd>Page Down</kbd></td><td>Move the selection a grid step</td></tr>
+<tr><td><kbd class="combo"><kbd>Alt</kbd>+<kbd>Left</kbd></kbd>, <kbd class="combo"><kbd>Alt</kbd>+<kbd>Right</kbd></kbd></td><td>Turn the selection a quarter turn</td></tr>
+<tr><td><kbd>1</kbd> to <kbd>9</kbd></td><td>Set the grid from 1 to 256 units; <kbd>+</kbd> and <kbd>-</kbd> double and halve it</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>D</kbd></kbd></td><td>Duplicate the selection</td></tr>
+<tr><td><kbd>Delete</kbd></td><td>Delete the selection</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>U</kbd></kbd></td><td>Frame the selection in the 3D view</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>G</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd></kbd></td><td>Group and ungroup</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>I</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd></kbd>, <kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd></kbd></td><td>Isolate the selection, hide it, show everything</td></tr>
+<tr><td><kbd class="combo"><kbd>Alt</kbd>+<kbd>1</kbd></kbd> to <kbd class="combo"><kbd>Alt</kbd>+<kbd>7</kbd></kbd></td><td>Top, bottom, front, back, left, right and isometric views</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>B</kbd></kbd></td><td>Compile the map with the chosen profile</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd></kbd></td><td>Check the map for leaks</td></tr>
+<tr><td><kbd class="combo"><kbd>Cmd</kbd>+<kbd>S</kbd></kbd></td><td>Save the map</td></tr>
+</tbody>
+</table>
+<p>With faces picked, the arrows and Page Up and Page Down move and turn their textures
+instead: Shift for a coarse step, Cmd for a fine one.</p>
+
+<h2 id="vim-mode">Vim mode</h2>
+<p>To edit with Vim's keys, set <code>editor.key_mode</code> to <code>vim</code> (<a href="settings.html">Settings</a>),
+then start the app again. In <code>settings.toml</code>:</p>
+<pre><code class="language-toml">[editor]
+key_mode = "vim"
+</code></pre>
+<p>The editor starts in Normal mode, with Vim's insert and visual modes, motions, operators,
+counts, registers and <code>.</code>.</p>
+
+<h2 id="changing-a-key">Changing a key</h2>
+<p>Write <code>keymap.toml</code> in the app's config folder: on macOS
+<code>~/Library/Application Support/QuakeC Studio</code>, on Windows <code>%APPDATA%\QuakeC Studio</code>, on Linux
+<code>~/.config/quakec-studio</code>. Each binding names its keys and a command from the palette:</p>
+<pre><code class="language-toml">[[binding]]
+keys = "secondary-shift-b"
+command = "project.build"
+</code></pre>
+<p><code>secondary</code> is Cmd on macOS and Ctrl elsewhere; the other modifiers are <code>ctrl</code>, <code>alt</code>
+and <code>shift</code>. Your binding wins over a default that uses the same keys. The change takes
+effect at once, and a binding the app cannot read is reported while the rest still apply.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="map-editor.html">Previous: The map editor</a> <a rel="next" href="cli.html">Next: Command line</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

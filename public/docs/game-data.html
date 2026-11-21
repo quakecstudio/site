@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Quake game data - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html" aria-current="page">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="your-quake-game-data">Your Quake game data</h1>
+<p>QuakeC Studio does not include Quake's game files, and never copies them: you need your own
+copy of the game, and the IDE reads it where it is installed. This page says what it looks for,
+where the stores put the game on each system, and how to get it onto a Mac.</p>
+
+<h2 id="what-you-need">What you need</h2>
+<table>
+<thead>
+<tr><th>You have</th><th>Files</th><th>What you can do</th></tr>
+</thead>
+<tbody>
+<tr><td>The original game (1996), registered</td><td><code>id1/pak0.pak</code> and <code>id1/pak1.pak</code></td><td>Everything: mods for the original game and its mission packs (<code>hipnotic</code>, <code>rogue</code>)</td></tr>
+<tr><td>The shareware episode</td><td><code>id1/pak0.pak</code> only</td><td>Episode 1 only; the IDE reports <code>id1/pak1.pak</code> as missing</td></tr>
+<tr><td>The 2021 rerelease (Quake Enhanced)</td><td><code>rerelease/id1/pak0.pak</code>, <code>QuakeEX.kpf</code>, and <code>hipnotic</code>, <code>rogue</code>, <code>dopa</code>, <code>mg1</code></td><td>Mods for the rerelease; its <code>id1</code> has only its own <code>pak0.pak</code></td></tr>
+</tbody>
+</table>
+<p>Steam and GOG sell both the original game and the rerelease:</p>
+<ul>
+<li>Steam's install has the original game at the top and the rerelease in its <code>rerelease</code>
+  folder.</li>
+<li>GOG's Quake Enhanced has the rerelease at the top (<code>QuakeEX.kpf</code>, <code>id1</code>, <code>hipnotic</code>,
+  <code>rogue</code>, <code>dopa</code>, <code>mg1</code>, <code>mg3</code>, <code>ctf</code>) and the original DOS game in its <code>dos</code> folder.
+  The IDE reports both.</li>
+<li>The Epic Games Store and Xbox Game Pass sell only the rerelease, so the IDE reports the
+  original game's <code>id1/pak0.pak</code> and <code>id1/pak1.pak</code> as missing for those installs.</li>
+</ul>
+<p>Names are matched in any case: Steam's original install uses <code>Id1/PAK0.PAK</code>.</p>
+<p>The IDE checks each file against its published size and checksum. A file it does not
+recognise is still used if it is a valid PAK archive; the rerelease's files change with every
+update, so that is normal for the rerelease. A file that is not a valid archive is reported as
+damaged.</p>
+
+<h2 id="where-the-stores-put-it">Where the stores put it</h2>
+<p>QuakeC Studio looks in these places when it starts. If your copy is somewhere else, choose its
+folder: any folder whose <code>id1</code> holds <code>pak0.pak</code> is accepted, and so is a folder inside the
+install, such as <code>id1</code> itself.</p>
+<table>
+<thead>
+<tr><th>Store</th><th>Windows</th><th>Linux</th><th>macOS</th></tr>
+</thead>
+<tbody>
+<tr><td>Steam</td><td>Every Steam library, found from Steam's registry key and its <code>libraryfolders.vdf</code>; the game is in <code>steamapps/common/Quake</code></td><td>The same, from <code>~/.steam/steam</code>, <code>~/.local/share/Steam</code> or the Steam Flatpak's folder</td><td>Steam sells Quake for Windows only; see below. A download into <code>~/Library/Application Support/Steam</code> is found there</td></tr>
+<tr><td>GOG</td><td>The registry entries GOG's installers write, and GOG Galaxy's <code>C:\Program Files (x86)\GOG Galaxy\Games</code> and the installers' <code>C:\GOG Games</code></td><td>Installed through the Heroic launcher, from Heroic's own files (native or Flatpak)</td><td>GOG sells Quake for Windows only; see below</td></tr>
+<tr><td>Heroic on Windows</td><td><code>%APPDATA%\heroic\gog_store\installed.json</code></td><td></td><td></td></tr>
+<tr><td>Epic, Game Pass</td><td>Choose the game's folder; it is the rerelease</td><td></td><td></td></tr>
+</tbody>
+</table>
+<p>These are the places Ironwail and vkQuake read on Windows and Linux. QuakeC Studio has not yet
+been checked against every store on a real machine; if your install is not found, choose its
+folder.</p>
+
+<h2 id="getting-the-game-onto-a-mac">Getting the game onto a Mac</h2>
+<p>Both stores sell Quake for Windows only, but the game data is the same on every system. Two
+ways to get it, neither of which needs Windows:</p>
+<p><strong>GOG, with innoextract.</strong> Download the offline backup installer from your GOG library
+("Quake" for the original game, "Quake Enhanced" for the rerelease), not the GOG Galaxy
+installer. If it comes in several parts, keep them in one folder. Then:</p>
+<pre><code class="language-bash">brew install innoextract
+innoextract --output-dir ~/Games/quake-gog ~/Downloads/setup_quake_*.exe
+</code></pre>
+<p>innoextract writes the game into an <code>app</code> folder inside the output folder. Choose
+<code>~/Games/quake-gog</code> (or its <code>app</code> folder) in QuakeC Studio.</p>
+<p><strong>Steam, with steamcmd.</strong> steamcmd is Valve's command-line Steam client. Make an empty
+folder for the game, then:</p>
+<pre><code class="language-text">brew install steamcmd
+steamcmd
+Steam&gt; force_install_dir /Users/&lt;you&gt;/Games/quake-steam
+Steam&gt; login &lt;your Steam user name&gt;
+Steam&gt; @sSteamCmdForcePlatformType windows
+Steam&gt; app_update 2310 validate
+Steam&gt; quit
+</code></pre>
+<p><code>2310</code> is Quake's Steam app id; the download includes the rerelease in its <code>rerelease</code>
+folder. steamcmd needs an absolute path, not <code>~</code>. Choose the folder in QuakeC Studio; it
+recognises a steamcmd download.</p>
+
+<h2 id="what-quakec-studio-does-with-it">What QuakeC Studio does with it</h2>
+<p>Nothing is written into your install, and nothing is copied out of it. To run your mod, the
+IDE makes a run folder inside your project with a link to the install's <code>id1</code> and a link to
+your mod's build output, and starts the game there. The links are symbolic links on macOS and
+Linux and junctions on Windows; neither needs administrator rights.</p>
+<p>When you <a href="opening-a-mod.html#exporting-for-players">export a mod</a> for players, the IDE refuses any
+file that is a copy of one of the game's own, so a mod you share never carries id Software's
+data.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="settings.html">Previous: Settings</a> <a rel="next" href="privacy.html">Next: Privacy</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,5 +1,6 @@
 /* QuakeC Studio user guide pages: style.css's colours, with the body set for long reading.
-   Every text colour here meets WCAG AA (4.5:1) on --bg and --panel. */
+   Every text colour here meets WCAG AA (4.5:1) on --bg and --panel; --muted (4.47:1 on
+   --panel) is kept off --panel. */
 
 .docs .top__brand { text-decoration: none; }
 .docs__home {
@@ -15,13 +16,24 @@
   padding-block: 2rem 3rem;
 }
 
-.docs__nav ol {
+.docs__nav details {
   position: sticky;
   top: 1rem;
-  margin: 0;
-  padding: 1rem 1rem 1rem 2.25rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--line);
+}
+.docs__nav summary {
+  display: none;
+  padding: .6rem 1rem;
+  color: var(--gold);
+  font-weight: 700;
+  cursor: pointer;
+}
+.docs__nav ol {
+  margin: 0;
+  padding: 1rem 1rem 1rem 2.25rem;
 }
 .docs__nav li { margin-block: .35rem; }
 .docs__nav a { color: var(--text); }
@@ -42,6 +54,30 @@
 .docs__page h2 { font-size: 1.45rem; margin-top: 2.25rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
 .docs__page h3 { font-size: 1.15rem; margin-top: 1.75rem; }
 
+/* docs.js adds a "#" link to each h2, shown on hover and focus. */
+.docs__anchor {
+  margin-left: .4em;
+  color: var(--ember);
+  font-weight: 400;
+  opacity: 0;
+}
+.docs__page .docs__anchor { text-decoration: none; }
+.docs__page h2:hover .docs__anchor,
+.docs__anchor:focus { opacity: 1; }
+@media (hover: none) { .docs__anchor { opacity: 1; } }
+
+/* docs.js builds this "On this page" list on pages with four or more h2s. */
+.docs__toc {
+  margin-block: 1.5rem;
+  padding: .75rem 1rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.docs__toc p { margin: 0; color: var(--gold); font-weight: 700; }
+.docs__toc ol { margin: .4rem 0 0; padding-left: 1.5rem; }
+.docs__toc li { margin-block: .2rem; }
+.docs__page .docs__toc a { color: var(--text); }
+
 .docs__page code {
   font: .92em/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   background: var(--panel);
@@ -49,19 +85,75 @@
 }
 .docs__page pre {
   overflow-x: auto;
+  margin-block: 1rem;
   padding: 1rem;
   background: var(--panel-lo);
   border: 1px solid var(--line);
 }
 .docs__page pre code { background: none; padding: 0; }
 
+/* docs.js wraps each pre to give it a Copy button. */
+.docs__code { position: relative; margin-block: 1rem; }
+.docs__code pre { margin: 0; padding-right: 4.5rem; }
+.docs__copy {
+  position: absolute;
+  top: .4rem;
+  right: .4rem;
+  padding: .15rem .5rem;
+  font: 700 .8rem/1.4 var(--font-body);
+  color: var(--text);
+  background: var(--panel-hi);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+.docs__copy:hover,
+.docs__copy:focus-visible { color: var(--gold); }
+
+.docs__page kbd {
+  display: inline-block;
+  font: 700 .85em/1.3 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--gold);
+  padding: .05em .4em;
+  white-space: nowrap;
+  background: var(--panel);
+  border: 1px solid;
+  border-color: var(--panel-hi) var(--panel-lo) var(--panel-lo) var(--panel-hi);
+  border-bottom-width: 2px;
+}
+/* A key combination is a <kbd> of <kbd>s: only the keys inside are drawn as keys. */
+.docs__page kbd.combo {
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.docs__page figure { margin: 1.25rem 0; }
 .docs__page img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin-block: 1rem;
   border: 1px solid var(--line);
 }
+.docs__page figcaption {
+  margin-top: .4rem;
+  font-size: .9rem;
+  color: var(--text);
+}
+
+.docs__page .note,
+.docs__page .warn {
+  margin-block: 1rem;
+  padding: .6rem 1rem;
+  background: var(--panel);
+  border-left: 4px solid var(--gold);
+}
+.docs__page .warn { border-left-color: var(--ember); }
+.docs__page .note > :first-child,
+.docs__page .warn > :first-child { margin-top: 0; }
+.docs__page .note > :last-child,
+.docs__page .warn > :last-child { margin-bottom: 0; }
 
 .docs__page table {
   display: block;
@@ -77,6 +169,7 @@
   vertical-align: top;
 }
 .docs__page th { background: var(--panel); color: var(--gold); }
+.docs__page tbody tr:nth-child(even) { background: var(--bg-2); }
 
 .docs__pager {
   display: flex;
@@ -87,7 +180,8 @@
   padding-top: 1rem;
   border-top: 1px solid var(--line);
 }
-.docs__pager a[rel="next"] { margin-left: auto; }
+.docs__pager a[rel="next"],
+.docs__pager .docs__back { margin-left: auto; }
 
 /* Links are underlined, so colour is never the only sign of one. */
 .docs__page a,
@@ -95,5 +189,7 @@
 
 @media (max-width: 48rem) {
   .docs__layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-  .docs__nav ol { position: static; }
+  .docs__nav details { position: static; max-height: none; }
+  .docs__nav summary { display: list-item; }
+  .docs__nav details[open] summary { border-bottom: 1px solid var(--line); }
 }
