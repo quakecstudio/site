@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — QuakeC Studio</title>
+  <meta name="description" content="What quakecstudio.com and the QuakeC Studio app collect: no account, no cookies, no analytics and no telemetry.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="crt" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QC<span class="blink" aria-hidden="true">_</span></a>
+      <nav class="top__nav" aria-label="Site">
+        <a href="/download/">Download</a>
+        <a href="/docs/">User guide</a>
+        <a href="https://github.com/quakecstudio/editor">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap prose">
+    <h1 class="section-title">Privacy Policy</h1>
+    <p class="prose__date">Effective 21 November 2026</p>
+
+    <p>This policy covers the website at quakecstudio.com, the package repository at
+      packages.quakecstudio.com, and the QuakeC Studio app. All three are run by Smoke Turner, LLC
+      ("we"). In short, there's no account, no cookies, no analytics and no telemetry, and we
+      don't sell or share personal information.</p>
+
+    <h2 id="website">The website</h2>
+    <p>The site is a set of static pages served by Amazon Web Services (Amazon S3 and CloudFront).
+      To deliver a page, AWS necessarily handles your IP address and the request your browser
+      sends. We haven't turned on CloudFront's access logs, so we keep no record of who visited
+      or which pages they read.</p>
+    <p>The site sets no cookies, runs no analytics or advertising, and loads nothing from other
+      sites. Its fonts, scripts and images are all served from quakecstudio.com.</p>
+    <p><strong>The visitor counter.</strong> On your first visit, the page asks our server to add
+      one to a single running total, and your browser saves a flag named <code>qcs.counted</code> in
+      its local storage so it isn't counted again. The request carries no identifier, and all we
+      store is the total itself. The counter's server keeps error logs for 14 days. Clear your
+      browser's site data to remove the flag.</p>
+    <p><strong>Copy buttons</strong> in the user guide write to your clipboard when you press
+      them, and never read from it.</p>
+
+    <h2 id="downloads">Downloads and package managers</h2>
+    <p>Packages are downloaded from GitHub Releases, and the source, issues and discussions are on
+      GitHub. <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's
+      privacy statement</a> covers what GitHub collects. The APT and DNF repository at
+      packages.quakecstudio.com is served the same way as this site, also with no access logs.
+      Homebrew, winget and your Linux distribution's tools have their own privacy practices.
+      Homebrew, for example, collects anonymous analytics unless you turn them off.</p>
+
+    <h2 id="app">The app</h2>
+    <p>QuakeC Studio runs on your computer, offline, with no account and no telemetry. It doesn't
+      send us your code, your files or how you use it. It makes a network request only when you
+      ask for something that needs one:</p>
+    <ul>
+      <li><strong>The agent</strong> sends your requests, plus the code and project context it
+        needs, to the model provider you configure: Anthropic, an OpenAI-compatible endpoint, or a
+        local Ollama. That provider's own privacy policy and terms apply. Your API keys stay in your
+        operating system's keychain.</li>
+      <li><strong>Use Claude Code</strong> starts Claude Code through <code>npx</code>, which
+        downloads its adapter from the npm registry. Claude Code then works under your own Anthropic
+        account.</li>
+      <li><strong>New project</strong> downloads a starter's files from GitHub at a pinned
+        version.</li>
+    </ul>
+    <p>The user guide's <a href="/docs/privacy.html">Privacy page</a> lists every request the app
+      can make and the settings that control them.</p>
+
+    <h2 id="email">If you write to us</h2>
+    <p>If you email us or open an issue, we use what you send only to reply and to work on what
+      you raised. We keep emails only as long as they're needed for that. Anything you post in a
+      public GitHub issue or discussion is public.</p>
+
+    <h2 id="children">Children</h2>
+    <p>The site and the app aren't directed at children under 13, and we don't knowingly collect
+      their personal information.</p>
+
+    <h2 id="rights">Your choices and rights</h2>
+    <p>We hold almost no personal information: at most, an email you sent us. You can ask what we
+      hold about you, ask for a copy, or ask us to correct or delete it, by writing to the address
+      below. We won't treat you differently for asking.</p>
+
+    <h2 id="changes">Changes</h2>
+    <p>If this policy changes, we'll update it here with a new effective date. The site's history,
+      including every past version of this page, is public on
+      <a href="https://github.com/quakecstudio/site">GitHub</a>.</p>
+
+    <h2 id="contact">Contact</h2>
+    <p>Smoke Turner, LLC · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
+    <p>See also the <a href="/terms/">Terms of Service</a>.</p>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/" aria-current="page">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

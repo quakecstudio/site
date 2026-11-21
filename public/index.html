@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QuakeC Studio — Coming Soon</title>
-  <meta name="description" content="QuakeC Studio is a modern IDE for QuakeC, the scripting language of id Software's original Quake: live in-game preview, its own compiler, a built-in agent and a map editor. Coming soon.">
+  <title>QuakeC Studio — an IDE for QuakeC</title>
+  <meta name="description" content="QuakeC Studio is a free, open-source IDE for QuakeC, the scripting language of id Software's original Quake: save and see the change in the running game, a debugger that stops it, its own compiler, an agent that tests its work, and a map editor with its own qbsp, vis and light.">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#0b0907">
-  <meta property="og:title" content="QuakeC Studio — Coming Soon">
-  <meta property="og:description" content="A modern IDE for QuakeC, the scripting language of id Software's original Quake. Compiling...">
+  <meta property="og:title" content="QuakeC Studio — an IDE for QuakeC">
+  <meta property="og:description" content="Write QuakeC, save, and see it in the running game. Debugger, compiler, agent and map editor built in. Free and open source for macOS, Windows and Linux.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.quakecstudio.com/">
   <meta property="og:image" content="https://www.quakecstudio.com/og.jpg">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
-  <meta property="og:image:alt" content="QuakeC Studio logo: QC punched into a riveted iron plate">
+  <meta property="og:image:alt" content="QuakeC Studio playing a mod in its Game tab: a shotgun blast hits a grunt, whose health reads 6 in the Properties panel.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -40,331 +40,277 @@
   <header class="top">
     <div class="wrap top__bar">
       <button type="button" class="top__brand" id="console-toggle" aria-controls="console" aria-expanded="false" title="Toggle console">QC<span class="blink" aria-hidden="true">_</span></button>
-      <span class="top__hint"><a href="/docs/">User guide</a> · press <kbd>~</kbd> for console</span>
+      <nav class="top__nav" aria-label="Site">
+        <a href="/download/">Download</a>
+        <a href="/docs/">User guide</a>
+        <a href="https://github.com/quakecstudio/editor">GitHub</a>
+      </nav>
     </div>
   </header>
 
-  <main id="main" class="wrap">
-    <section class="hero">
+  <main id="main">
+    <section class="hero wrap">
       <p class="hero__kicker">// a new editor for an old language</p>
       <h1 class="logo" aria-label="QuakeC Studio">
         <span class="logo__line" data-text="QUAKEC">QUAKEC</span>
         <span class="logo__line logo__line--sub" data-text="STUDIO">STUDIO</span>
       </h1>
       <p class="hero__lede">
-        A modern IDE for <strong>QuakeC</strong>, the scripting language behind
-        id&nbsp;Software's original <em>Quake</em>. Write code, press Play and
-        watch it change in the running game, with a compiler, an agent and a map
-        editor built in.
+        An IDE for <strong>QuakeC</strong>, the scripting language behind
+        id&nbsp;Software's original <em>Quake</em>. Write code, save, and see it
+        change in the running game. The compiler, the debugger, an agent and a map
+        editor are built in.
       </p>
-      <div class="loader" role="group" aria-labelledby="loader-label">
-        <div class="loader__label" id="loader-label">
-          <span>compiling progs.dat</span>
-          <span id="loader-pct">0%</span>
-        </div>
-        <div class="loader__track"
-             role="progressbar" aria-label="Development progress"
-             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="loader-bar">
-          <div class="loader__fill" id="loader-fill"></div>
-        </div>
-        <p class="loader__status" id="loader-status">Coming soon. Stay frosty.</p>
-      </div>
+      <p class="hero__actions">
+        <a class="button button--primary" href="/download/">Download</a>
+        <a class="button" href="/docs/getting-started.html">Get started</a>
+      </p>
+      <p class="hero__meta">Version 2026.11.2 · free and open source (GPL-3.0) · macOS, Windows, Linux</p>
     </section>
 
-    <figure class="shot">
-      <div class="shot__stage" role="img" aria-label="Concept mockup of QuakeC Studio. The editor shows weapons.qc with an ember weapon, live entities on the left, the selected ember's fields and a finished agent task on the right, and the console below. The game runs in its own window docked to the right, with the ember outlined.">
-
-        <!-- the IDE window -->
-        <div class="app">
-          <div class="app__title">
-            <span class="lights"><i></i><i></i><i></i></span>
-            <b>ember_mod</b><span class="dim">main</span>
-          </div>
-
-          <div class="app__bar">
-            <span class="btn btn--play"><svg viewBox="0 0 16 16"><path d="M4.5 2.8v10.4L13 8z" fill="currentColor"/></svg>Playing</span>
-            <span class="btn"><svg viewBox="0 0 16 16"><rect x="3.5" y="3" width="3" height="10" rx=".8" fill="currentColor"/><rect x="9.5" y="3" width="3" height="10" rx=".8" fill="currentColor"/></svg>Pause</span>
-            <span class="btn btn--off"><svg viewBox="0 0 16 16"><path d="M3.5 3v10l6.5-5z" fill="currentColor"/><path d="M12.5 3v10" stroke="currentColor" stroke-width="1.5"/></svg>Step</span>
-            <span class="btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8a5 5 0 1 0 1.6-3.7"/><path d="M3.2 2v3h3"/></svg>Restart map</span>
-            <span class="sep"></span>
-            <span class="pick"><span class="dim">Engine</span>Preview host<span class="tag">docked right</span></span>
-            <span class="pick pick--map"><span class="dim">Map</span><code>start</code></span>
-            <span class="live"><i></i>Reloaded 0.9 s after save</span>
-            <span class="search">Search commands<kbd>⌘⇧P</kbd></span>
-          </div>
-
-          <div class="app__body">
-            <div class="dock dock--left">
-              <p class="dock__head">Project</p>
-              <ul class="tree">
-                <li class="tree__dir">ember_mod</li>
-                <li class="tree__dir tree__dir--2">src</li>
-                <li>defs.qc</li>
-                <li>combat.qc</li>
-                <li class="is-active">weapons.qc<span class="git">M</span></li>
-                <li>client.qc</li>
-                <li class="tree__file">progs.src</li>
-                <li class="tree__file">AGENTS.md</li>
-              </ul>
-              <p class="dock__head dock__head--rule">Entities<span>61 live</span></p>
-              <ul class="ents">
-                <li>worldspawn</li>
-                <li>player<span>#1</span></li>
-                <li class="is-active">ember<span>#212</span></li>
-                <li>info_player_start</li>
-                <li>light<span>12</span></li>
-                <li>item_cells<span>4</span></li>
-              </ul>
-            </div>
-
-            <div class="code">
-              <p class="code__tabs"><span class="is-active">weapons.qc</span><span>items.qc</span><span>AGENTS.md</span></p>
-              <div class="code__lines">
-                <div><i>38</i><span class="t">void</span>() <span class="f">W_FireEmber</span> =</div>
-                <div><i>39</i>{</div>
-                <div><i>40</i>    <span class="k">local</span> <span class="t">entity</span> ember;</div>
-                <div><i>41</i></div>
-                <div><i>42</i>    self.currentammo = self.ammo_cells = self.ammo_cells - <span class="n">1</span>;</div>
-                <div><i>43</i>    <span class="b">sound</span> (self, <span class="n">CHAN_WEAPON</span>, <span class="s">"weapons/ember.wav"</span>, <span class="n">1</span>, <span class="n">ATTN_NORM</span>);</div>
-                <div><i>44</i></div>
-                <div><i>45</i>    ember = <span class="b">spawn</span> ();</div>
-                <div><i>46</i>    ember.owner = self;</div>
-                <div><i>47</i>    ember.classname = <span class="s">"ember"</span>;</div>
-                <div><i>48</i>    ember.movetype = <span class="n">MOVETYPE_BOUNCE</span>;</div>
-                <div><i>49</i>    ember.solid = <span class="n">SOLID_BBOX</span>;</div>
-                <div class="is-cur"><i>50</i>    ember.bounces = <span class="n">2</span>;<span class="caret"></span></div>
-                <div><i>51</i>    ember.effects = <span class="n">EF_DIMLIGHT</span>;</div>
-                <div><i>52</i>    ember.touch = <span class="f">Ember_Touch</span>;</div>
-                <div><i>53</i>    ember.think = <span class="f">Ember_Explode</span>;</div>
-                <div><i>54</i>    ember.nextthink = time + <span class="n">4</span>;</div>
-                <div class="is-ghost"><i>55</i>    ember.avelocity = '300 300 0';<span class="hint">Tab to accept</span></div>
-                <div><i>56</i></div>
-                <div><i>57</i>    <span class="b">makevectors</span> (self.v_angle);</div>
-                <div><i>58</i>    ember.velocity = v_forward * <span class="n">600</span> + v_up * <span class="n">120</span>;</div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <p class="panel__tabs"><span>Problems <b>0</b></span><span class="is-active">Console</span><span>Debugger</span></p>
-              <div class="panel__log">
-                <div><i>19:42:07</i> saved src/weapons.qc</div>
-                <div class="ok"><i>19:42:07</i> compiled progs.dat in 184 ms: 0 errors, 0 warnings</div>
-                <div><i>19:42:08</i> hot reload: 2 functions replaced, 61 entities kept</div>
-                <div><i>19:42:11</i> ember #212 bounced off world (bounces left: 1)</div>
-              </div>
-            </div>
-
-            <div class="dock dock--right">
-              <div class="dock__part">
-              <p class="dock__head">Properties<code>ember #212</code></p>
-              <p class="note">Read only while playing. Pause to edit.</p>
-              <dl class="props">
-                <dt>classname</dt><dd class="s">"ember"</dd>
-                <dt>origin</dt><dd class="v">'412 -96 88'</dd>
-                <dt>velocity</dt><dd class="v">'336 -12 74'</dd>
-                <dt>movetype</dt><dd class="n">MOVETYPE_BOUNCE</dd>
-                <dt>bounces</dt><dd class="n">1</dd>
-                <dt>touch</dt><dd class="f">Ember_Touch</dd>
-              </dl>
-              <p class="ask">Ask about this entity</p>
-              </div>
-              <div class="dock__part dock__part--agent">
-              <p class="dock__head dock__head--rule">Agent<span>Anthropic</span></p>
-              <div class="agent">
-                <p class="agent__you">Make embers bounce twice and lose speed on each bounce.</p>
-                <ul class="agent__steps">
-                  <li><code>edit.apply</code> weapons.qc +9 −2, accepted</li>
-                  <li><code>compile</code> clean, 184 ms</li>
-                  <li><code>scenario.run</code> ember_bounces_twice, passed</li>
-                </ul>
-                <p class="agent__done">Done. Embers bounce twice, keep 70% of their speed each time, then explode.</p>
-                <p class="agent__input">Ask, @ to mention, / for commands</p>
-              </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="app__status">
-            <span>0 errors, 0 warnings</span><span>Preview host running, 12.8 s</span><span class="push">Ln 50, Col 22</span><span>QuakeC (FTEQCC)</span>
-          </div>
-        </div>
-
-        <!-- the engine, in its own window docked beside the IDE -->
-        <div class="eng">
-          <div class="eng__title"><span class="lights"><i></i><i></i><i></i></span><span>Preview host · start</span></div>
-          <div class="eng__game">
-            <svg viewBox="0 0 320 240" aria-hidden="true">
-            <defs>
-            <radialGradient id="g-ember" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff3c0"/><stop offset=".25" stop-color="#ffb347"/><stop offset=".6" stop-color="#ff6a00" stop-opacity=".45"/><stop offset="1" stop-color="#ff6a00" stop-opacity="0"/></radialGradient>
-            <radialGradient id="g-door" cx="50%" cy="100%" r="80%"><stop offset="0" stop-color="#8fd14f" stop-opacity=".55"/><stop offset="1" stop-color="#8fd14f" stop-opacity="0"/></radialGradient>
-            <radialGradient id="g-pool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff8a1f" stop-opacity=".35"/><stop offset="1" stop-color="#ff8a1f" stop-opacity="0"/></radialGradient>
-            <linearGradient id="g-fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
-            </defs>
-            <polygon points="0,0 320,0 208,82 112,82" fill="#21170f"/>
-            <polygon points="0,240 320,240 208,148 112,148" fill="#2c2117"/>
-            <polygon points="0,0 112,82 112,148 0,240" fill="#4a3424"/>
-            <polygon points="320,0 208,82 208,148 320,240" fill="#38281b"/>
-            <rect x="112" y="82" width="96" height="66" fill="#5a4030"/>
-            <line x1="0" y1="26.7" x2="112" y2="89.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="26.7" x2="208" y2="89.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="53.3" x2="112" y2="96.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="53.3" x2="208" y2="96.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="80" x2="112" y2="104" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="80" x2="208" y2="104" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="106.7" x2="112" y2="111.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="106.7" x2="208" y2="111.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="133.3" x2="112" y2="118.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="133.3" x2="208" y2="118.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="160" x2="112" y2="126" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="160" x2="208" y2="126" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="186.7" x2="112" y2="133.3" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="186.7" x2="208" y2="133.3" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="0" y1="213.3" x2="112" y2="140.7" stroke="#2a1d13" stroke-width="1" opacity="0.8"/>
-            <line x1="320" y1="213.3" x2="208" y2="140.7" stroke="#22180f" stroke-width="1" opacity="0.8"/>
-            <line x1="35.8" y1="26.2" x2="35.8" y2="210.6" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
-            <line x1="284.2" y1="26.2" x2="284.2" y2="210.6" stroke="#22180f" stroke-width="1" opacity="0.9"/>
-            <line x1="61.6" y1="45.1" x2="61.6" y2="189.4" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
-            <line x1="258.4" y1="45.1" x2="258.4" y2="189.4" stroke="#22180f" stroke-width="1" opacity="0.9"/>
-            <line x1="80.6" y1="59" x2="80.6" y2="173.8" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
-            <line x1="239.4" y1="59" x2="239.4" y2="173.8" stroke="#22180f" stroke-width="1" opacity="0.9"/>
-            <line x1="94.1" y1="68.9" x2="94.1" y2="162.7" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
-            <line x1="225.9" y1="68.9" x2="225.9" y2="162.7" stroke="#22180f" stroke-width="1" opacity="0.9"/>
-            <line x1="104.2" y1="76.3" x2="104.2" y2="154.4" stroke="#2a1d13" stroke-width="1" opacity="0.9"/>
-            <line x1="215.8" y1="76.3" x2="215.8" y2="154.4" stroke="#22180f" stroke-width="1" opacity="0.9"/>
-            <line x1="0" y1="240" x2="112" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="40" y1="240" x2="124" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="80" y1="240" x2="136" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="120" y1="240" x2="148" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="160" y1="240" x2="160" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="200" y1="240" x2="172" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="240" y1="240" x2="184" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="280" y1="240" x2="196" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="320" y1="240" x2="208" y2="148" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="35.8" y1="210.6" x2="284.2" y2="210.6" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="61.6" y1="189.4" x2="258.4" y2="189.4" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="80.6" y1="173.8" x2="239.4" y2="173.8" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="94.1" y1="162.7" x2="225.9" y2="162.7" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <line x1="104.2" y1="154.4" x2="215.8" y2="154.4" stroke="#1d150e" stroke-width="1" opacity="0.9"/>
-            <polygon points="35.8,26.2 284.2,26.2 278.6,30.3 41.4,30.3" fill="#2f2116"/>
-            <polygon points="80.6,59 239.4,59 233.8,63.1 86.2,63.1" fill="#2f2116"/>
-            <polygon points="104.2,76.3 215.8,76.3 210.2,80.4 109.8,80.4" fill="#2f2116"/>
-            <line x1="112" y1="90" x2="208" y2="90" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="98" x2="208" y2="98" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="106" x2="208" y2="106" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="114" x2="208" y2="114" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="122" x2="208" y2="122" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="130" x2="208" y2="130" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="138" x2="208" y2="138" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <line x1="112" y1="146" x2="208" y2="146" stroke="#3e2b1f" stroke-width="1" opacity="1"/>
-            <g transform="translate(0 30)">
-            <rect x="146" y="74" width="28" height="44" fill="#0c0806"/>
-            <rect x="140" y="62" width="40" height="80" fill="url(#g-door)"/>
-            <rect x="146" y="70" width="28" height="4" fill="#7a5638"/>
-            <rect x="152" y="114" width="16" height="4" fill="#8fd14f" opacity=".5"/>
-            <rect x="54" y="66" width="6" height="12" fill="#e3b65a"/><rect x="52" y="64" width="10" height="2" fill="#7a5638"/>
-            <circle cx="57" cy="72" r="18" fill="url(#g-pool)"/>
-            </g>
-            <rect width="320" height="240" fill="url(#g-fog)"/>
-            <g transform="translate(0 30)">
-            <rect x="177" y="103" width="2" height="2" fill="#ff8a1f" opacity="0.2"/>
-            <rect x="182.8" y="99.8" width="2.5" height="2.5" fill="#ff8a1f" opacity="0.4"/>
-            <rect x="188.5" y="96.5" width="3" height="3" fill="#ff8a1f" opacity="0.6"/>
-            <rect x="194.2" y="93.2" width="3.5" height="3.5" fill="#ff8a1f" opacity="0.7"/>
-            <circle cx="204" cy="91" r="16" fill="url(#g-ember)"/>
-            <rect x="201" y="88" width="6" height="6" fill="#fff3c0"/>
-            <rect x="193.5" y="80.5" width="21" height="21" fill="none" stroke="#EE8B45" stroke-width="1"/>
-            <path d="M160 86v3M160 91v3M156 90h3M161 90h3" stroke="#f3e6c8" stroke-width="1" opacity=".8"/>
-            </g>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <figcaption class="shot__caption"><span class="badge">concept</span> A mockup of the design, not a screenshot. In v1 the game runs in its own window, docked beside the editor.</figcaption>
+    <figure class="wrap hero__media clip">
+      <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+             poster="/assets/clips/combat.jpg"
+             aria-label="The game in QuakeC Studio's Game tab: the player shoots a grunt and its health falls in Properties. The game is paused, weapons.qc opens at FireBullets, the damage per pellet is raised from 4 to 40 and saved, the game resumes where it was paused, and the next shot gibs the grunt.">
+        <source src="/assets/clips/combat.webm" type="video/webm">
+        <source src="/assets/clips/combat.mp4" type="video/mp4">
+      </video>
+      <figcaption>Shoot a grunt, pause, raise the weapon's damage and save. The game picks up
+        where it was, and the next shot uses the new code.</figcaption>
     </figure>
 
-    <section class="showcase" aria-labelledby="showcase-title">
-      <h2 id="showcase-title" class="section-title">In the editor today</h2>
-      <p class="showcase__lede">Screenshots of QuakeC Studio itself, rendered from LibreQuake's
-        <code>lq_e1m1</code> and its QuakeC. Nothing here is a mockup.</p>
+    <section class="wrap features" aria-labelledby="features-title">
+      <h2 id="features-title" class="section-title">What it does</h2>
+
+      <article class="feature">
+        <div class="feature__text">
+          <h3>Save and see it in the game</h3>
+          <p>Press Play and the mod runs in QuakeC Studio's own engine, in the Game tab or its own
+            window. Each save compiles the project and reloads its code into the map that's already
+            running. Fields and globals carry over, and if something would be reset the IDE
+            tells you which and offers a map restart.</p>
+          <p class="feature__fact"><b>81 ms</b> from save to game (95th percentile, on the reference Mac).</p>
+          <p>Pause and click any entity to read or edit its fields while the game waits.</p>
+          <p><a href="/docs/play-loop.html">The play loop</a></p>
+        </div>
+        <figure class="feature__media clip">
+          <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+                 poster="/assets/clips/reload.jpg"
+                 aria-label="LibreQuake's start map running in the IDE's Game tab. client.qc is opened, a lightstyle line that makes the lights flicker is typed and saved, and the running level starts flickering without the map restarting.">
+            <source src="/assets/clips/reload.webm" type="video/webm">
+            <source src="/assets/clips/reload.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <h3>A debugger that stops the game</h3>
+          <p>Set a breakpoint in a monster's AI and the running map stops on that line. Step in,
+            over and out, by statement or by frame, with the call stack, watches and an evaluator
+            in the IDE.</p>
+          <p><a href="/docs/debugging.html">Debugging</a></p>
+        </div>
+        <figure class="feature__media clip">
+          <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+                 poster="/assets/clips/debugger.jpg"
+                 aria-label="The game runs in the Game tab. A breakpoint is set in ai_stand in ai.qc, the game stops on it, the Debugger shows the call stack and a grunt's health and classname, and two steps over follow the code into grunt.qc.">
+            <source src="/assets/clips/debugger.webm" type="video/webm">
+            <source src="/assets/clips/debugger.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </article>
+
+      <article class="feature">
+        <div class="feature__text">
+          <h3>An agent that proves its work</h3>
+          <p>Ask for a change and the agent uses the same commands you do. It edits, compiles and
+            runs the project's tests and scenarios in the game, and a run only finishes once the
+            build is clean and every test passes. You accept or reject each hunk it hands back,
+            and every run leaves a checkpoint you can roll back to.</p>
+          <p>Works with Anthropic, any OpenAI-compatible endpoint, a local Ollama, or Claude Code.
+            Keys stay in your system keychain. The same tools are available to any agent over MCP.</p>
+          <p><a href="/docs/agent.html">The agent</a> · <a href="/docs/mcp.html">MCP</a></p>
+        </div>
+        <figure class="feature__media clip">
+          <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+                 poster="/assets/clips/agent.jpg"
+                 aria-label="The agent panel works through a task to raise the player's starting health: it reads client.qc, stages a one-line change, compiles, runs the tests including a scenario that passes, and the change is accepted.">
+            <source src="/assets/clips/agent.webm" type="video/webm">
+            <source src="/assets/clips/agent.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__text">
+          <h3>A map editor with its own compilers</h3>
+          <p>Brushes, entities and textures share the project with your code, and the entity
+            list comes from your own QuakeC. Compile with QuakeC Studio's own qbsp, vis and light,
+            which include ericw-tools' sunlight, bounce and coloured light, and the 3D view shows
+            the map lit the way the game draws it. Then press Play from here and you start
+            where the camera is.</p>
+          <p>Uses TrenchBroom's keys, groups and layers. Reads standard and Valve 220
+            <code>.map</code> files.</p>
+          <p><a href="/docs/map-editor.html">The map editor</a></p>
+        </div>
+        <figure class="feature__media clip">
+          <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+                 poster="/assets/clips/map-lit.jpg"
+                 aria-label="A LibreQuake room in the map editor, first textured, then lit by its compiled lightmaps, as the camera slowly circles it.">
+            <source src="/assets/clips/map-lit.webm" type="video/webm">
+            <source src="/assets/clips/map-lit.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </article>
+
+      <article class="feature">
+        <div class="feature__text">
+          <h3>A compiler that knows QuakeC</h3>
+          <p>It ships its own compiler, so there's nothing else to install. It builds id's 1.01
+            QuakeC to the same bytes as id's <code>qcc</code>, and the rerelease's code to
+            FTEQCC's statements. Errors appear as you type. Go to definition, references,
+            rename, hover docs for builtins, inlay hints, quick fixes and a formatter work across
+            your whole <code>progs.src</code>, for the vanilla and FTEQCC dialects.</p>
+          <p><a href="/docs/opening-a-mod.html">Opening a mod</a></p>
+        </div>
+        <picture class="feature__media">
+          <img src="/assets/shots/showcase-code-1440.jpg"
+               srcset="/assets/shots/showcase-code-1440.jpg 1440w, /assets/shots/showcase-code-2880.jpg 2880w"
+               sizes="(max-width: 56rem) 100vw, 36rem" width="1440" height="900" loading="lazy"
+               alt="The code editor showing W_FireRocket in LibreQuake's weapons.qc, coloured by what each name is, with parameter names shown inline and compiler warnings listed in Problems.">
+        </picture>
+      </article>
+    </section>
+
+    <section class="wrap showcase" aria-labelledby="showcase-title">
+      <h2 id="showcase-title" class="section-title">Screenshots</h2>
       <div class="showcase__grid">
         <figure class="showcase__shot showcase__shot--wide">
-          <img src="/assets/shots/showcase-lit-wide.jpg" width="1440" height="900" loading="lazy"
+          <img src="/assets/shots/showcase-lit-wide-1440.jpg"
+               srcset="/assets/shots/showcase-lit-wide-1440.jpg 1440w, /assets/shots/showcase-lit-wide-2880.jpg 2880w"
+               sizes="(max-width: 68rem) 100vw, 66rem" width="1440" height="900" loading="lazy"
                alt="The map editor's 3D view of a room in lq_e1m1 lit by its compiled lightmaps: blue ceiling lights over yellow slime and a raised lava pool, riveted walls and a bank of glowing consoles.">
-          <figcaption><strong>Lit as the game lights it.</strong> Compile with QuakeC Studio's own
-            qbsp, vis and light, and the 3D view shows the map with its lightmaps and coloured light,
-            as QuakeSpasm draws them, while you keep editing.</figcaption>
+          <figcaption><strong>Lit the way the game lights it.</strong> The map with its lightmaps and coloured
+            light, drawn the way QuakeSpasm draws them, while you keep editing.</figcaption>
         </figure>
         <figure class="showcase__shot">
-          <img src="/assets/shots/showcase-light-reach.jpg" width="1440" height="900" loading="lazy"
+          <img src="/assets/shots/showcase-light-reach-1440.jpg"
+               srcset="/assets/shots/showcase-light-reach-1440.jpg 1440w, /assets/shots/showcase-light-reach-2880.jpg 2880w"
+               sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
                alt="The same room with a green light selected over the slime: a green sphere shows how far it reaches, and the Properties panel lists its keys, light 200 and _color 143 240 164 with a colour swatch.">
-          <figcaption><strong>See a light's reach.</strong> Select a light and a sphere in its own
-            colour shows how far it lights, beside its keys and a swatch of its colour.</figcaption>
+          <figcaption><strong>See how far a light reaches.</strong> Select a light and a sphere in its colour
+            shows its range, next to its keys and a swatch.</figcaption>
         </figure>
         <figure class="showcase__shot">
-          <img src="/assets/shots/showcase-textured.jpg" width="1440" height="900" loading="lazy"
-               alt="The same room drawn textured, before any compile: each brush face with its LibreQuake texture, the slime, the lava pool, riveted walls and the consoles, shaded by the way each face points.">
-          <figcaption><strong>Textured as you build.</strong> Every brush face with its WAD texture
-            and alignment, shaded by the way it faces, updated with each edit.</figcaption>
+          <img src="/assets/shots/showcase-generated-1440.jpg"
+               srcset="/assets/shots/showcase-generated-1440.jpg 1440w, /assets/shots/showcase-generated-2880.jpg 2880w"
+               sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
+               alt="A level made by Generate map, compiled and lit: a dim stone passage leads out of the first room toward a bright second room with a stair.">
+          <figcaption><strong>A level from one button.</strong> Generate map lays out rooms and
+            passages for you to start from, and you can build more rooms by hand.</figcaption>
         </figure>
         <figure class="showcase__shot">
-          <img src="/assets/shots/showcase-debugger.jpg" width="1440" height="900" loading="lazy"
-               alt="The IDE stopped at a breakpoint on line 426 of ai.qc in ai_stand: the call stack shows enf_stand2 in enforcer.qc calling ai_stand, and the watches read self.classname monster_enforcer and self.health 80.">
-          <figcaption><strong>Stop the game in your QuakeC.</strong> A breakpoint in a monster's AI
-            pauses the running map; the call stack, watches and stepping are in the IDE, on the
-            line that stopped it.</figcaption>
+          <img src="/assets/shots/showcase-game-tab-1440.jpg"
+               srcset="/assets/shots/showcase-game-tab-1440.jpg 1440w, /assets/shots/showcase-game-tab-2880.jpg 2880w"
+               sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
+               alt="The IDE playing LibreQuake's start map in its Game tab, with the project's QuakeC files on the left and the game's console below.">
+          <figcaption><strong>The game in the IDE.</strong> Play runs the mod in the Game tab, next to
+            its code, or in a window of its own.</figcaption>
         </figure>
         <figure class="showcase__shot">
-          <img src="/assets/shots/showcase-game.jpg" width="1440" height="900" loading="lazy"
-               alt="The game frame at that moment, drawn by QuakeC Studio's preview host: a lit LibreQuake room with riveted walls, the shotgun and the status bar showing 100 health and 25 shells.">
-          <figcaption><strong>Its own game engine.</strong> The game frame at the same moment, drawn by
-            QuakeC Studio's preview host on its own QuakeC VM, simulation and renderer.</figcaption>
-        </figure>
-        <figure class="showcase__shot showcase__shot--wide">
-          <img src="/assets/shots/showcase-code.jpg" width="1440" height="900" loading="lazy"
-               alt="The code editor showing W_FireRocket in LibreQuake's weapons.qc, coloured by what each name is, with parameter names shown inline and 17 compiler warnings listed in Problems.">
-          <figcaption><strong>Your QuakeC, checked as you type.</strong> The mod's own code in the same
-            window as its maps, coloured by meaning, with the compiler's warnings, such as a builtin
-            vanilla Quake lacks. Then Play from here: the map compiled and the game started where
-            the camera stands.</figcaption>
+          <img src="/assets/shots/showcase-palette-1440.jpg"
+               srcset="/assets/shots/showcase-palette-1440.jpg 1440w, /assets/shots/showcase-palette-2880.jpg 2880w"
+               sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
+               alt="The command palette open over the editor, listing matching commands with what each does.">
+          <figcaption><strong>One list of commands.</strong> The palette, the command line, the CLI, the
+            agent and MCP all share the same commands.</figcaption>
         </figure>
       </div>
-      <p class="showcase__note">A lit view of the compiled map, a light's reach, a QuakeC debugger
-        on the running game, QuakeC editing with the compiler's diagnostics and Play from here are
-        none of them in TrenchBroom's manual.
-        Maps, textures, models and QuakeC from
-        <a href="https://github.com/lavenderdotpet/LibreQuake">LibreQuake</a>: its textures, models
-        and sounds are BSD-3-Clause, its QuakeC GPL-2.0; see
+      <p class="showcase__note">Every image here is QuakeC Studio itself, rendered from
+        <a href="https://github.com/lavenderdotpet/LibreQuake">LibreQuake</a>'s maps and QuakeC.
+        LibreQuake's textures, models and sounds are BSD-3-Clause and its QuakeC GPL-2.0; see
         <a href="https://github.com/quakecstudio/site/blob/main/ATTRIBUTION.md">ATTRIBUTION.md</a>.</p>
     </section>
 
-    <section class="features" aria-labelledby="features-title">
-      <h2 id="features-title" class="section-title">Planned features</h2>
+    <section class="wrap features" aria-labelledby="box-title">
+      <h2 id="box-title" class="section-title">Also in the box</h2>
       <ul class="cards">
         <li class="card">
-          <h3>Press Play</h3>
-          <p>Save and see the change in the running game in about a second. Pause, click any entity, and inspect or edit its fields.</p>
+          <h3>Tests in the game</h3>
+          <p>Unit tests are <code>test_</code> functions. Scenarios are scripted runs of the real
+            game that play the same way every time. Run them all with one command.</p>
         </li>
         <li class="card">
-          <h3>Its own compiler</h3>
-          <p>A QuakeC compiler built in, so there's no outside toolchain to install. Errors show up as you type, next to the line that caused them.</p>
+          <h3>Command line and LSP</h3>
+          <p><code>quakec-ide</code> builds, checks, tests and runs any command from a shell or CI.
+            <code>quakec-lsp</code> brings the same language features to VS Code, Zed and Neovim.</p>
         </li>
         <li class="card">
-          <h3>Knows QuakeC</h3>
-          <p>Go to definition, find references, rename and hover docs for builtins like <code>spawn</code> and <code>traceline</code>, across your whole <code>progs.src</code>.</p>
+          <h3>MCP server</h3>
+          <p><code>quakec-ide mcp</code> gives Claude Code or any other MCP client the same
+            commands, on the project or on the open window.</p>
         </li>
         <li class="card">
-          <h3>An agent that tests</h3>
-          <p>A built-in agent uses the same commands you do: it edits, compiles and runs scenarios, then hands you each change to accept or reject. Also over MCP.</p>
+          <h3>Starters and export</h3>
+          <p>Start from id's 1.01 QuakeC or the rerelease's. When the mod is done, export a zip
+            players can install, optionally as a PAK, with none of id's files in it.</p>
         </li>
         <li class="card">
-          <h3>Map editor</h3>
-          <p>Brushes and entities in the same project as your code, with entity definitions read from your QuakeC. Compile the map and play from where you're standing.</p>
+          <h3>Seven engine targets</h3>
+          <p>Builtin tables for vanilla Quake, QuakeSpasm, Ironwail, vkQuake, FTEQW, DarkPlaces and
+            the 2021 rerelease, so you're warned when a builtin doesn't exist on your target.</p>
         </li>
         <li class="card">
-          <h3>Mac, Windows, Linux</h3>
-          <p>One native app, written in Rust. Bring your own copy of Quake; the Steam and GOG releases are found for you.</p>
+          <h3>Git and a terminal</h3>
+          <p>Changed hunks, commits, branches and blame, project tasks and terminal tabs, all in
+            the same window.</p>
+        </li>
+        <li class="card">
+          <h3>Your keys</h3>
+          <p>Every command has a key and you can change any of them. Vim mode, dark and light
+            themes, and higher contrast are all available.</p>
+        </li>
+        <li class="card">
+          <h3>Offline, no account</h3>
+          <p>No telemetry and no sign-in. The only network requests go to the model provider you
+            pick and to GitHub, once, for a starter's files.</p>
         </li>
       </ul>
+    </section>
+
+    <section class="wrap get" aria-labelledby="get-title">
+      <h2 id="get-title" class="section-title">Get it</h2>
+      <div class="get__grid">
+        <div>
+          <h3>Requirements</h3>
+          <ul>
+            <li>macOS 11 or later on Apple silicon</li>
+            <li>Windows on x64 or arm64</li>
+            <li>Linux x86_64 or aarch64, glibc 2.35 or later, X11 or Wayland</li>
+          </ul>
+          <p>Bring your own copy of <em>Quake</em>: the original or the 2021 rerelease, from Steam,
+            GOG or elsewhere. The app finds it where it's installed. Don't own it? The free
+            <a href="https://github.com/lavenderdotpet/LibreQuake">LibreQuake</a> works too.</p>
+        </div>
+        <div>
+          <h3>Install</h3>
+          <pre><code>brew install --cask quakecstudio/tap/quakec-studio</code></pre>
+          <p>On Linux, use the APT and DNF repository at
+            <a href="https://packages.quakecstudio.com">packages.quakecstudio.com</a>. Every package
+            is also on <a href="/download/">the download page</a>.</p>
+          <p class="hero__actions hero__actions--left"><a class="button button--primary" href="/download/">Download 2026.11.2</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap get" aria-labelledby="open-title">
+      <h2 id="open-title" class="section-title">Open source</h2>
+      <p>QuakeC Studio is GPL-3.0-or-later and written in Rust. The code, issues and discussions
+        are on <a href="https://github.com/quakecstudio/editor">GitHub</a>. You can report a bug in
+        <a href="https://github.com/quakecstudio/editor/issues">the issue tracker</a>, ask a question in
+        <a href="https://github.com/quakecstudio/editor/discussions">Discussions</a>, or support the
+        work through <a href="https://github.com/sponsors/jplock">GitHub Sponsors</a>.</p>
     </section>
   </main>
 
@@ -373,12 +319,13 @@
       <div class="badges" aria-hidden="true">
         <span class="badge">best viewed at 640×480</span>
         <span class="badge">made with notepad.exe</span>
-        <span class="badge badge--hot">under construction</span>
+        <span class="badge">progs.dat compiled</span>
       </div>
       <p class="counter" aria-live="polite">
         <span id="counter-label">Visitors:</span>
         <span class="counter__digits" id="counter">-------</span>
       </p>
+      <p class="foot__links"><a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="mailto:hello@inbox.quakecstudio.com">hello@inbox.quakecstudio.com</a></p>
       <p class="legal">
         QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
         id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
