@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html" aria-current="page">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="install">Install</h1>
+<p>QuakeC Studio is free and open source (GPL-3.0-or-later), with no account. It runs on macOS
+11 or later on Apple silicon, on Windows for x64 and arm64, and on Linux for x86_64
+and aarch64. Every package is on the <a href="/download/">download page</a>; this page says how
+to install each one, how to update, and how to remove it.</p>
+<p>Every package holds four programs: the app, <code>quakec-studio</code>; the game it runs your mod in,
+<code>quakec-engine</code>; the command line, <code>quakec-ide</code> (<a href="cli.html">Command line</a>); and the
+language server for other editors, <code>quakec-lsp</code>.</p>
+<p class="note">QuakeC Studio does not include Quake's game files. To play your mod you need your own
+copy of Quake, or the free LibreQuake. See <a href="game-data.html">Your Quake game data</a>.</p>
+
+<h2 id="macos">macOS</h2>
+<p>With <a href="https://brew.sh">Homebrew</a>:</p>
+<pre><code class="language-bash">brew install --cask quakecstudio/tap/quakec-studio
+</code></pre>
+<p>Or download <code>quakec-studio-&lt;version&gt;-macos-arm64.pkg</code> and open it. The installer is signed
+and notarized by Apple. It puts <strong>QuakeC Studio</strong> in <code>/Applications</code>, replacing any version
+already there, and links <code>quakec-ide</code> and <code>quakec-lsp</code> into <code>/usr/local/bin</code>.</p>
+<p>There is no build for Intel Macs.</p>
+
+<h2 id="windows">Windows</h2>
+<p>Download the MSI for your processor, <code>quakec-studio-&lt;version&gt;-windows-x64.msi</code> or
+<code>-windows-arm64.msi</code>, and open it. It installs for every user under Program Files, adds a
+Start menu shortcut, and puts the folder on <code>PATH</code>, so <code>quakec-ide</code> and <code>quakec-lsp</code> work
+in a new terminal.</p>
+<p class="warn">The programs inside are signed, but the MSI itself is not, so Windows may call its
+publisher unknown when it asks to install it.</p>
+<p>The portable <code>.zip</code> holds the same programs with no installer: unzip it anywhere and run
+<code>quakec-studio.exe</code>. Nothing needs the Visual C++ Redistributable.</p>
+<p>QuakeC Studio has been submitted to winget. Until it is accepted, this command does not work
+yet:</p>
+<pre><code class="language-powershell">winget install SmokeTurner.QuakeCStudio
+</code></pre>
+
+<h2 id="linux">Linux</h2>
+<p>On Debian and Ubuntu, add the APT repository at
+<a href="https://packages.quakecstudio.com">packages.quakecstudio.com</a> and install:</p>
+<pre><code class="language-bash">curl -fsSL https://packages.quakecstudio.com/gpg/quakecstudio.asc \
+  | gpg --dearmor \
+  | sudo tee /usr/share/keyrings/quakecstudio-archive-keyring.gpg &gt; /dev/null
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/quakecstudio-archive-keyring.gpg] https://packages.quakecstudio.com/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/quakecstudio.list &gt; /dev/null
+
+sudo apt-get update &amp;&amp; sudo apt-get install -y quakec-studio
+</code></pre>
+<p>On Fedora and RHEL, add the DNF repository and install:</p>
+<pre><code class="language-bash">sudo tee /etc/yum.repos.d/quakecstudio.repo &lt;&lt; 'EOF'
+[quakecstudio]
+name=QuakeC Studio
+baseurl=https://packages.quakecstudio.com/rpm/$basearch/
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.quakecstudio.com/gpg/quakecstudio.asc
+enabled=1
+EOF
+
+sudo dnf install -y quakec-studio
+</code></pre>
+<p>The repository's metadata and its rpm packages are signed with the key at
+<code>https://packages.quakecstudio.com/gpg/quakecstudio.asc</code>, fingerprint
+<code>B00D 6EBB BD27 0E2A 6C12 F473 0320 6F03 F365 A966</code>.</p>
+<p>Or download a package for <code>x86_64</code> or <code>aarch64</code>:</p>
+<table>
+<thead>
+<tr><th>Package</th><th>How to install it</th></tr>
+</thead>
+<tbody>
+<tr><td><code>.deb</code></td><td><code>sudo apt install ./quakec-studio-&lt;version&gt;-linux-x86_64.deb</code>; needs glibc 2.35 or later (Ubuntu 22.04, Debian 12)</td></tr>
+<tr><td><code>.rpm</code></td><td><code>sudo dnf install ./quakec-studio-&lt;version&gt;-linux-x86_64.rpm</code></td></tr>
+<tr><td><code>.AppImage</code></td><td><code>chmod +x</code> the file, then run it</td></tr>
+<tr><td><code>.flatpak</code></td><td><code>flatpak install --user ./quakec-studio-&lt;version&gt;-linux-x86_64.flatpak</code>, then <code>flatpak run com.quakecstudio.QuakeCStudio</code>; it uses the Freedesktop 25.08 runtime</td></tr>
+</tbody>
+</table>
+<p>The deb and rpm put <code>quakec-studio</code>, <code>quakec-ide</code> and <code>quakec-lsp</code> in <code>/usr/bin</code>. The app
+needs Vulkan or OpenGL, and X11 or Wayland.</p>
+
+<h2 id="check-a-download">Check a download</h2>
+<p>Each release has a <code>SHA256SUMS</code> file, and each package is attested by the GitHub workflow that
+built it. With the <a href="https://cli.github.com">GitHub CLI</a>:</p>
+<pre><code class="language-bash">gh attestation verify quakec-studio-&lt;version&gt;-windows-x64.msi --repo quakecstudio/editor \
+  --signer-workflow quakecstudio/editor/.github/workflows/reusable-build.yml
+</code></pre>
+
+<h2 id="first-launch">First launch</h2>
+<p>With no project open, the app shows its Welcome page, in three steps:</p>
+<ol>
+<li><strong>Find Quake's files.</strong> The app looks for Quake where Steam, GOG and the Heroic
+   launcher install it, and says what it found. If it found nothing, press <strong>Set Up Quake
+   Files…</strong> and choose the folder that holds <code>id1</code>.</li>
+<li><strong>Start a project.</strong> <strong>New Project…</strong> makes a mod from the game's own QuakeC;
+   <strong>Open Folder</strong> opens one you have.</li>
+<li><strong>Press Play.</strong> The app builds your mod and starts the game.</li>
+</ol>
+<p><a href="getting-started.html">Getting started</a> walks through all three.</p>
+
+<h2 id="updating">Updating</h2>
+<p>QuakeC Studio does not check for updates. To update:</p>
+<ul>
+<li><strong>Homebrew:</strong> <code>brew upgrade --cask quakec-studio</code>.</li>
+<li><strong>APT or DNF:</strong> <code>sudo apt-get update &amp;&amp; sudo apt-get upgrade</code>, or <code>sudo dnf upgrade</code>.</li>
+<li><strong>A downloaded package:</strong> install the new one. The macOS installer and the MSI replace
+  the version that is there; unzip a new portable zip in place of the old one.</li>
+</ul>
+<p><a href="whats-new.html">What's new</a> lists what each release changed.</p>
+
+<h2 id="uninstalling">Uninstalling</h2>
+<ul>
+<li><strong>macOS, with Homebrew:</strong> <code>brew uninstall --cask quakec-studio</code>.</li>
+<li><strong>macOS, from the installer:</strong> remove the app and its two links, and tell macOS to
+  forget the package:
+<pre><code class="language-bash">sudo rm -rf "/Applications/QuakeC Studio.app"
+sudo rm -f /usr/local/bin/quakec-ide /usr/local/bin/quakec-lsp
+sudo pkgutil --forget com.quakecstudio.QuakeCStudio
+</code></pre></li>
+<li><strong>Windows:</strong> remove QuakeC Studio in Settings &gt; Apps, or delete the portable folder.</li>
+<li><strong>Linux:</strong> <code>sudo apt remove quakec-studio</code>, <code>sudo dnf remove quakec-studio</code>,
+  <code>flatpak uninstall com.quakecstudio.QuakeCStudio</code>, or delete the AppImage.</li>
+</ul>
+<p>Uninstalling leaves your settings, logs and caches. Remove these folders too for a clean
+slate:</p>
+<table>
+<thead>
+<tr><th>OS</th><th>Folders</th></tr>
+</thead>
+<tbody>
+<tr><td>macOS</td><td><code>~/Library/Application Support/QuakeC Studio</code>, <code>~/Library/Caches/QuakeC Studio</code>, <code>~/Library/Logs/QuakeC Studio</code></td></tr>
+<tr><td>Windows</td><td><code>%APPDATA%\QuakeC Studio</code>, <code>%LOCALAPPDATA%\QuakeC Studio</code></td></tr>
+<tr><td>Linux</td><td><code>~/.config/quakec-studio</code>, <code>~/.local/share/quakec-studio</code>, <code>~/.cache/quakec-studio</code>, <code>~/.local/state/quakec-studio</code></td></tr>
+</tbody>
+</table>
+<p>Your projects are yours and are never touched. Each keeps its own settings and agent threads
+in its <code>.quakec-studio</code> folder.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="index.html">Previous: User guide</a> <a rel="next" href="getting-started.html">Next: Getting started</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

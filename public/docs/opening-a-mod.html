@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html" aria-current="page">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html">The agent</a></li>
-        <li><a href="mcp.html">MCP</a></li>
-        <li><a href="map-editor.html">The map editor</a></li>
-        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html" aria-current="page">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="opening-a-mod">Opening a mod</h1>
@@ -55,7 +67,10 @@ reads. A mod written for FTEQCC, the compiler most mods use today, needs a <code
 says so, or <code>--dialect fteqcc</code> on the command line. The starters write their <code>quakec.toml</code>
 for you.</p>
 <h2 id="what-you-see">What you see</h2>
-<p><img alt="A project open in the editor" src="img/project.png" /></p>
+<figure>
+<img alt="A project open in the editor" src="img/project.png" />
+<figcaption>A project open: the Project and Symbols panels on the left, Problems at the bottom.</figcaption>
+</figure>
 <ul>
 <li><strong>Project</strong> lists the files the project compiles, in the order the compiler reads them, as
   a tree.</li>
@@ -67,100 +82,13 @@ for you.</p>
 <p>The project is checked as you type, about a third of a second after you stop, so the Problems
 list follows the text on screen even before you save.</p>
 <h2 id="moving-around-the-code">Moving around the code</h2>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Cmd+Shift+P</td>
-<td>The command palette: every command the IDE has, searched by name</td>
-</tr>
-<tr>
-<td>F12</td>
-<td>Go to the definition of the name under the caret</td>
-</tr>
-<tr>
-<td>Shift+F12</td>
-<td>List the references to it; a click opens one</td>
-</tr>
-<tr>
-<td>F2</td>
-<td>Rename it everywhere</td>
-</tr>
-<tr>
-<td>Ctrl+Space</td>
-<td>Complete the name being typed</td>
-</tr>
-<tr>
-<td>Cmd+F</td>
-<td>Find and replace in the file</td>
-</tr>
-<tr>
-<td>Cmd+S</td>
-<td>Save</td>
-</tr>
-<tr>
-<td>Cmd+1, Cmd+2, Cmd+3, Cmd+4</td>
-<td>Give the keyboard to the editor, the left, right or bottom panel</td>
-</tr>
-<tr>
-<td>Cmd+.</td>
-<td>The quick fixes for the problem at the caret</td>
-</tr>
-<tr>
-<td>Cmd+Shift+I</td>
-<td>Format the file: indent with tabs, trim trailing spaces</td>
-</tr>
-<tr>
-<td>Ctrl+G</td>
-<td>Go to a line</td>
-</tr>
-<tr>
-<td>Cmd+Shift+O</td>
-<td>Go to a symbol in the file</td>
-</tr>
-<tr>
-<td>Ctrl+Tab</td>
-<td>Switch to another open file</td>
-</tr>
-<tr>
-<td>Cmd+Shift+B</td>
-<td>Show or hide the outline of the file</td>
-</tr>
-<tr>
-<td>Cmd+Alt+[ and Cmd+Alt+]</td>
-<td>Fold and unfold the block the caret is in</td>
-</tr>
-<tr>
-<td>Cmd+Alt+Z</td>
-<td>Turn soft wrap on or off</td>
-</tr>
-<tr>
-<td>Cmd+\</td>
-<td>Split the editor into two panes</td>
-</tr>
-</tbody>
-</table>
-<p>Resting the pointer on a name shows its declaration.</p>
-<p>To change a shortcut, write <code>keymap.toml</code> in the app's config folder (on macOS
-<code>~/Library/Application Support/QuakeC Studio</code>, on Windows <code>%APPDATA%\QuakeC Studio</code>, on Linux
-<code>~/.config/quakec-studio</code>). Each binding names its keys and a command from the palette:</p>
-<pre><code class="language-toml">[[binding]]
-keys = &quot;secondary-shift-b&quot;
-command = &quot;project.build&quot;
-</code></pre>
-<p><code>secondary</code> is Cmd on macOS and Ctrl elsewhere. The change takes effect at once.</p>
-<p>To edit with Vim's keys, add this to <code>settings.toml</code> in the same folder and start the app again:</p>
-<pre><code class="language-toml">[editor]
-key_mode = &quot;vim&quot;
-</code></pre>
-<p>The editor starts in Normal mode, with Vim's motions, operators, counts, registers and <code>.</code>.</p>
+<p><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></kbd> opens the command palette, every command the IDE has, searched by name, and
+<kbd class="combo"><kbd>Cmd</kbd>+<kbd>P</kbd></kbd> opens a file by its name. In the editor, <kbd>F12</kbd> goes to the definition of the name
+under the caret, <kbd class="combo"><kbd>Shift</kbd>+<kbd>F12</kbd></kbd> lists its references, and <kbd>F2</kbd> renames it everywhere. Resting
+the pointer on a name shows its declaration.</p>
+<p><a href="keys.html">Keys</a> lists the rest, and says how to change a key or edit with Vim's keys.</p>
 <h2 id="searching-the-project">Searching the project</h2>
-<p><strong>Cmd+Shift+F</strong> opens the <strong>Search</strong> tab in the centre. Type a text to find every match in the project's files, unsaved edits included; match case, whole words or a regular expression. Each result is shown in its file with a line above and below, and can be edited in place. <strong>Replace all</strong> replaces every match, each file saved and undone on its own, and <strong>Open</strong> goes to the file at that place.</p>
+<p><kbd class="combo"><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd></kbd> opens the <strong>Search</strong> tab in the centre. Type a text to find every match in the project's files, unsaved edits included; match case, whole words or a regular expression. Each result is shown in its file with a line above and below, and can be edited in place. <strong>Replace all</strong> replaces every match, each file saved and undone on its own, and <strong>Open</strong> goes to the file at that place.</p>
 <h2 id="the-terminal">The terminal</h2>
 <p>The bottom panel's <strong>Terminal</strong> tab runs your shell in the project's folder. <strong>New terminal</strong> opens another, each in a tab of its own with its title and whether its process is still running. Type a line in the box under the output to send it to the shell.</p>
 <h2 id="git">Git</h2>

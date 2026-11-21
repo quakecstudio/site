@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ - QuakeC Studio user guide</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0907">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
+</head>
+<body class="docs">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="wrap top__bar">
+      <a class="top__brand" href="/">QuakeC Studio</a>
+      <a class="docs__home" href="/docs/">User guide</a>
+    </div>
+  </header>
+  <div class="wrap docs__layout">
+    <nav class="docs__nav" aria-label="User guide">
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html" aria-current="page">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
+    </nav>
+    <main id="main" class="docs__page">
+<h1 id="faq">FAQ</h1>
+
+<h2 id="do-i-need-quake">Do I need Quake?</h2>
+<p>To play your mod, yes: QuakeC Studio does not include Quake's game files. The original game,
+the 2021 rerelease or the shareware episode will do, from Steam, GOG or elsewhere, and the
+free LibreQuake data works too. Writing, building and unit-testing QuakeC needs no game;
+scenario tests and Play do. See
+<a href="game-data.html">Your Quake game data</a>.</p>
+
+<h2 id="what-does-it-cost">What does it cost?</h2>
+<p>Nothing. QuakeC Studio is free and open source under the GPL, version 3 or later, with no
+account. The agent's model provider, if you use one, is yours to choose and pay for; a local
+Ollama model costs nothing.</p>
+
+<h2 id="which-systems-does-it-run-on">Which systems does it run on?</h2>
+<p>macOS 11 or later on Apple silicon, Windows on x64 and arm64, and Linux on x86_64 and
+aarch64. There is no build for Intel Macs. See <a href="install.html">Install</a>.</p>
+
+<h2 id="which-quakec-does-it-read">Which QuakeC does it read?</h2>
+<p>Two dialects: <strong>vanilla</strong>, the QuakeC id's own compiler reads, and <strong>FTEQCC</strong>'s, which
+most mods use today and the rerelease is written in. A project names its dialect in
+<code>quakec.toml</code> (<a href="opening-a-mod.html#open-a-folder">Open a folder</a>). GMQCC's dialect and
+client-side and menu QuakeC (CSQC and MenuQC) are not supported yet.</p>
+
+<h2 id="does-it-replace-my-compiler">Does it replace my compiler?</h2>
+<p>It has its own, so you need no other tool. It compiles id's QuakeC 1.01 to the same bytes as
+id's <code>qcc</code>, and the rerelease's code to the same statements as FTEQCC. A
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/compatibility.md">compatibility list</a>
+shows how it does on public mods.</p>
+
+<h2 id="does-it-work-with-trenchbroom">Does it work with TrenchBroom?</h2>
+<p>Yes. The map editor opens the same <code>.map</code> files, with brushes in the standard and Valve 220
+forms, and keeps TrenchBroom's groups, linked groups and layers. Its keys and tools follow
+TrenchBroom's where TrenchBroom has the same action, so you can move between the two. When
+another program changes the open map on disk, the editor reads it again, or asks first when
+you have unsaved edits.</p>
+
+<h2 id="does-it-work-offline">Does it work offline?</h2>
+<p>Yes. Everything but the agent works with no network, and the agent does too with a local
+Ollama model. The only other request the app can make is for a starter's files when you make
+a new project. See <a href="privacy.html">Privacy</a>.</p>
+
+<h2 id="do-i-have-to-use-the-agent">Do I have to use the agent?</h2>
+<p>No. Until you set up a provider or an outside agent, the agent sends nothing anywhere and
+does nothing.</p>
+
+<h2 id="can-i-use-it-from-my-own-editor">Can I use it from my own editor?</h2>
+<p>Yes: <code>quakec-lsp</code> gives any editor with an LSP client the same diagnostics, navigation,
+rename and completion, and <code>quakec-ide</code> builds and tests from a terminal or CI. See
+<a href="cli.html">Command line</a>.</p>
+
+<h2 id="can-i-change-the-keys">Can I change the keys?</h2>
+<p>Yes, any of them, in <code>keymap.toml</code>, and the editor has a Vim mode. See <a href="keys.html">Keys</a>.</p>
+
+<h2 id="how-do-i-update-it">How do I update it?</h2>
+<p>The app does not check for updates. Homebrew, APT and DNF update it with the rest of your
+system; otherwise install the new package. See <a href="install.html#updating">Updating</a>.</p>
+
+<h2 id="is-it-made-by-id-software">Is it made by id Software?</h2>
+<p>No. QuakeC Studio is an independent fan project, not affiliated with or endorsed by
+id Software, ZeniMax Media or Bethesda.</p>
+
+<h2 id="where-do-i-report-a-problem">Where do I report a problem?</h2>
+<p>On <a href="https://github.com/quakecstudio/editor/issues">GitHub</a>; see
+<a href="troubleshooting.html#reporting-a-problem">Reporting a problem</a> for what to include. Questions
+are welcome in the repository's
+<a href="https://github.com/quakecstudio/editor/discussions">Discussions</a>.</p>
+      <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="whats-new.html">Previous: What's new</a> <a rel="next" href="troubleshooting.html">Next: Troubleshooting</a></nav>
+    </main>
+  </div>
+  <footer class="foot">
+    <div class="wrap">
+      <p class="legal">
+        QuakeC Studio is an independent fan project and is not affiliated with or endorsed by
+        id&nbsp;Software, ZeniMax Media or Bethesda. Quake is a trademark of its respective owner.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

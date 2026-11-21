@@ -10,6 +10,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/docs.css">
+  <script src="/assets/js/docs.js" defer></script>
 </head>
 <body class="docs">
   <a class="skip" href="#main">Skip to content</a>
@@ -21,17 +22,28 @@
   </header>
   <div class="wrap docs__layout">
     <nav class="docs__nav" aria-label="User guide">
-      <ol>
-        <li><a href="index.html">User guide</a></li>
-        <li><a href="getting-started.html">Getting started</a></li>
-        <li><a href="opening-a-mod.html">Opening a mod</a></li>
-        <li><a href="play-loop.html">The play loop</a></li>
-        <li><a href="debugging.html">Debugging</a></li>
-        <li><a href="agent.html">The agent</a></li>
-        <li><a href="mcp.html" aria-current="page">MCP</a></li>
-        <li><a href="map-editor.html">The map editor</a></li>
-        <li><a href="troubleshooting.html">Troubleshooting</a></li>
-      </ol>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          <li><a href="index.html">User guide</a></li>
+          <li><a href="install.html">Install</a></li>
+          <li><a href="getting-started.html">Getting started</a></li>
+          <li><a href="opening-a-mod.html">Opening a mod</a></li>
+          <li><a href="play-loop.html">The play loop</a></li>
+          <li><a href="debugging.html">Debugging</a></li>
+          <li><a href="agent.html">The agent</a></li>
+          <li><a href="mcp.html" aria-current="page">MCP</a></li>
+          <li><a href="map-editor.html">The map editor</a></li>
+          <li><a href="keys.html">Keys</a></li>
+          <li><a href="cli.html">Command line</a></li>
+          <li><a href="settings.html">Settings</a></li>
+          <li><a href="game-data.html">Your Quake game data</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="whats-new.html">What's new</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ol>
+      </details>
     </nav>
     <main id="main" class="docs__page">
 <h1 id="mcp-using-quakec-studio-from-another-agent">MCP: using QuakeC Studio from another agent</h1>
@@ -65,8 +77,27 @@ project first.</p>
 </code></pre>
 <h2 id="what-it-may-touch">What it may touch</h2>
 <p>The tools read and write only under the project, plus each <code>--read</code> and <code>--write</code> folder.
-<code>--read-only</code> lets nothing build, edit or play. An edit is staged, as the built-in agent's
-are, and reaches disk only when it is accepted and saved.</p>
+<code>--read-only</code> lets nothing build, edit or play.</p>
+<p>A change to the code made with <code>edit.stage_change</code> is staged, as the built-in agent's are,
+and reaches disk only when it is accepted and saved. A map tool's edit is made at once, with no
+review waiting for you: <code>edit.undo</code>, or restoring a checkpoint, takes it back.</p>
+<h2 id="what-it-can-do">What it can do</h2>
+<p>Every command of the IDE is a tool, so an agent can do anything the palette can. The
+<a href="https://github.com/quakecstudio/editor/blob/main/docs/commands.md">commands reference</a> lists
+them all. A few to know:</p>
+<ul>
+<li><code>project.reference</code>: what to read before writing QuakeC, by topic: <code>quakec</code>,
+  <code>entities</code>, <code>monsters</code>, <code>models</code>, <code>maps</code> and <code>workflow</code>. The server's
+  instructions send an agent there first.</li>
+<li><code>project.compile</code>, <code>project.test</code>, <code>preview.play</code> and <code>engine.screenshot</code>: build, test,
+  play, and look at a frame of the game, which runs with no window unless the server is
+  connected to your app.</li>
+<li><code>map.generate</code>, <code>map.build_room</code> and <code>map.build_passage</code>: a whole random level, or one
+  room of a shape from id's levels and the passage between two
+  (<a href="map-editor.html#rooms-and-passages">Rooms and passages</a>).</li>
+<li><code>model.*</code>: read a model, change its skin, size and frames, or import one
+  (<a href="map-editor.html#models">Models</a>).</li>
+</ul>
       <nav class="docs__pager" aria-label="Pages"><a rel="prev" href="agent.html">Previous: The agent</a> <a rel="next" href="map-editor.html">Next: The map editor</a></nav>
     </main>
   </div>
