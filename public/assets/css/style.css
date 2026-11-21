@@ -337,6 +337,16 @@ a.top__brand { text-decoration: none; }
 .dl__files li { margin-block: .35rem; }
 .dl__note { font-size: .92rem; }
 
+/* ---------- legal pages ---------- */
+.prose { max-width: 46rem; padding-block: 2.5rem 3rem; }
+.prose h2 { margin: 2rem 0 .5rem; font: 700 1rem/1.3 var(--font-pixel); color: var(--ember); }
+.prose__date { margin-top: -.75rem; font-family: var(--font-term); font-size: 1.2rem; color: var(--muted); }
+.prose ul { padding-left: 1.25rem; }
+.prose li { margin-block: .4rem; }
+.foot__links { margin: 0 0 1rem; }
+.foot__links a { color: var(--text); }
+.foot__links a[aria-current="page"] { color: var(--ember); }
+
 /* ---------- plaque (404) ---------- */
 .plaque {
   max-width: 32rem;
