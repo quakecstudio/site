@@ -70,13 +70,13 @@
 
     <figure class="wrap hero__media clip">
       <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
-             poster="/assets/clips/reload.jpg"
-             aria-label="weapons.qc open in QuakeC Studio beside the running game. A damage value is changed and saved, and the next shot in the game uses it without the map restarting.">
-        <source src="/assets/clips/reload.webm" type="video/webm">
-        <source src="/assets/clips/reload.mp4" type="video/mp4">
+             poster="/assets/clips/combat.jpg"
+             aria-label="The shotgun's code beside the running game in QuakeC Studio. The player shoots a grunt and its health falls in Properties. The damage line is changed and saved, the game reloads mid-fight, and the next shot kills it.">
+        <source src="/assets/clips/combat.webm" type="video/webm">
+        <source src="/assets/clips/combat.mp4" type="video/mp4">
       </video>
-      <figcaption>Change a line, save, and the running game picks it up. The map doesn't restart,
-        and the entities keep their state.</figcaption>
+      <figcaption>Shoot a grunt, change the weapon's damage, save, and the next shot uses the new
+        code. The map keeps running, and so does the fight.</figcaption>
     </figure>
 
     <section class="wrap features" aria-labelledby="features-title">
@@ -93,12 +93,14 @@
           <p>Pause and click any entity to read or edit its fields while the game waits.</p>
           <p><a href="/docs/play-loop.html">The play loop</a></p>
         </div>
-        <picture class="feature__media">
-          <img src="/assets/shots/showcase-game-tab-1440.jpg"
-               srcset="/assets/shots/showcase-game-tab-1440.jpg 1440w, /assets/shots/showcase-game-tab-2880.jpg 2880w"
-               sizes="(max-width: 56rem) 100vw, 36rem" width="1440" height="900" loading="lazy"
-               alt="The IDE with the game running in its Game tab, the Entities list on the left and a selected monster's fields in Properties on the right.">
-        </picture>
+        <figure class="feature__media clip">
+          <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
+                 poster="/assets/clips/reload.jpg"
+                 aria-label="LibreQuake's start map running in the IDE's Game tab. client.qc is opened, a lightstyle line that makes the lights flicker is typed and saved, and the running level starts flickering without the map restarting.">
+            <source src="/assets/clips/reload.webm" type="video/webm">
+            <source src="/assets/clips/reload.mp4" type="video/mp4">
+          </video>
+        </figure>
       </article>
 
       <article class="feature feature--flip">
@@ -112,7 +114,7 @@
         <figure class="feature__media clip">
           <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
                  poster="/assets/clips/debugger.jpg"
-                 aria-label="An enforcer walks into view and the game stops on a breakpoint in ai_stand in ai.qc. The call stack and watches fill in, and stepping over moves the line marker.">
+                 aria-label="The game runs in the Game tab. A breakpoint is set in ai_stand in ai.qc, the game stops on it, the Debugger shows the call stack and a grunt's health and classname, and two steps over follow the code into grunt.qc.">
             <source src="/assets/clips/debugger.webm" type="video/webm">
             <source src="/assets/clips/debugger.mp4" type="video/mp4">
           </video>
@@ -133,7 +135,7 @@
         <figure class="feature__media clip">
           <video class="clip__video" muted loop playsinline controls preload="none" width="1440" height="900"
                  poster="/assets/clips/agent.jpg"
-                 aria-label="The agent panel works through a task: it edits weapons.qc, compiles cleanly, runs a scenario that passes, and the user accepts its hunks.">
+                 aria-label="The agent panel works through a task to raise the player's starting health: it reads client.qc, stages a one-line change, compiles, runs the tests including a scenario that passes, and the change is accepted.">
             <source src="/assets/clips/agent.webm" type="video/webm">
             <source src="/assets/clips/agent.mp4" type="video/mp4">
           </video>
@@ -209,18 +211,18 @@
             passages for you to start from, and you can build more rooms by hand.</figcaption>
         </figure>
         <figure class="showcase__shot">
-          <img src="/assets/shots/showcase-debugger-1440.jpg"
-               srcset="/assets/shots/showcase-debugger-1440.jpg 1440w, /assets/shots/showcase-debugger-2880.jpg 2880w"
+          <img src="/assets/shots/showcase-game-tab-1440.jpg"
+               srcset="/assets/shots/showcase-game-tab-1440.jpg 1440w, /assets/shots/showcase-game-tab-2880.jpg 2880w"
                sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
-               alt="The IDE stopped at a breakpoint on line 426 of ai.qc in ai_stand: the call stack shows enf_stand2 in enforcer.qc calling ai_stand, and the watches read self.classname monster_enforcer and self.health 80.">
-          <figcaption><strong>Stopped on a breakpoint.</strong> The call stack, watches and the line
-            the game stopped on.</figcaption>
+               alt="The IDE playing LibreQuake's start map in its Game tab, with the project's QuakeC files on the left and the game's console below.">
+          <figcaption><strong>The game in the IDE.</strong> Play runs the mod in the Game tab, next to
+            its code, or in a window of its own.</figcaption>
         </figure>
         <figure class="showcase__shot">
           <img src="/assets/shots/showcase-palette-1440.jpg"
                srcset="/assets/shots/showcase-palette-1440.jpg 1440w, /assets/shots/showcase-palette-2880.jpg 2880w"
                sizes="(max-width: 48rem) 100vw, 33rem" width="1440" height="900" loading="lazy"
-               alt="The command palette open over the editor, listing matching commands with their keys.">
+               alt="The command palette open over the editor, listing matching commands with what each does.">
           <figcaption><strong>One list of commands.</strong> The palette, the command line, the CLI, the
             agent and MCP all share the same commands.</figcaption>
         </figure>
