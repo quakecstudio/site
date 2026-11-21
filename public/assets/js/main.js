@@ -1,4 +1,4 @@
-/* QuakeC Studio — coming soon page behaviour. No dependencies. */
+/* QuakeC Studio — site behaviour. No dependencies. */
 (function () {
   "use strict";
 
@@ -12,43 +12,46 @@
     try { window.localStorage.setItem(key, value); } catch (e) { /* ignore */ }
   }
 
-  /* ---------- "compiling" progress plaque ---------- */
-  var TARGET = 42;
-  var STAGES = [
-    "Parsing defs.qc...",
-    "Resolving entity fields...",
-    "Precaching progs/player.mdl...",
-    "Linking builtins...",
-    "Coming soon. Stay frosty."
-  ];
+  /* ---------- looping clips ---------- */
+  // Clips play only while on screen, and never start by themselves under
+  // reduced motion. Without this script each clip keeps its native controls.
+  var clips = Array.prototype.slice.call(document.querySelectorAll("video.clip__video"));
+  clips.forEach(function (video) {
+    var frame = document.createElement("div");
+    frame.className = "clip__frame";
+    video.parentNode.insertBefore(frame, video);
+    frame.appendChild(video);
+    video.controls = false;
 
-  var fill = document.getElementById("loader-fill");
-  var bar = document.getElementById("loader-bar");
-  var pct = document.getElementById("loader-pct");
-  var status = document.getElementById("loader-status");
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "clip__toggle";
+    frame.appendChild(button);
 
-  function setProgress(value) {
-    fill.style.width = value + "%";
-    pct.textContent = value + "%";
-    bar.setAttribute("aria-valuenow", String(value));
-  }
-
-  if (fill && bar && pct && status) {
-    if (reduceMotion) {
-      setProgress(TARGET);
-      status.textContent = STAGES[STAGES.length - 1];
-    } else {
-      var current = 0;
-      var stage = 0;
-      var step = Math.ceil(TARGET / STAGES.length);
-      var timer = window.setInterval(function () {
-        current = Math.min(TARGET, current + step);
-        setProgress(current);
-        status.textContent = STAGES[Math.min(stage, STAGES.length - 1)];
-        stage++;
-        if (current >= TARGET && stage >= STAGES.length) window.clearInterval(timer);
-      }, 650);
+    video.dataset.wanted = reduceMotion ? "0" : "1";
+    function label() {
+      var playing = !video.paused;
+      button.textContent = playing ? "❚❚ pause" : "► play";
+      button.setAttribute("aria-label", (playing ? "Pause" : "Play") + " clip");
     }
+    button.addEventListener("click", function () {
+      if (video.paused) { video.dataset.wanted = "1"; video.play().catch(function () {}); }
+      else { video.dataset.wanted = "0"; video.pause(); }
+    });
+    video.addEventListener("play", label);
+    video.addEventListener("pause", label);
+    label();
+  });
+
+  if (clips.length && "IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var video = entry.target;
+        if (entry.isIntersecting && video.dataset.wanted === "1") video.play().catch(function () {});
+        else if (!entry.isIntersecting) video.pause();
+      });
+    }, { threshold: 0.4 });
+    clips.forEach(function (video) { observer.observe(video); });
   }
 
   /* ---------- site-wide visitor counter ---------- */
@@ -133,6 +136,7 @@
       print("  version    show build info");
       print("  about      what is QuakeC Studio?");
       print("  map <name> load a map");
+      print("  download   where to get it");
       print("  god        toggle god mode");
       print("  noclip     toggle noclip");
       print("  impulse 9  you know what this does");
@@ -140,21 +144,22 @@
       print("  quit       close the console");
     },
     version: function () {
-      print("QuakeC Studio 0.0.1-prealpha (" + new Date().getFullYear() + ")");
-      print("progs.dat CRC: pending", "dim");
+      print("QuakeC Studio 2026.11.2");
+      print("progs.dat compiled: 0 errors, 0 warnings", "dim");
     },
     about: function () {
       print("QuakeC Studio is a modern editor for QuakeC, the");
       print("language that drives the game logic of Quake (1996).");
       print("Write code, press Play, see it change in the running game.");
-      print("Compiler, agent and map editor built in.");
+      print("Compiler, debugger, agent and map editor built in.");
     },
     map: function (args) {
       var name = (args[0] || "").toLowerCase();
       if (!name) { print("map <levelname> : start a new game on a level", "dim"); return; }
       if (!/^[a-z0-9_]+$/.test(name)) { print("Invalid map name.", "err"); return; }
       print("Couldn't spawn server maps/" + name + ".bsp", "err");
-      print("(the editor isn't finished yet)", "dim");
+      print("(this is a web page; the real thing is a download away)", "dim");
+      print("Type \"download\".", "dim");
     },
     god: function () {
       god = !god;
@@ -165,9 +170,13 @@
       print(noclip ? "noclip ON" : "noclip OFF", noclip ? "ok" : null);
     },
     impulse: function (args) {
-      if (args[0] === "9") print("You got all weapons! (none of them compile yet)", "ok");
-      else if (args[0] === "255") print("Quad damage applied to the dev team. ETA unchanged.", "ok");
+      if (args[0] === "9") print("You got all weapons! (they all compile)", "ok");
+      else if (args[0] === "255") print("Quad damage! Hot reload in 81 ms.", "ok");
       else print("Nothing happens.", "dim");
+    },
+    download: function () {
+      print("Opening /download/...", "ok");
+      window.location.href = "/download/";
     },
     clear: function () { log.textContent = ""; },
     quit: function () { closeConsole(); },
