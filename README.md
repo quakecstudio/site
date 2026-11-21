@@ -18,7 +18,8 @@ public/
 ├── robots.txt
 └── assets/
     ├── css/style.css
-    ├── css/docs.css    # the guide's layout
+    ├── css/docs.css    # the guide's layout, keys, callouts and figures
+    ├── js/docs.js      # the guide's on-this-page list, anchors, Copy buttons, narrow-screen nav
     ├── js/main.js      # clip playback, visitor counter, drop-down console
     ├── shots/          # stills: <name>-1440.jpg and <name>-2880.jpg
     ├── clips/          # looping clips: <name>.webm, .mp4 and a .jpg poster
@@ -73,6 +74,11 @@ The app's help buttons open sections of these pages, so a heading's `id` is part
 contract: `scripts/check-docs.py` checks every page's links, anchors, h1 and alt text, and
 every `page#anchor` the app lists in `apps/desktop/help-links.txt`
 (`.github/workflows/check-docs.yml` runs it on each PR).
+
+The guide's pages share one nav, wrapped in a `<details>`. `scripts/check-docs.py` fails if a
+page's nav differs from `index.html`'s or marks the wrong page with `aria-current`, so a new
+page goes into every page's nav. `assets/js/docs.js` adds the on-this-page list, heading
+anchors, Copy buttons and the narrow-screen nav; each page reads fully without it.
 
 ## Run locally
 
