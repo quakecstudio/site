@@ -1,15 +1,22 @@
 # Attribution
 
-The screenshots in `public/assets/shots/` and the map screenshots in `public/docs/img/` are
-QuakeC Studio rendering third-party game data. QuakeC Studio's own snapshots, rendered from its
-test fixtures, need no notice.
+The stills in `public/assets/shots/`, the clips in `public/assets/clips/`, `public/og.jpg`, and
+the map screenshots in `public/docs/img/` are QuakeC Studio rendering third-party game data.
+QuakeC Studio's own snapshots, rendered from its test fixtures, need no notice.
 
 ## LibreQuake
 
-`public/assets/shots/showcase-*.jpg` show LibreQuake's map `lq_e1m1`, its textures, models and
-QuakeC, from
-[lavenderdotpet/LibreQuake@681890f1](https://github.com/lavenderdotpet/LibreQuake/tree/681890f1216d339a989b55d7c6a6cfd95db0b33e).
-`showcase-debugger.jpg` and `showcase-game.jpg` show its lite release's `lq_e0m1` and its QuakeC.
+Every still and clip in `public/assets/` and `public/og.jpg` shows LibreQuake's data, from
+[lavenderdotpet/LibreQuake@681890f1](https://github.com/lavenderdotpet/LibreQuake/tree/681890f1216d339a989b55d7c6a6cfd95db0b33e):
+
+- `showcase-lit-wide`, `showcase-light-reach` and the `map-lit` clip show its map `lq_e1m1` and
+  its textures.
+- `showcase-code`, `showcase-palette`, `showcase-hot-reload`, `showcase-agent`, the `agent` clip
+  and the editor in every other image show its QuakeC.
+- `showcase-debugger`, `showcase-game-tab` and the `debugger` and `reload` clips show its lite
+  release's maps, models, textures and QuakeC running in QuakeC Studio's engine.
+- `showcase-generated`, the `combat` clip and `og.jpg` show a level QuakeC Studio generated,
+  played with LibreQuake's lite release and its QuakeC.
 
 Its `docs/README-IMPORTANT-LICENCE-INFO` reads: "bsd3 is permissive and is what all the models
 textures and sounds are under" and "gpl2 is more restrictive and just applies to the quakec,
