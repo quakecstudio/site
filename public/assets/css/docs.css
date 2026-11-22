@@ -3,11 +3,6 @@
    --panel) is kept off --panel. */
 
 .docs .top__brand { text-decoration: none; }
-.docs__home {
-  color: var(--text);
-  font-family: var(--font-term);
-  font-size: 1.25rem;
-}
 
 .docs__layout {
   display: grid;
