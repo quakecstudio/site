@@ -255,10 +255,14 @@ kbd {
   box-shadow: 0 12px 40px rgba(0, 0, 0, .5);
 }
 .clip__frame { position: relative; }
-.clip__toggle {
+.clip__controls {
   position: absolute;
   right: .6rem;
   top: .6rem;
+  display: flex;
+  gap: .4rem;
+}
+.clip__toggle {
   padding: .2rem .6rem;
   font: 400 1.1rem/1.2 var(--font-term);
   color: var(--text);

@@ -23,10 +23,37 @@
     frame.appendChild(video);
     video.controls = false;
 
+    var controls = document.createElement("div");
+    controls.className = "clip__controls";
+    frame.appendChild(controls);
+
     var button = document.createElement("button");
     button.type = "button";
     button.className = "clip__toggle";
-    frame.appendChild(button);
+    controls.appendChild(button);
+
+    // On a phone the recording is too small to read in the page, so each
+    // clip can be opened full screen. iPhone Safari only supports the
+    // video-specific webkitEnterFullscreen.
+    if (video.requestFullscreen || video.webkitEnterFullscreen) {
+      var expand = document.createElement("button");
+      expand.type = "button";
+      expand.className = "clip__toggle";
+      expand.textContent = "⛶ full screen";
+      expand.setAttribute("aria-label", "Show clip full screen");
+      expand.addEventListener("click", function () {
+        if (video.requestFullscreen) {
+          video.requestFullscreen().then(function () {
+            if (screen.orientation && screen.orientation.lock) return screen.orientation.lock("landscape");
+          }).catch(function () {});
+        } else {
+          video.webkitEnterFullscreen();
+        }
+        video.dataset.wanted = "1";
+        video.play().catch(function () {});
+      });
+      controls.appendChild(expand);
+    }
 
     video.dataset.wanted = reduceMotion ? "0" : "1";
     function label() {
