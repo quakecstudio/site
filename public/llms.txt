@@ -1,0 +1,39 @@
+# QuakeC Studio
+
+> QuakeC Studio is a free, open-source (GPL-3.0-or-later) IDE for QuakeC, the scripting language of id Software's Quake (1996). It has its own compiler, runs your mod in the game as you edit and reloads each save into the running map, has a debugger that stops the running game, an agent that changes code and proves the change with builds and tests, and a map editor with its own qbsp, vis and light. It runs on macOS, Windows and Linux, offline, with no account. Current version: 2026.11.2.
+
+QuakeC Studio does not include Quake's game files; playing a mod needs your own copy of Quake (original, 2021 rerelease or shareware) or the free LibreQuake data. Writing, building and unit-testing QuakeC needs no game. It reads vanilla QuakeC and the FTEQCC dialect.
+
+Keys in the guide are written for macOS; on Windows and Linux, Cmd is Ctrl.
+
+## User guide
+
+- [User guide](https://www.quakecstudio.com/docs/): contents of the guide, in reading order
+- [Install](https://www.quakecstudio.com/docs/install.html): installing, updating and removing the app on macOS, Windows and Linux, and the four programs in each package
+- [Getting started](https://www.quakecstudio.com/docs/getting-started.html): from nothing to your own mod running in Quake, in about ten minutes
+- [Opening a mod](https://www.quakecstudio.com/docs/opening-a-mod.html): opening an existing mod, its progs.src and quakec.toml, and what the IDE shows of it
+- [The play loop](https://www.quakecstudio.com/docs/play-loop.html): Play, edit, save, and see the change in the running game
+- [Debugging](https://www.quakecstudio.com/docs/debugging.html): breakpoints, stepping, watches, and the entities of the running game
+- [The agent](https://www.quakecstudio.com/docs/agent.html): the built-in agent, or Claude Code, doing a task, and reviewing what it did
+- [MCP](https://www.quakecstudio.com/docs/mcp.html): `quakec-ide mcp` gives the IDE's tools to Claude Code or any other MCP client
+- [The map editor](https://www.quakecstudio.com/docs/map-editor.html): building a map, compiling it, finding a leak, and playing it
+
+## Reference
+
+- [Command line](https://www.quakecstudio.com/docs/cli.html): `quakec-ide` (build, check, test, MCP, run any command) and the `quakec-lsp` language server
+- [Commands](https://raw.githubusercontent.com/quakecstudio/editor/main/docs/commands.md): every command the palette, the CLI, the agent and MCP share
+- [MCP reference](https://raw.githubusercontent.com/quakecstudio/editor/main/docs/mcp.md): the full MCP tool reference
+- [Keys](https://www.quakecstudio.com/docs/keys.html): the keys you will use most, Vim mode, and changing a key
+- [Keymap](https://raw.githubusercontent.com/quakecstudio/editor/main/docs/keymap.md): every default key
+- [Settings](https://www.quakecstudio.com/docs/settings.html): every setting and where the TOML files are kept
+- [Your Quake game data](https://www.quakecstudio.com/docs/game-data.html): which Quake files are needed and where each store installs them
+- [Troubleshooting](https://www.quakecstudio.com/docs/troubleshooting.html): when something does not work
+- [FAQ](https://www.quakecstudio.com/docs/faq.html): Quake, cost, platforms, dialects, TrenchBroom and more
+
+## Optional
+
+- [Download](https://www.quakecstudio.com/download/): packages for each platform, and Homebrew, APT and DNF install commands
+- [What's new](https://www.quakecstudio.com/docs/whats-new.html): what each release changed
+- [Privacy](https://www.quakecstudio.com/docs/privacy.html): every network request the app can make
+- [Source code](https://github.com/quakecstudio/editor): the editor's GitHub repository
+- [Releases](https://github.com/quakecstudio/editor/releases): release notes and every package
