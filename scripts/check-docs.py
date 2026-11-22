@@ -3,7 +3,8 @@
 
 Every page has one h1 and a lang; every image has alt text; every local link and anchor
 resolves; every page's .docs__nav lists the same links in the same order, with
-aria-current="page" on its own link alone. With --help-links FILE (or a URL), every `page#anchor` line of that file, the
+aria-current="page" on its own link alone; every page has a meta description and a canonical
+link to its own URL, and is listed in sitemap.xml and llms.txt. With --help-links FILE (or a URL), every `page#anchor` line of that file, the
 app's list of its help links (apps/desktop/help-links.txt in quakecstudio/editor), must
 name a page and anchor that exist.
 """
@@ -17,6 +18,7 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 DOCS = ROOT / "docs"
+SITE = "https://www.quakecstudio.com/"
 
 
 class Page(HTMLParser):
@@ -29,6 +31,8 @@ class Page(HTMLParser):
         self.missing_alt = 0
         self.in_nav = False
         self.nav = []
+        self.description = None
+        self.canonical = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -42,6 +46,11 @@ class Page(HTMLParser):
             if not attrs.get("alt"):
                 self.missing_alt += 1
             self.links.append(attrs.get("src", ""))
+        if tag == "meta" and attrs.get("name") == "description":
+            self.description = attrs.get("content")
+        if tag == "link" and attrs.get("rel") == "canonical":
+            self.canonical = attrs.get("href")
+            return
         if tag in ("a", "link") and "href" in attrs:
             self.links.append(attrs["href"])
         if tag == "nav" and "docs__nav" in (attrs.get("class") or "").split():
@@ -103,6 +112,30 @@ def check_navs(pages):
     return errors
 
 
+def page_url(path):
+    """The address a docs page is served at: its folder for index.html."""
+    return SITE + path.relative_to(ROOT).as_posix().removesuffix("index.html")
+
+
+def check_discovery(pages):
+    """Each page needs a description and its own canonical URL, and a line in the indexes."""
+    sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    errors = []
+    for path, page in pages.items():
+        name = path.relative_to(ROOT)
+        url = page_url(path)
+        if not page.description:
+            errors.append(f"{name}: no meta description")
+        if page.canonical != url:
+            errors.append(f"{name}: canonical is {page.canonical}, not {url}")
+        if f"<loc>{url}</loc>" not in sitemap:
+            errors.append(f"{name}: not in sitemap.xml")
+        if f"({url})" not in llms:
+            errors.append(f"{name}: not in llms.txt")
+    return errors
+
+
 def main():
     args = argparse.ArgumentParser(description=__doc__)
     args.add_argument("--help-links", help="file or URL listing page#anchor lines")
@@ -131,6 +164,7 @@ def main():
                     errors.append(f"{name}: {href} names no anchor")
 
     errors += check_navs(pages)
+    errors += check_discovery(pages)
 
     if opts.help_links:
         if urlsplit(opts.help_links).scheme:

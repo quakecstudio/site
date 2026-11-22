@@ -17,6 +17,16 @@ echo "==> Syncing static assets to s3://${SITE_BUCKET}"
 aws s3 sync "${SRC_DIR}" "s3://${SITE_BUCKET}" \
   --delete \
   --exclude "*.html" \
+  --exclude "*.txt" \
+  --cache-control "public, max-age=86400"
+
+echo "==> Syncing text files to s3://${SITE_BUCKET}"
+# robots.txt and llms.txt: S3 would otherwise serve them without a charset.
+aws s3 sync "${SRC_DIR}" "s3://${SITE_BUCKET}" \
+  --delete \
+  --exclude "*" \
+  --include "*.txt" \
+  --content-type "text/plain; charset=utf-8" \
   --cache-control "public, max-age=86400"
 
 echo "==> Syncing HTML to s3://${SITE_BUCKET}"

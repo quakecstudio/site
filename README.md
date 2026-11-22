@@ -16,6 +16,8 @@ public/
 ├── apple-touch-icon.png
 ├── og.jpg              # social share image
 ├── robots.txt
+├── sitemap.xml         # every indexable page
+├── llms.txt            # the guide's pages for AI agents (llmstxt.org)
 └── assets/
     ├── css/style.css
     ├── css/docs.css    # the guide's layout, keys, callouts and figures
@@ -28,6 +30,12 @@ public/
 
 Easter egg: press <kbd>~</kbd> (or tap the `QC_` logo) to open a Quake-style
 console. Try `help`, `version`, `impulse 9`.
+
+## A new page
+
+Give it a `<meta name="description">` and a `<link rel="canonical">` to its own
+`https://www.quakecstudio.com/` URL, and list it in `sitemap.xml`; a guide
+page also goes in `llms.txt`. `scripts/check-docs.py` checks this for the guide.
 
 ## A new release
 
