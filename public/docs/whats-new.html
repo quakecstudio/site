@@ -67,6 +67,40 @@
 <a href="https://github.com/quakecstudio/editor/releases">release notes on GitHub</a> have every change
 and every package. To update, see <a href="install.html#updating">Updating</a>.</p>
 
+<h2 id="2026-11-3">2026.11.3</h2>
+<p>New Random Map builds designed levels: several floors, locks and loops, rooms of different
+sizes with detail, and no place a player can get stuck.</p>
+<h3 id="2026-11-3-random-map">Random Map</h3>
+<ul>
+<li><strong>Levels on several floors.</strong> The path often loops back onto a balcony you saw
+  from below, and a passage that climbs a floor can have a lift. See
+  <a href="map-editor.html#a-random-map">A random map</a>.</li>
+<li><strong>Locks and puzzles from id's entities,</strong> each opened from a room before it: the
+  silver and gold keys, a button that opens a door elsewhere, an arena whose monsters must all
+  die before the way opens, a secret room with a megahealth, a teleporter from near the exit
+  back to the start, and monsters in ambush just past a lock.</li>
+<li><strong>No traps.</strong> Every level is checked so that, from anywhere the player can get to
+  with any keys and switches, the exit can still be reached. Pools are shallow enough to climb
+  out of, and lava pits are railed.</li>
+<li><strong>Variety.</strong> Rooms come in two sizes, up to large courtyards and chambers, with
+  corridors that turn, and each level takes a form: a hub with the key rooms off it, a lake,
+  or a canyon of three open-sky courtyards. Each seed tries eight plans and keeps the best.</li>
+<li><strong>Room detail.</strong> Bays, braziers, cornices, skirting, columns, beams, door frames and
+  light fixtures, chosen to suit the level's theme. <code>map.build_room</code> takes the same
+  <code>parts</code>, and builds three more shapes: an atrium with a balcony, a junction and a lake.</li>
+<li>Each theme uses only the textures id's and LibreQuake's own levels mostly put on floors,
+  ceilings and walls. Weapons come in order as the level goes on, and levels play a music
+  track.</li>
+<li><code>map.generate</code> reports each level's floors, loops, locks, teasers, secrets and form, and
+  <code>project.reference</code> has a section on the puzzles made from id's entities.</li>
+</ul>
+<h3 id="2026-11-3-the-window">The window</h3>
+<ul>
+<li>Every control, including the Properties fields, combo boxes and the breakpoint checkbox,
+  has a name a screen reader can announce.</li>
+<li>Checkboxes are rounded squares and text fields are slightly shorter.</li>
+</ul>
+
 <h2 id="2026-11-2">2026.11.2</h2>
 <h3 id="2026-11-2-agents">Agents</h3>
 <ul>

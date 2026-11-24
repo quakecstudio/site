@@ -171,7 +171,7 @@
       print("  quit       close the console");
     },
     version: function () {
-      print("QuakeC Studio 2026.11.2");
+      print("QuakeC Studio 2026.11.3");
       print("progs.dat compiled: 0 errors, 0 warnings", "dim");
     },
     about: function () {
