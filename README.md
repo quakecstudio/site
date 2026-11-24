@@ -40,7 +40,7 @@ page also goes in `llms.txt`. `scripts/check-docs.py` checks this for the guide.
 ## A new release
 
 The version appears on the landing page, the download page and in the
-console's `version` reply: `rg -l 2026.11.2 public` lists every place to
+console's `version` reply: `rg -l 2026.11.3 public` lists every place to
 change. The download page links each release asset by name.
 
 ## Screenshots and clips

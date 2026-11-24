@@ -1,6 +1,6 @@
 # QuakeC Studio
 
-> QuakeC Studio is a free, open-source (GPL-3.0-or-later) IDE for QuakeC, the scripting language of id Software's Quake (1996). It has its own compiler, runs your mod in the game as you edit and reloads each save into the running map, has a debugger that stops the running game, an agent that changes code and proves the change with builds and tests, and a map editor with its own qbsp, vis and light. It runs on macOS, Windows and Linux, offline, with no account. Current version: 2026.11.2.
+> QuakeC Studio is a free, open-source (GPL-3.0-or-later) IDE for QuakeC, the scripting language of id Software's Quake (1996). It has its own compiler, runs your mod in the game as you edit and reloads each save into the running map, has a debugger that stops the running game, an agent that changes code and proves the change with builds and tests, and a map editor with its own qbsp, vis and light. It runs on macOS, Windows and Linux, offline, with no account. Current version: 2026.11.3.
 
 QuakeC Studio does not include Quake's game files; playing a mod needs your own copy of Quake (original, 2021 rerelease or shareware) or the free LibreQuake data. Writing, building and unit-testing QuakeC needs no game. It reads vanilla QuakeC and the FTEQCC dialect.
 
