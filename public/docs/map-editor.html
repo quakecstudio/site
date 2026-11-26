@@ -174,6 +174,15 @@ textures the map's WADs lack.</p>
 <figcaption>A leak's trail, from the entity to the outside.</figcaption>
 </figure>
 <p>When the map is sealed, it says <strong>The map is sealed: no entity is in reach of the void.</strong></p>
+<p><strong>Check for leaks</strong>, and every compile, also checks that the map can be finished. It follows a
+player from the start: walking up steps, falling, swimming, jumping onto a ledge up to 43 units
+high and across a gap up to 240 wide, riding lifts, trains and teleporters, and opening doors with
+keys, buttons, triggers and monsters killed, as the game's code does. Properties then says
+whether <strong>A player can reach the exit from the start</strong>, how many places a player can come to
+and not leave, and how many keys, weapons, items or secrets are never reached. Each such place is
+drawn in the view as a red box, and its line in the Issues tab takes the camera to it. Something
+the check cannot follow, such as a <code>trigger_push</code> or a mod's own entity, is counted too, since
+it may make the answer wrong.</p>
 <p>The <strong>Issues</strong> tab's <strong>Check map</strong> lists the map's other problems, checked against your mod's
 QuakeC: a key no field of its class reads, such as a misspelled <code>speed</code>, and a missing texture.</p>
 <figure>
@@ -196,7 +205,8 @@ mine</strong>, or <strong>Compare</strong> to see the difference.</p>
 open, makes a playable level and opens it: rooms of several shapes and scales on several
 floors, joined by passages, stairs, lifts and doors, from a start to an exit, with lights,
 monsters, weapons, ammunition and health. It is written to the project as
-<code>maps/random&lt;seed&gt;.map</code>, sealed, and compiles with no leak. Press <strong>Play from here</strong> to walk it, or change it as any other map.</p>
+<code>maps/random&lt;seed&gt;.map</code>, sealed, and compiles with no leak. Each level is checked as above
+before it is opened, and one a player could get stuck in is never made. Press <strong>Play from here</strong> to walk it, or change it as any other map.</p>
 <figure>
 <img alt="A level made by New Random Map, compiled and lit: a dim stone passage leads out of the first room toward a bright second room with a stair." src="/assets/shots/showcase-generated-1440.jpg" srcset="/assets/shots/showcase-generated-1440.jpg 1440w, /assets/shots/showcase-generated-2880.jpg 2880w" sizes="(max-width: 48rem) 100vw, 46rem" width="1440" height="900" loading="lazy" />
 <figcaption>A random map after a Full compile, seen from its first room.</figcaption>
