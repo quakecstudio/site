@@ -102,10 +102,16 @@ front and side.</p>
 its keys:</p>
 <ul>
 <li>Edit a value in place, and <strong>Remove</strong> takes a key away.</li>
-<li><strong>Keys its class reads</strong> lists the keys its QuakeC class uses, with their types, read from
-  your mod's code. Click one to add it.</li>
-<li><strong>Add key</strong> adds any other key and value.</li>
-<li>For a <code>target</code> or <code>killtarget</code>, <strong>Pick</strong> lets you click the entity it should fire, or
+<li>Where a value comes from a known set, the field offers it as you type: <code>classname</code> lists
+  your mod's classes, and <code>target</code>, <code>killtarget</code> and the other keys your code fires
+  entities by list the map's targetnames, each with what has it (<code>gate   func_door</code>). A name no
+  entity has yet is marked. Use the arrow keys and Enter, or click, to take one.</li>
+<li><strong>New key</strong> offers the keys the entity's class reads, as you type, each with its type, default
+  and what the class's <code>/*QUAKED*/</code> comment says of it; taking one fills in its default. Any other
+  key, such as a compiler's <code>_minlight</code>, is typed and added with <strong>Add key</strong>.</li>
+<li><strong>Spawn flags</strong> are checkboxes named by your code, followed by Quake's own: Not in easy,
+  Not in normal, Not in hard and Not in deathmatch.</li>
+<li>For a target key, <strong>Pick</strong> lets you click the entity it should fire, or
   Alt-drag from the selection onto it. <strong>Links</strong> in the toolbar draws the lines between
   entities that target each other, for the selection or for every entity.</li>
 </ul>
