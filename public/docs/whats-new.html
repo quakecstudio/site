@@ -67,6 +67,37 @@
 <a href="https://github.com/quakecstudio/editor/releases">release notes on GitHub</a> have every change
 and every package. To update, see <a href="install.html#updating">Updating</a>.</p>
 
+<h2 id="2026-11-4">2026.11.4</h2>
+<p>The map editor checks what a map does when it is played: whether it can be finished, what its
+triggers fire, what each skill holds, and how close it comes to the engine's limits.</p>
+<h3 id="2026-11-4-map-editor">The map editor</h3>
+<ul>
+<li><strong>Can it be finished.</strong> Check for leaks and every compile also follow a player from the
+  start, with keys, buttons, lifts, teleporters and jumps, and say whether the exit is reached,
+  where a player could get stuck, and what is never reached. See
+  <a href="map-editor.html#6-find-a-leak">Find a leak</a>. Each random map is checked the same way
+  before it is opened.</li>
+<li><strong>Fire an entity.</strong> Fire runs an entity's QuakeC as the game would and shows the trace
+  in the Logic tab; Check logic lists targets that do nothing, chains that loop, and counters
+  that can never fire. See <a href="map-editor.html#3-edit-entities">Edit entities</a>.</li>
+<li><strong>Balance on each skill.</strong> The Balance tab counts the monsters, their health, the
+  ammunition and its damage, health, armour and secrets on each skill, as your mod's code spawns
+  them.</li>
+<li><strong>Engine limits.</strong> After a compile, Properties shows a meter for each of the target
+  engine's limits the map uses, read from each engine's own source. See
+  <a href="map-editor.html#5-compile">Compile</a>.</li>
+<li><strong>Properties offers known values.</strong> <code>classname</code> and target keys offer what the
+  project and the map hold as you type, a new key offers the keys its class reads with their
+  defaults, and the skill and deathmatch spawnflags are checkboxes.</li>
+</ul>
+<h3 id="2026-11-4-the-app">The app</h3>
+<ul>
+<li><strong>Help &gt; Check for Updates…</strong> says whether there is a later release and how to update
+  with what installed this one. It installs nothing, and checks on its own only once you set
+  <code>updates.check = "daily"</code>. See <a href="install.html#updating">Updating</a>.</li>
+<li>The Windows MSI is now signed, as the programs in it already were.</li>
+</ul>
+
 <h2 id="2026-11-3">2026.11.3</h2>
 <p>New Random Map builds designed levels: several floors, locks and loops, rooms of different
 sizes with detail, and no place a player can get stuck.</p>

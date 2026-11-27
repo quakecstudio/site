@@ -122,6 +122,24 @@ grid, <kbd class="combo"><kbd>Alt</kbd>+<kbd>Left</kbd></kbd> or <kbd class="com
 the map. <a href="keys.html#the-map-editor">Keys</a> lists the rest.</p>
 <p><strong>Hide</strong>, <strong>Isolate</strong>, <strong>Lock</strong>, <strong>Show all</strong> and <strong>Unlock all</strong> in Properties act on the
 selection, and <strong>Show</strong> in the toolbar filters the entities by skill, coop and deathmatch.</p>
+<p><strong>Fire</strong>, on an entity's context menu and beside its classname in Properties, fires it as the
+game would, with your mod's QuakeC, and shows in the <strong>Logic</strong> tab below the view what the code
+did, step by step: each <code>use</code>, <code>touch</code> and <code>think</code> it reached, each entity found by its
+<code>targetname</code>, removed or spawned, each message and sound, and the fields it wrote. Time is
+simulated, so a <code>delay</code> of two seconds shows as two seconds. Click a step to select its entity;
+the scrubber steps through the trace while the view lights the links fired so far. Nothing
+changes, neither the map nor a game playing it. <strong>Check logic</strong>, in the same tab, fires every
+entity that has targets and lists what only running shows: a target with no <code>use</code>, a chain
+that removes an entity and then fires it, a chain that loops or stops the game with an error,
+and an entity whose targets can never fire, such as a <code>trigger_counter</code> whose <code>count</code> is
+more than the entities that fire it. These join the Issues tab.</p>
+<p><strong>Count</strong>, in the <strong>Balance</strong> tab, spawns the map with your mod's QuakeC on each skill, in
+single player, coop or deathmatch, and shows a column for each skill: the monsters by class with
+the health their code gives them, the weapons, the ammunition with the damage it does with id's
+weapons, the health and armour, the secrets, and the damage over the monsters' health. It counts
+the whole map, the selection, or one layer or group. Click a row to select its entities, or a
+skill's heading to show the map as that skill spawns it. A mod's own monsters and pickups count
+as its code makes them.</p>
 <h2 id="4-build-with-brushes">4. Build with brushes</h2>
 <p>The toolbar's tools make and change brushes:</p>
 <ul>
@@ -170,6 +188,13 @@ world.</p>
 </ul>
 <p>The compilers are QuakeC Studio's own, built into the app and checked against id's tools and
 ericw-tools. Coloured lights, with a <code>_color</code> key, write a <code>.lit</code> beside the BSP.</p>
+<p>After a compile, <strong>Engine limits</strong> in Properties shows how much of your project's target
+engine's limits the map uses: a meter for each, worst first, red when past and amber when within
+10%, the rest folded under <strong>The other limits</strong>. They cover each part of the BSP, the largest
+face, and the edicts, models, sounds and light styles the map spawns with your QuakeC on each
+skill. Each engine's limits are read from its own source; the 2021 rerelease's are not known,
+since its source is not public. A limit past or near joins the Issues tab, and so does a map that
+had to be written as BSP2 when the target cannot load it.</p>
 <h2 id="6-find-a-leak">6. Find a leak</h2>
 <p>A map leaks when an entity can reach the void through a gap in the world's brushes. <strong>Check for
 leaks</strong> says which entity the void reaches, draws the trail from it to the outside in the view,
