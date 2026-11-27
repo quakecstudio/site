@@ -65,13 +65,14 @@
 <h1 id="privacy">Privacy</h1>
 <p>QuakeC Studio works offline, with no account and no telemetry. This page lists every network
 request the app can make, and when it makes each one. With no model provider set up and no
-outside agent run, it makes none, and the editor's CI checks that.</p>
+outside agent run, it makes none unless you ask it to, and the editor's CI checks that.</p>
 <p>The website's own practices, and how to reach us, are in the <a href="/privacy/">Privacy Policy</a>.</p>
 
 <h2 id="no-account-no-telemetry">No account, no telemetry</h2>
 <ul>
 <li>There is no account and no sign-in. Nothing asks for an email address.</li>
-<li>There is no telemetry, no crash reporting, no analytics and no update check. The log is
+<li>There is no telemetry, no crash reporting and no analytics, and no update check unless
+  you ask for one or turn it on (<a href="#every-network-request">below</a>). The log is
   written to the app's own folder on disk and is never sent anywhere.</li>
 <li>Projects, settings, checkpoints and recent projects stay on disk. Settings are in
   <code>settings.toml</code> in the app's config folder and <code>.quakec-studio/settings.toml</code> in a project;
@@ -86,6 +87,7 @@ outside agent run, it makes none, and the editor's CI checks that.</p>
 <tbody>
 <tr><td>The agent is asked something (a thread or an inline edit), once a provider is set up</td><td>The provider's API: <code>https://api.anthropic.com</code> for Anthropic, the OpenAI-compatible address you entered (<code>https://api.openai.com/v1</code> by default), or <code>http://localhost:11434/v1</code> for a local Ollama, which stays on your computer. Each request carries the task, the context of your project the agent was given or read, and the key.</td></tr>
 <tr><td>A project is made from a starter (New Project…, or <code>quakec-ide new</code>) without a local copy</td><td>The starter's files at their pinned commit from <code>https://raw.githubusercontent.com</code> (id-Software/Quake-Tools for id1, id-Software/quake-rerelease-qc for the rerelease), each checked against its pinned SHA-256. <code>quakec-ide new --from &lt;dir&gt;</code> reads a local copy instead and makes no request.</td></tr>
+<tr><td>You choose <strong>Help &gt; Check for Updates…</strong>; and as the app starts, at most once a day, only once you set <code>updates.check = "daily"</code> (it is <code>off</code> unless set)</td><td>One file, <code>https://packages.quakecstudio.com/latest.json</code>, naming the latest release's version and its release page. The request has no query and no body, and says only <code>quakec-studio</code> of where it comes from, the same from every install and version: nothing of the version you run, your system or your install. The app compares the versions itself, and downloads and installs nothing: it shows the command of the package manager that installed it, and <strong>Download</strong> and <strong>Release Notes</strong> open the release's page in your browser. See <a href="install.html#updating">Updating</a>.</td></tr>
 </tbody>
 </table>
 <p>Nothing else in the app goes over the network:</p>

@@ -87,8 +87,7 @@ already there, and links <code>quakec-ide</code> and <code>quakec-lsp</code> int
 <code>-windows-arm64.msi</code>, and open it. It installs for every user under Program Files, adds a
 Start menu shortcut, and puts the folder on <code>PATH</code>, so <code>quakec-ide</code> and <code>quakec-lsp</code> work
 in a new terminal.</p>
-<p class="warn">The programs inside are signed, but the MSI itself is not, so Windows may call its
-publisher unknown when it asks to install it.</p>
+<p>The MSI and the programs inside are signed by Smoke Turner, LLC.</p>
 <p>The portable <code>.zip</code> holds the same programs with no installer: unzip it anywhere and run
 <code>quakec-studio.exe</code>. Nothing needs the Visual C++ Redistributable.</p>
 <p>QuakeC Studio has been submitted to winget. Until it is accepted, this command does not work
@@ -159,13 +158,27 @@ built it. With the <a href="https://cli.github.com">GitHub CLI</a>:</p>
 <p><a href="getting-started.html">Getting started</a> walks through all three.</p>
 
 <h2 id="updating">Updating</h2>
-<p>QuakeC Studio does not check for updates. To update:</p>
+<p>You update QuakeC Studio with what installed it; the app never downloads or installs a
+release itself.</p>
 <ul>
 <li><strong>Homebrew:</strong> <code>brew upgrade --cask quakec-studio</code>.</li>
-<li><strong>APT or DNF:</strong> <code>sudo apt-get update &amp;&amp; sudo apt-get upgrade</code>, or <code>sudo dnf upgrade</code>.</li>
+<li><strong>winget, or the MSI:</strong> <code>winget upgrade SmokeTurner.QuakeCStudio</code>, which also updates an
+  MSI you installed by hand. A new release can take a few days to reach winget; until then,
+  download the new MSI.</li>
+<li><strong>APT:</strong> <code>sudo apt update &amp;&amp; sudo apt install --only-upgrade quakec-studio</code>, or with the
+  rest of your system.</li>
+<li><strong>DNF or YUM:</strong> <code>sudo dnf upgrade quakec-studio</code>, or <code>sudo yum upgrade quakec-studio</code>.</li>
 <li><strong>A downloaded package:</strong> install the new one. The macOS installer and the MSI replace
-  the version that is there; unzip a new portable zip in place of the old one.</li>
+  the version that is there; unzip a new portable zip in place of the old one, and replace an
+  AppImage or a Flatpak bundle with the new file.</li>
 </ul>
+<p><strong>Help &gt; Check for Updates…</strong> asks whether there is a later release, and tells you which of
+these fits your install: the command to copy, or <strong>Download</strong>, which opens the release's page
+in your browser. The app asks only when you choose that item. To have it also ask as it
+starts, at most once a day, set <code>updates.check = "daily"</code> in your
+<a href="settings.html">settings</a>; the status bar then says <strong>Update available</strong> when there is one,
+and <strong>Skip This Version</strong> stops it for that release. <a href="privacy.html#every-network-request">Privacy</a>
+says exactly what the check sends.</p>
 <p><a href="whats-new.html">What's new</a> lists what each release changed.</p>
 
 <h2 id="uninstalling">Uninstalling</h2>

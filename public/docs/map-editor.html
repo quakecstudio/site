@@ -102,10 +102,16 @@ front and side.</p>
 its keys:</p>
 <ul>
 <li>Edit a value in place, and <strong>Remove</strong> takes a key away.</li>
-<li><strong>Keys its class reads</strong> lists the keys its QuakeC class uses, with their types, read from
-  your mod's code. Click one to add it.</li>
-<li><strong>Add key</strong> adds any other key and value.</li>
-<li>For a <code>target</code> or <code>killtarget</code>, <strong>Pick</strong> lets you click the entity it should fire, or
+<li>Where a value comes from a known set, the field offers it as you type: <code>classname</code> lists
+  your mod's classes, and <code>target</code>, <code>killtarget</code> and the other keys your code fires
+  entities by list the map's targetnames, each with what has it (<code>gate   func_door</code>). A name no
+  entity has yet is marked. Use the arrow keys and Enter, or click, to take one.</li>
+<li><strong>New key</strong> offers the keys the entity's class reads, as you type, each with its type, default
+  and what the class's <code>/*QUAKED*/</code> comment says of it; taking one fills in its default. Any other
+  key, such as a compiler's <code>_minlight</code>, is typed and added with <strong>Add key</strong>.</li>
+<li><strong>Spawn flags</strong> are checkboxes named by your code, followed by Quake's own: Not in easy,
+  Not in normal, Not in hard or nightmare and Not in deathmatch.</li>
+<li>For a target key, <strong>Pick</strong> lets you click the entity it should fire, or
   Alt-drag from the selection onto it. <strong>Links</strong> in the toolbar draws the lines between
   entities that target each other, for the selection or for every entity.</li>
 </ul>
@@ -116,6 +122,24 @@ grid, <kbd class="combo"><kbd>Alt</kbd>+<kbd>Left</kbd></kbd> or <kbd class="com
 the map. <a href="keys.html#the-map-editor">Keys</a> lists the rest.</p>
 <p><strong>Hide</strong>, <strong>Isolate</strong>, <strong>Lock</strong>, <strong>Show all</strong> and <strong>Unlock all</strong> in Properties act on the
 selection, and <strong>Show</strong> in the toolbar filters the entities by skill, coop and deathmatch.</p>
+<p><strong>Fire</strong>, on an entity's context menu and beside its classname in Properties, fires it as the
+game would, with your mod's QuakeC, and shows in the <strong>Logic</strong> tab below the view what the code
+did, step by step: each <code>use</code>, <code>touch</code> and <code>think</code> it reached, each entity found by its
+<code>targetname</code>, removed or spawned, each message and sound, and the fields it wrote. Time is
+simulated, so a <code>delay</code> of two seconds shows as two seconds. Click a step to select its entity;
+the scrubber steps through the trace while the view lights the links fired so far. Nothing
+changes, neither the map nor a game playing it. <strong>Check logic</strong>, in the same tab, fires every
+entity that has targets and lists what only running shows: a target with no <code>use</code>, a chain
+that removes an entity and then fires it, a chain that loops or stops the game with an error,
+and an entity whose targets can never fire, such as a <code>trigger_counter</code> whose <code>count</code> is
+more than the entities that fire it. These join the Issues tab.</p>
+<p><strong>Count</strong>, in the <strong>Balance</strong> tab, spawns the map with your mod's QuakeC on each skill, in
+single player, coop or deathmatch, and shows a column for each skill: the monsters by class with
+the health their code gives them, the weapons, the ammunition with the damage it does with id's
+weapons, the health and armour, the secrets, and the damage over the monsters' health. It counts
+the whole map, the selection, or one layer or group. Click a row to select its entities, or a
+skill's heading to show the map as that skill spawns it. A mod's own monsters and pickups count
+as its code makes them.</p>
 <h2 id="4-build-with-brushes">4. Build with brushes</h2>
 <p>The toolbar's tools make and change brushes:</p>
 <ul>
@@ -164,6 +188,13 @@ world.</p>
 </ul>
 <p>The compilers are QuakeC Studio's own, built into the app and checked against id's tools and
 ericw-tools. Coloured lights, with a <code>_color</code> key, write a <code>.lit</code> beside the BSP.</p>
+<p>After a compile, <strong>Engine limits</strong> in Properties shows how much of your project's target
+engine's limits the map uses: a meter for each, worst first, red when past and amber when within
+10%, the rest folded under <strong>The other limits</strong>. They cover each part of the BSP, the largest
+face, and the edicts, models, sounds and light styles the map spawns with your QuakeC on each
+skill. Each engine's limits are read from its own source; the 2021 rerelease's are not known,
+since its source is not public. A limit past or near joins the Issues tab, and so does a map that
+had to be written as BSP2 when the target cannot load it.</p>
 <h2 id="6-find-a-leak">6. Find a leak</h2>
 <p>A map leaks when an entity can reach the void through a gap in the world's brushes. <strong>Check for
 leaks</strong> says which entity the void reaches, draws the trail from it to the outside in the view,
@@ -174,6 +205,15 @@ textures the map's WADs lack.</p>
 <figcaption>A leak's trail, from the entity to the outside.</figcaption>
 </figure>
 <p>When the map is sealed, it says <strong>The map is sealed: no entity is in reach of the void.</strong></p>
+<p><strong>Check for leaks</strong>, and every compile, also checks that the map can be finished. It follows a
+player from the start: walking up steps, falling, swimming, jumping onto a ledge up to 43 units
+high and across a gap up to 240 wide, riding lifts, trains and teleporters, and opening doors with
+keys, buttons, triggers and monsters killed, as the game's code does. Properties then says
+whether <strong>A player can reach the exit from the start</strong>, how many places a player can come to
+and not leave, and how many keys, weapons, items or secrets are never reached. Each such place is
+drawn in the view as a red box, and its line in the Issues tab takes the camera to it. Something
+the check cannot follow, such as a <code>trigger_push</code> or a mod's own entity, is counted too, since
+it may make the answer wrong.</p>
 <p>The <strong>Issues</strong> tab's <strong>Check map</strong> lists the map's other problems, checked against your mod's
 QuakeC: a key no field of its class reads, such as a misspelled <code>speed</code>, and a missing texture.</p>
 <figure>
@@ -196,7 +236,8 @@ mine</strong>, or <strong>Compare</strong> to see the difference.</p>
 open, makes a playable level and opens it: rooms of several shapes and scales on several
 floors, joined by passages, stairs, lifts and doors, from a start to an exit, with lights,
 monsters, weapons, ammunition and health. It is written to the project as
-<code>maps/random&lt;seed&gt;.map</code>, sealed, and compiles with no leak. Press <strong>Play from here</strong> to walk it, or change it as any other map.</p>
+<code>maps/random&lt;seed&gt;.map</code>, sealed, and compiles with no leak. Each level is checked as above
+before it is opened, and one a player could get stuck in is never made. Press <strong>Play from here</strong> to walk it, or change it as any other map.</p>
 <figure>
 <img alt="A level made by New Random Map, compiled and lit: a dim stone passage leads out of the first room toward a bright second room with a stair." src="/assets/shots/showcase-generated-1440.jpg" srcset="/assets/shots/showcase-generated-1440.jpg 1440w, /assets/shots/showcase-generated-2880.jpg 2880w" sizes="(max-width: 48rem) 100vw, 46rem" width="1440" height="900" loading="lazy" />
 <figcaption>A random map after a Full compile, seen from its first room.</figcaption>
